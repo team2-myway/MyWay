@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="./include/header.jsp"%>
+<%@ include file="../include/header.jsp"%>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 </head>
@@ -14,6 +14,6 @@
 
 </body>
 <footer>
-	<%@ include file="./include/footer.jsp"%>
+	<%@ include file="../include/footer.jsp"%>
 </footer>
 </html>
