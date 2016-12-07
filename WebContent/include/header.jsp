@@ -19,7 +19,7 @@
 		<div class="wrap_nav">
 			<nav role="navigation">
 				<ul id="navigation" class="navigation">
-					<li class="menu-item current_page_item"><a href="index.jsp"><span>Home</span></a>
+					<li class="menu-item current_page_item"><a href="index.jsp"><span>메인</span></a>
 					</li>
 					<li class="dropdown menu-item menu-item-has-children"><a><span>Features</span></a>
 						<ul class="sub-menu">
