@@ -9,6 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="../lib/revolution/css/dynamic-captions.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="../lib/revolution/css/static-captions.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="../lib/revolution/css/settings.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.css" media="screen" />
 	
 	<script src="../lib/js/jquery.min.js" type="text/javascript"></script>
 	<script src="../lib/js/modernizr.custom.all.js" type="text/javascript"></script>
