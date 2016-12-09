@@ -2,18 +2,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="../include/header.jsp"%>
+
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 </head>
-<body>
-	<div class="container">
-		<div class="col-md-12">
+<body class="page">
+	<section id="page" class="csstransition cmsms_resp hfeed site">
+		<%@ include file="../include/header.jsp"%>
+		<div class="container">
+			<div class="col-md-12">
+			
+			</div>
 		</div>
-	</div>
+		
+		
+		<!-- 공간주기 -->
+		<div style="height: 50px;">&nbsp;</div>
+		<footer>
+			<%@ include file="../include/footer.jsp"%>
+		</footer>
+	</section>
+	<script src="../lib/bootstrap/js/jquery-3.1.1.min.js"></script>
+	<script src="../lib/bootstrap/js/bootstrap.js"></script>
+
 
 </body>
-<footer>
-	<%@ include file="../include/footer.jsp"%>
-</footer>
 </html>
