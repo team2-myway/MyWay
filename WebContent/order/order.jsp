@@ -8,6 +8,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 <style>
+	.sauce{
+		padding-top:5px;
+		padding-left:5px;
+		padding-right:5px;
+		padding-bottom:5px;
+	}
 </style>
 </head>
 <body class="page">
@@ -188,7 +194,7 @@
 							<button class="btn btn-primary" id="AllVegetable">All</button>
 						</div>
 
-						<!-- 메뉴들 for문 돌릴 부분  -->
+						<!-- 채소들 for문 돌릴 부분  -->
 						<div class="col-md-9">
 							<div class="col-md-12">
 								<% 
@@ -196,10 +202,11 @@
 									ArrayList vegetableList = dao.VegetableList();
 									for (int i = 0; i < vegetableList.size(); i++) {
 										OrderDto dto = (OrderDto) vegetableList.get(i);
-							%>
-								<div class="col-md-4" style="border-color:aqua; border:solid;">
+							%>	
+								<div class="col-md-4 vegetables" style="border-color:aqua; border:solid;">
 									<div style="text-align: center">
-										<input type="checkbox" name="vegetable_no" value="<%=dto.getVegetable_no()%>" />
+										<input type="checkbox" id="vegetable_no_<%=dto.getVegetable_no()%>" 
+										name="vegetable_no[]" value="<%=dto.getVegetable_no()%>" />
 									</div>
 									<div class="cmsms_our_team">
 										<div class="wrap_person">
@@ -208,6 +215,7 @@
 										<hr>
 										<div>
 											<span><%=dto.getVegetable_name()%></span>
+											<span><%=dto.getVegetable_no()%></span>
 										</div>
 									</div>
 								</div>
@@ -219,10 +227,7 @@
 									System.out.println("index.jsp : " + err);
 								}
 								%>
-								
-								
-							
-
+								<input type="hidden" id="VegetableList"/>
 							</div>
 						</div>
 						<!-- 메뉴들 for문 돌릴 부분 끝 -->
@@ -230,22 +235,25 @@
 					
 					<!--  채소 선택 끝 -->
 					<!-- 공간 -->
-					<div style="height:30px">&nbsp;</div>
 					<!-- 공간 -->
-
+					
 					<!-- 소스 선택 -->
 					<div id="sauce">
-						<div class="col-md-12">
+						<div class="col-md-2">
+							소스선택
+						</div>
+						<div class="col-md-10">
+							<div class="col-md-12">
 							<label>달콤한소스</label>
 							<div class="sauce_class">
 							<%
 								try {
 									String sauce_class = "달콤한소스";
-									ArrayList sauce = dao.SouceList(sauce_class);
+									ArrayList sauce = dao.SauceList(sauce_class);
 									for (int i = 0; i < sauce.size(); i++) {
 										OrderDto dto = (OrderDto) sauce.get(i);
 							%>
-								<input type="checkbox" name="sauce_no"
+								<input type="checkbox" name="sauce_no[]"
 									value="<%=dto.getSauce_no()%>" /> <span
 									style="padding-left: 10px;"> <%=dto.getSauce_name()%>
 								</span>
@@ -265,11 +273,11 @@
 							<%
 								try {
 									String sauce_class = "매콤한소스";
-									ArrayList sauce = dao.SouceList(sauce_class);
+									ArrayList sauce = dao.SauceList(sauce_class);
 									for (int i = 0; i < sauce.size(); i++) {
 										OrderDto dto = (OrderDto) sauce.get(i);
 							%>
-								<input type="checkbox" name="sauce_no"
+								<input type="checkbox" name="sauce_no[]"
 									value="<%=dto.getSauce_no()%>" /> <span
 									style="padding-left: 10px;"> <%=dto.getSauce_name()%>
 								</span>
@@ -288,12 +296,12 @@
 							<%
 								try {
 									String sauce_class = "고소한소스";
-									ArrayList sauce = dao.SouceList(sauce_class);
+									ArrayList sauce = dao.SauceList(sauce_class);
 									for (int i = 0; i < sauce.size(); i++) {
 										OrderDto dto = (OrderDto) sauce.get(i);
 							%>
-								<input type="checkbox" name="sauce_no"
-									value="<%=dto.getSauce_name()%>" /> <span
+								<input type="checkbox" name="sauce_no[]"
+									value="<%=dto.getSauce_no()%>" /> <span
 									style="padding-left: 10px;"> <%=dto.getSauce_name()%>
 								</span>
 							<%
@@ -311,12 +319,12 @@
 							<%
 								try {
 									String sauce_class = "새콤한소스";
-									ArrayList sauce = dao.SouceList(sauce_class);
+									ArrayList sauce = dao.SauceList(sauce_class);
 									for (int i = 0; i < sauce.size(); i++) {
 										OrderDto dto = (OrderDto) sauce.get(i);
 							%>
-								<input type="checkbox" name="sauce_no"
-									value="<%=dto.getSauce_name()%>" /> <span
+								<input type="checkbox" name="sauce_no[]"
+									value="<%=dto.getSauce_no()%>" /> <span
 									style="padding-left: 10px;"> <%=dto.getSauce_name()%>
 								</span>
 							<%
@@ -334,13 +342,13 @@
 							<%
 								try {
 									String sauce_class = "일반소스";
-									ArrayList sauce = dao.SouceList(sauce_class);
+									ArrayList sauce = dao.SauceList(sauce_class);
 									for (int i = 0; i < sauce.size(); i++) {
 										OrderDto dto = (OrderDto) sauce.get(i);
 							%>
-								<input type="checkbox" name="sauce_no"
-									value="<%=dto.getSauce_no()%>" /> <span
-									style="padding-left: 10px;"> <%=dto.getSauce_name()%>
+								<input type="checkbox" name="sauce_no[]" value="<%=dto.getSauce_no()%>"/> 
+								<span style="padding-left: 10px;">
+									 <%=dto.getSauce_name()%>
 								</span>
 							<%
 									}
@@ -351,6 +359,8 @@
 							%>
 							</div>
 						</div>
+						<input type="text" id="SelectSauceValue" name="SelectSauceValue"/>
+						<button id="selectSauce">버튼</button>
 					</div>
 
 
@@ -394,16 +404,113 @@
 			$("#Favorites").click(function() {
 				$("#FavoriteList").modal();
 			});
+			
 			$("#AllVegetable").click(function() {
-				$("input[name=vegetable_no]").prop('checked', true);
+				VegetableCheckAll();
 			});
-			$("#souceSelete").click(function(){
-				if($("input[name=sauce_no]").is(":checked")){
-					alert($("input[type='checkbox']").val());
-				}
-			});
+			$("#selectSauce").click(function(){
+				selectSauRow();
+			})
+			
 			
 		});
+		
+		var check = false;
+		//채소 모두선택 or 선택해제
+		function VegetableCheckAll(){
+			var chk = document.getElementsByName("vegetable_no[]");
+			if(check == false){
+				check = true;
+				for(var i=0; i<chk.length;i++){                                                                    
+					chk[i].checked = true;     //모두 체크
+				}
+			}else{
+				check = false;
+				for(var i=0; i<chk.length;i++){                                                                    
+					chk[i].checked = false;     //모두 해제
+				}
+			}
+			selectVegRow();
+		}
+		
+		//선택된 채소의 값 부르기
+		function selectVegRow() {
+			var chk = document.getElementsByName("vegetable_no[]"); // 체크박스객체를 담는다
+			var len = chk.length;    //체크박스의 전체 개수
+			var checkRow = '';      //체크된 체크박스의 value를 담기위한 변수
+			var checkCnt = 0;        //체크된 체크박스의 개수
+			var checkLast = '';      //체크된 체크박스 중 마지막 체크박스의 인덱스를 담기위한 변수
+			var rowid = '';             //체크된 체크박스의 모든 value 값을 담는다
+			var cnt = 0;                 
+			for(var i=0; i<len; i++){
+				if(chk[i].checked == true){
+				checkCnt++;        //체크된 체크박스의 개수
+				checkLast = i;     //체크된 체크박스의 인덱스
+				}
+			} 
+
+			for(var i=0; i<len; i++){
+				if(chk[i].checked == true){  //체크가 되어있는 값 구분
+					checkRow = chk[i].value;
+					if(checkCnt == 1){                            //체크된 체크박스의 개수가 한 개 일때,
+						rowid += checkRow;        //'value'의 형태 (뒤에 ,(콤마)가 붙지않게)
+					}else{                                            //체크된 체크박스의 개수가 여러 개 일때,
+						if(i == checkLast){                     //체크된 체크박스 중 마지막 체크박스일 때,
+							rowid += checkRow;  //'value'의 형태 (뒤에 ,(콤마)가 붙지않게)
+						}else{
+							rowid += checkRow+"|";	 //'value',의 형태 (뒤에 ,(콤마)가 붙게)         			
+						}
+					}
+					cnt++;
+					checkRow = '';    //checkRow초기화.
+				}
+				$("#VegetableList").val(rowid);
+			}
+		}
+		
+		
+		function selectSauRow() {
+			alert("qwer");
+			var chk = document.getElementsByName("sauce_no[]");
+			var len = chk.length;    //체크박스의 전체 개수
+			var checkRow = '';      //체크된 체크박스의 value를 담기위한 변수
+			var checkCnt = 0;        //체크된 체크박스의 개수
+			var checkLast = '';      //체크된 체크박스 중 마지막 체크박스의 인덱스를 담기위한 변수
+			var rowid = '';             //체크된 체크박스의 모든 value 값을 담는다
+			var cnt = 0;                 
+			for(var i=0; i<len; i++){
+				if(chk[i].checked == true){
+				checkCnt++;        //체크된 체크박스의 개수
+				checkLast = i;     //체크된 체크박스의 인덱스
+				}
+			} 
+
+			for(var i=0; i<len; i++){
+				if(chk[i].checked == true){  //체크가 되어있는 값 구분
+					checkRow = chk[i].value;
+					if(checkCnt == 1){                            //체크된 체크박스의 개수가 한 개 일때,
+						rowid += checkRow;        //'value'의 형태 (뒤에 ,(콤마)가 붙지않게)
+					}else{                                            //체크된 체크박스의 개수가 여러 개 일때,
+						if(i == checkLast){                     //체크된 체크박스 중 마지막 체크박스일 때,
+							rowid += checkRow;  //'value'의 형태 (뒤에 ,(콤마)가 붙지않게)
+						}else{
+							rowid += checkRow+"|";	 //'value',의 형태 (뒤에 ,(콤마)가 붙게)         			
+						}
+					}
+					cnt++;
+					checkRow = '';    //checkRow초기화.
+				}
+			}
+			if(checkCnt > 4){
+				alert("소스는 3가지 까지 선택 가능합니다.");
+				$("#sauce").focus();
+			}else{
+				$("#SelectSauceValue").val(rowid);
+			}
+		}
+		
+		
+		
 	</script>
 
 </body>

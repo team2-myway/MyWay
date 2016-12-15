@@ -28,9 +28,9 @@ public class OrderDao {
 	}
 	
 	//소스 리스트 
-	public ArrayList SouceList(String sauce_class){
+	public ArrayList SauceList(String sauce){
 		ArrayList list = new ArrayList();
-			String sql = "select * from sauce where class='"+sauce_class+"'";
+			String sql = "select * from sauce where class='"+sauce+"'";
 		try{
 			con = ds.getConnection();
 			stmt = con.prepareStatement(sql);
@@ -39,6 +39,7 @@ public class OrderDao {
 			while(rs.next()){
 				OrderDto dto = new OrderDto();
 				dto.setSauce_no(rs.getInt("sauce_no"));
+				dto.setSauce_class(rs.getString("class"));
 				dto.setSauce_name(rs.getString("name"));
 				list.add(dto);
 			}

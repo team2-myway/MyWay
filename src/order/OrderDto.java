@@ -38,6 +38,21 @@ public class OrderDto {
 	private int side_menu_price;
 	private String side_menu_detail;
 	
+	private String vegetable_no_List;
+	private String Sauce_no_List;
+	
+	public String getVegetable_no_List() {
+		return vegetable_no_List;
+	}
+	public void setVegetable_no_List(String vegetable_no_List) {
+		this.vegetable_no_List = vegetable_no_List;
+	}
+	public String getSauce_no_List() {
+		return Sauce_no_List;
+	}
+	public void setSauce_no_List(String sauce_no_List) {
+		Sauce_no_List = sauce_no_List;
+	}
 	public String getManage_addr() {
 		return manage_addr;
 	}
