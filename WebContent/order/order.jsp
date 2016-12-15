@@ -276,7 +276,9 @@
 					</div>
 					
 					<!--  채소 선택 끝 -->
-
+					
+					
+					
 
 				</div>
 			</div>
@@ -289,7 +291,7 @@
 						<h3>즐겨 찾기</h3>
 					</div>
 					<div class="modal-body">
-						<table>
+						<table class="table">
 							<tr>
 								<th>메뉴</th>
 								<th>세부내용</th>
