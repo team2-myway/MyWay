@@ -17,7 +17,8 @@ public class OrderDto {
 	//Ã¤¼Ò
 	private int vegetable_no;
 	private String vegetable_name;
-	private String vegetable_detail;
+	private String vegetable_img;
+	
 	//»§ Á¾·ù
 	private int bread_no;
 	private String bread_name;
@@ -115,11 +116,11 @@ public class OrderDto {
 	public void setVegetable_name(String vegetable_name) {
 		this.vegetable_name = vegetable_name;
 	}
-	public String getVegetable_detail() {
-		return vegetable_detail;
+	public String getVegetable_img() {
+		return vegetable_img;
 	}
-	public void setVegetable_detail(String vegetable_detail) {
-		this.vegetable_detail = vegetable_detail;
+	public void setVegetable_img(String vegetable_img) {
+		this.vegetable_img = vegetable_img;
 	}
 	public int getBread_no() {
 		return bread_no;

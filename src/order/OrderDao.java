@@ -27,6 +27,7 @@ public class OrderDao {
 		}
 	}
 	
+	//소스 리스트 
 	public ArrayList SouceList(String sauce_class){
 		ArrayList list = new ArrayList();
 			String sql = "select * from sauce where class='"+sauce_class+"'";
@@ -43,12 +44,37 @@ public class OrderDao {
 			}
 			
 		}catch(Exception err){
-			System.out.println("getSawonList" + err);
+			System.out.println("SouceList" + err);
 		}finally{
 			freeConnection();
 		}
 		return list;
-	}	
+	}
+	// 채소 리스트
+	public ArrayList VegetableList(){
+		ArrayList list = new ArrayList();
+		String sql = "select * from vegetable";
+	try{
+		con = ds.getConnection();
+		stmt = con.prepareStatement(sql);
+		rs = stmt.executeQuery();
+		
+		while(rs.next()){
+			OrderDto dto = new OrderDto();
+			dto.setVegetable_no(rs.getInt("vegetable_no"));
+			dto.setVegetable_name(rs.getString("name"));
+			dto.setVegetable_img(rs.getString("img"));
+			list.add(dto);
+		}
+		
+	}catch(Exception err){
+		System.out.println("VegetableList" + err);
+	}finally{
+		freeConnection();
+	}
+		return list;
+	}
+	
 		
 	public void freeConnection(){
 		if(rs!= null){try{rs.close();}catch(Exception err){}}

@@ -191,87 +191,36 @@
 						<!-- 메뉴들 for문 돌릴 부분  -->
 						<div class="col-md-9">
 							<div class="col-md-12">
+								<% 
+								try {
+									ArrayList vegetableList = dao.VegetableList();
+									for (int i = 0; i < vegetableList.size(); i++) {
+										OrderDto dto = (OrderDto) vegetableList.get(i);
+							%>
+								<div class="col-md-4" style="border-color:aqua; border:solid;">
+									<div style="text-align: center">
+										<input type="checkbox" name="vegetable_no" value="<%=dto.getVegetable_no()%>" />
+									</div>
+									<div class="cmsms_our_team">
+										<div class="wrap_person">
+											<img src="<%=dto.getVegetable_img()%>" class="fullwidth" alt="female-practitioner-s-1">
+										</div>
+										<hr>
+										<div>
+											<span><%=dto.getVegetable_name()%></span>
+										</div>
+									</div>
+								</div>
+							
+							<%
+								}
 
-								<div class="col-md-4" style="border-color: aqua; border: solid;">
-									<div style="text-align: center">
-										<input type="checkbox" name="vegetable_no" value="채소 id값" />
-									</div>
-									<div class="cmsms_our_team">
-										<div class="wrap_person">
-											<img src="../lib/images/menu/best_CT.PNG" class="fullwidth"
-												alt="female-practitioner-s-1">
-										</div>
-										<hr>
-										<div>
-											<span>채소 이름</span>
-										</div>
-									</div>
-								</div>
+								} catch (Exception err) {
+									System.out.println("index.jsp : " + err);
+								}
+								%>
 								
-								<div class="col-md-4" style="border-color: aqua; border: solid;">
-									<div style="text-align: center">
-										<input type="checkbox" name="vegetable_no" value="채소 id값" />
-									</div>
-									<div class="cmsms_our_team">
-										<div class="wrap_person">
-											<img src="../lib/images/menu/best_CT.PNG" class="fullwidth"
-												alt="female-practitioner-s-1">
-										</div>
-										<hr>
-										<div>
-											<span>채소 이름</span>
-										</div>
-									</div>
-								</div>
 								
-								<div class="col-md-4" style="border-color: aqua; border: solid;">
-									<div style="text-align: center">
-										<input type="checkbox" name="vegetable_no" value="채소 id값" />
-									</div>
-									<div class="cmsms_our_team">
-										<div class="wrap_person">
-											<img src="../lib/images/menu/best_CT.PNG" class="fullwidth"
-												alt="female-practitioner-s-1">
-										</div>
-										<hr>
-										<div>
-											<span>채소 이름</span>
-										</div>
-									</div>
-								</div>
-								
-								<div class="col-md-4" style="border-color: aqua; border: solid;">
-									<div style="text-align: center">
-										<input type="checkbox" name="vegetable_no" value="채소 id값" />
-									</div>
-									<div class="cmsms_our_team">
-										<div class="wrap_person">
-											<img src="../lib/images/menu/best_CT.PNG" class="fullwidth"
-												alt="female-practitioner-s-1">
-										</div>
-										<hr>
-										<div>
-											<span>채소 이름</span>
-										</div>
-									</div>
-								</div>
-								
-								<div class="col-md-4" style="border-color: aqua; border: solid;">
-									<div style="text-align: center">
-										<input type="checkbox" name="vegetable_no" value="채소 id값" />
-									</div>
-									<div class="cmsms_our_team">
-										<div class="wrap_person">
-											<img src="../lib/images/menu/best_CT.PNG" class="fullwidth"
-												alt="female-practitioner-s-1">
-										</div>
-										<hr>
-										<div>
-											<span>채소 이름</span>
-										</div>
-									</div>
-								</div>
-
 							
 
 							</div>
