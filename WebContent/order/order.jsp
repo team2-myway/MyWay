@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="order.OrderDto"%>
 <%@ page contentType="text/html; charset=EUC-KR"%>
 <!DOCTYPE html>
 <html>
@@ -5,21 +7,23 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
+<style>
+</style>
 </head>
 <body class="page">
 	<section id="page" class="csstransition cmsms_resp hfeed site">
 		<%@ include file="../include/header.jsp"%>
-
+		<jsp:useBean id="dao" class="order.OrderDao"/>
 		<div class="container">
 			<div class="col-md-12">
-				<div class="col-md-3">
+				<div class="col-md-2">
 					<ul>
 						<li>샌드위치</li>
 						<li>샐러드</li>
 						<li>사이드메뉴</li>
 					</ul>
 				</div>
-				<div class="col-md-9">
+				<div class="col-md-10">
 					<div class="col-md-12">
 						<label class="col-md-3">매장 선택</label>
 						<div class="col-md-3">
@@ -276,9 +280,131 @@
 					</div>
 					
 					<!--  채소 선택 끝 -->
-					
-					
-					
+					<!-- 공간 -->
+					<div style="height:30px">&nbsp;</div>
+					<!-- 공간 -->
+
+					<!-- 소스 선택 -->
+					<div id="sauce">
+						<div class="col-md-12">
+							<label>달콤한소스</label>
+							<div class="sauce_class">
+							<%
+								try {
+									String sauce_class = "달콤한소스";
+									ArrayList sauce = dao.SouceList(sauce_class);
+									for (int i = 0; i < sauce.size(); i++) {
+										OrderDto dto = (OrderDto) sauce.get(i);
+							%>
+								<input type="checkbox" name="sauce_no"
+									value="<%=dto.getSauce_no()%>" /> <span
+									style="padding-left: 10px;"> <%=dto.getSauce_name()%>
+								</span>
+							
+							<%
+								}
+
+								} catch (Exception err) {
+									System.out.println("index.jsp : " + err);
+								}
+							%>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<label>매콤한소스</label>
+							<div class="sauce_class">
+							<%
+								try {
+									String sauce_class = "매콤한소스";
+									ArrayList sauce = dao.SouceList(sauce_class);
+									for (int i = 0; i < sauce.size(); i++) {
+										OrderDto dto = (OrderDto) sauce.get(i);
+							%>
+								<input type="checkbox" name="sauce_no"
+									value="<%=dto.getSauce_no()%>" /> <span
+									style="padding-left: 10px;"> <%=dto.getSauce_name()%>
+								</span>
+							<%
+								}
+
+								} catch (Exception err) {
+									System.out.println("index.jsp : " + err);
+								}
+							%>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<label>고소한소스</label>
+							<div class="sauce_class">
+							<%
+								try {
+									String sauce_class = "고소한소스";
+									ArrayList sauce = dao.SouceList(sauce_class);
+									for (int i = 0; i < sauce.size(); i++) {
+										OrderDto dto = (OrderDto) sauce.get(i);
+							%>
+								<input type="checkbox" name="sauce_no"
+									value="<%=dto.getSauce_name()%>" /> <span
+									style="padding-left: 10px;"> <%=dto.getSauce_name()%>
+								</span>
+							<%
+								}
+
+								} catch (Exception err) {
+									System.out.println("index.jsp : " + err);
+								}
+							%>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<label>새콤한소스</label>
+							<div class="sauce_class">
+							<%
+								try {
+									String sauce_class = "새콤한소스";
+									ArrayList sauce = dao.SouceList(sauce_class);
+									for (int i = 0; i < sauce.size(); i++) {
+										OrderDto dto = (OrderDto) sauce.get(i);
+							%>
+								<input type="checkbox" name="sauce_no"
+									value="<%=dto.getSauce_name()%>" /> <span
+									style="padding-left: 10px;"> <%=dto.getSauce_name()%>
+								</span>
+							<%
+								}
+
+								} catch (Exception err) {
+									System.out.println("index.jsp : " + err);
+								}
+							%>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<label>일반소스</label>
+							<div class="sauce_class">
+							<%
+								try {
+									String sauce_class = "일반소스";
+									ArrayList sauce = dao.SouceList(sauce_class);
+									for (int i = 0; i < sauce.size(); i++) {
+										OrderDto dto = (OrderDto) sauce.get(i);
+							%>
+								<input type="checkbox" name="sauce_no"
+									value="<%=dto.getSauce_no()%>" /> <span
+									style="padding-left: 10px;"> <%=dto.getSauce_name()%>
+								</span>
+							<%
+									}
+
+								} catch (Exception err) {
+									System.out.println("index.jsp : " + err);
+								}
+							%>
+							</div>
+						</div>
+					</div>
+
+
 
 				</div>
 			</div>
@@ -322,7 +448,12 @@
 			$("#AllVegetable").click(function() {
 				$("input[name=vegetable_no]").prop('checked', true);
 			});
-
+			$("#souceSelete").click(function(){
+				if($("input[name=sauce_no]").is(":checked")){
+					alert($("input[type='checkbox']").val());
+				}
+			});
+			
 		});
 	</script>
 
