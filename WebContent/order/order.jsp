@@ -69,10 +69,10 @@
 									String selected = "";
 									if(dto.getMenu_class().equals("best")){
 										menu_class = "베스트";
-										selected = "selected";
+										selected = "";
 									}else if(dto.getMenu_class().equals("classic")){
 										menu_class = "클래식";
-										selected = "";
+										selected = "selected";
 									}else{
 										menu_class = "프리미엄";
 										selected = "";
@@ -312,6 +312,9 @@
 	<script src="../lib/bootstrap/js/bootstrap.js"></script>
 	<script src = "../lib/ajax.js"></script>
 	<script>
+	window.onload = function(){
+		SelMenuClass();
+	}
 		$(function() {
 			// 즐겨찾기 목록 
 			$("#Favorites").click(function() {
@@ -327,9 +330,8 @@
 			});
 			$("input[name='menu_size']").click(function(){
 				var size = $(":radio[name='menu_size']:checked").val();
-				
-				
 			});
+			
 			
 		});
 		
@@ -430,15 +432,15 @@
 		function SelMenuClass(){
 			var menuclass = $("#menu_class").val();
 			var size = $(":radio[name='menu_size']:checked").val();
-			var param = "class="+menuclass+"size="+size;
-			
+
+			var param = "class="+menuclass+"&size="+size;
 			sendRequest("POST", "menuSelectClass.jsp", Classback, param);
 			
 		}
 		function Classback(){
 			if(httpRequest.readyState == 4){
 				if(httpRequest.status == 200){
-					var div = $("#Html_MenuList");
+					var div = document.getElementById("Html_MenuList");
 			 		div.innerHTML = httpRequest.responseText;
 			 		alert(httpRequest.responseText);
 				}else{

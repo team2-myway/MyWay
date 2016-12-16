@@ -31,6 +31,7 @@ public class OrderDao {
 		ArrayList list = new ArrayList();
 		String sql = "select * from menu where menu_size = '"+menusize+"' and class = '"+menuclass+"'";
 		try{
+			System.out.println(sql);
 			con = ds.getConnection();
 			stmt = con.prepareStatement(sql);
 			rs = stmt.executeQuery();
@@ -40,7 +41,7 @@ public class OrderDao {
 				dto.setMenu_no(rs.getInt("menu_no"));
 				dto.setMenu_class(rs.getString("class"));
 				dto.setMenu_name(rs.getString("menu_name"));
-				dto.setMenu_image(rs.getString("img"));
+				dto.setMenu_image(rs.getString("image"));
 				dto.setMenu_price(rs.getInt("price"));
 				dto.setMenu_bestSouce(rs.getString("sauce_no"));
 				dto.setMenu_detail(rs.getString("detail"));
