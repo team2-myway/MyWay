@@ -17,97 +17,75 @@
 </style>
 </head>
 <body class="page">
-	<section id="page" class="csstransition cmsms_resp hfeed site">
-		<%@ include file="../include/header.jsp"%>
-		<jsp:useBean id="dao" class="order.OrderDao"/>
-		<div class="container">
-			<div class="col-md-12">
-				<div class="col-md-2">
-					<ul>
-						<li>샌드위치</li>
-						<li>샐러드</li>
-						<li>사이드메뉴</li>
-					</ul>
+<section id="page" class="csstransition cmsms_resp hfeed site">
+	<%@ include file="../include/header.jsp"%>
+	<jsp:useBean id="dao" class="order.OrderDao"/>
+	<div class="container">
+		<div class="col-md-12">
+			<div class="col-md-2">
+				<ul>
+					<li>샌드위치</li>
+					<li>샐러드</li>
+					<li>사이드메뉴</li>
+				</ul>
+			</div>
+			<div class="col-md-10">
+				<div class="col-md-12">
+					<label class="col-md-3">매장 선택</label>
+					<div class="col-md-3">
+						<select id="manage_addr">
+							<option>서울</option>
+							<option>경기</option>
+							<option>부산</option>
+						</select>
+					</div>
+					<div class="col-md-3">
+						<select id="manage_name">
+							<option>화정점</option>
+							<option>부산점</option>
+							<option>선릉점</option>
+						</select>
+					</div>
 				</div>
-				<div class="col-md-10">
-					<div class="col-md-12">
-						<label class="col-md-3">매장 선택</label>
-						<div class="col-md-3">
-							<select id="manage_addr">
-								<option>서울</option>
-								<option>경기</option>
-								<option>부산</option>
-							</select>
-						</div>
-						<div class="col-md-3">
-							<select id="manage_name">
-								<option>화정점</option>
-								<option>부산점</option>
-								<option>선릉점</option>
-							</select>
-						</div>
-					</div>
 					<!-- 메뉴 선택 시작-->
-					<div class="col-md-12" style="padding-top: 20px;">
-						<label class="col-md-2">메뉴선택</label>
-						<button id="Favorites" class="btn btn-primary">★ 즐겨찾기</button>
+				<div class="col-md-12" style="padding-top: 20px;">
+					<label class="col-md-2">메뉴선택</label>
+					<button id="Favorites" class="btn btn-primary">★ 즐겨찾기</button>
+				</div>
+				<div class="col-md-12" style="padding-top: 20px;">
+					<label class="col-md-2">사이즈선택</label> 
+					<input type="radio"	name="menu_size[]" value="15" /> 15cm &nbsp;&nbsp;&nbsp;
+					<input type="radio" name="menu_size[]" value="30" /> 30cm
+				</div>
+				<div class="col-md-12" style="padding-top: 20px;">
+					<div class="col-md-3">
+						<select id="menu_class" name="menu_class" onchange="SelMenuClass()">
+							<option value="클래식">클래식</option>
+							<option value="프리미엄">프리미엄</option>
+							<option value="베스트">베스트</option>
+						</select>
 					</div>
-					<div class="col-md-12" style="padding-top: 20px;">
-						<label class="col-md-2">사이즈선택</label> <input type="radio"
-							name="menu_size" value="15" /> 15cm &nbsp;&nbsp;&nbsp; <input
-							type="radio" name="menu_size" value="30" /> 30cm
-					</div>
-
-					<div class="col-md-12" style="padding-top: 20px;">
-						<div class="col-md-3">
-							<select name="class">
-								<option value="클래식">클래식</option>
-								<option value="프리미엄">프리미엄</option>
-								<option value="베스트">베스트</option>
-							</select>
-						</div>
-
 						<!-- 메뉴들 for문 돌릴 부분  -->
-						<div class="col-md-9">
-							<div class="col-md-12">
-
-								<div class="col-md-4" style="border-color: aqua; border: solid;">
-									<div style="text-align: center">
-										<input type="radio" name="menu_no" value="메뉴 id값" />
+					<div class="col-md-9">
+						<div class="col-md-12">
+						
+							<div class="col-md-4" style="border-color: aqua; border: solid;">
+								<div style="text-align: center">
+									<input type="radio" name="menu_no" value="메뉴 id값" />
+								</div>
+								<div class="cmsms_our_team">
+									<div class="wrap_person">
+										<img src="../lib/images/menu/best_CT.PNG" class="fullwidth"	alt="female-practitioner-s-1">
 									</div>
-									<div class="cmsms_our_team">
-										<div class="wrap_person">
-											<img src="../lib/images/menu/best_CT.PNG" class="fullwidth"
-												alt="female-practitioner-s-1">
-										</div>
+									<hr>
+									<div>
+										가격 정보
 										<hr>
-										<div>
-											가격 정보
-											<hr>
-											<span>치킨 한스콜</span>
-										</div>
+										<span>치킨 한스콜</span>
 									</div>
 								</div>
-
-								<div class="col-md-4" style="border-color: aqua; border: solid;">
-									<div style="text-align: center">
-										<input type="radio" name="menu_no" value="메뉴 id값" />
-									</div>
-									<div class="cmsms_our_team">
-										<div class="wrap_person">
-											<img src="../lib/images/menu/best_CT.PNG" class="fullwidth"
-												alt="female-practitioner-s-1">
-										</div>
-										<hr>
-										<div>
-											가격 정보
-											<hr>
-											<span>치킨 한스콜</span>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-4" style="border-color: aqua; border: solid;">
+							</div>
+							<div class="col-md-4" style="border-color: aqua; border: solid;">
 								<div style="text-align: center">
 										<input type="radio" name="menu_no" value="메뉴 id값" />
 									</div>
@@ -124,62 +102,6 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-4" style="border-color: aqua; border: solid;">
-									<div style="text-align: center">
-										<input type="radio" name="menu_no" value="메뉴 id값" />
-									</div>
-									<div class="cmsms_our_team">
-										<div class="wrap_person">
-											<img src="../lib/images/menu/best_CT.PNG" class="fullwidth"
-												alt="female-practitioner-s-1">
-										</div>
-										<hr>
-										<div>
-											가격 정보
-											<hr>
-											<span>치킨 한스콜</span>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-4" style="border-color: aqua; border: solid;">
-									<div style="text-align: center">
-										<input type="radio" name="menu_no" value="메뉴 id값" />
-									</div>
-									<div class="cmsms_our_team">
-										<div class="wrap_person">
-											<img src="../lib/images/menu/best_CT.PNG" class="fullwidth"
-												alt="female-practitioner-s-1">
-										</div>
-										<hr>
-										<div>
-											가격 정보
-											<hr>
-											<span>치킨 한스콜</span>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-4" style="border-color: aqua; border: solid;">
-								<div style="text-align: center">
-										<input type="radio" name="menu_no" value="메뉴 id값" />
-									</div>
-									<div class="cmsms_our_team">
-										<div class="wrap_person">
-											<img src="../lib/images/menu/best_CT.PNG" class="fullwidth"
-												alt="female-practitioner-s-1">
-										</div>
-										<hr>
-										<div>
-											가격 정보
-											<hr>
-											<span>치킨 한스콜</span>
-										</div>
-									</div>
-								</div>
-				
-								
-
 							</div>
 						</div>
 						<!-- 메뉴들 for문 돌릴 부분 끝 -->
@@ -227,7 +149,7 @@
 									System.out.println("index.jsp : " + err);
 								}
 								%>
-								<input type="hidden" id="VegetableList"/>
+								<input type="text" id="VegetableList"/>
 							</div>
 						</div>
 						<!-- 메뉴들 for문 돌릴 부분 끝 -->
@@ -362,35 +284,34 @@
 						<input type="text" id="SelectSauceValue" name="SelectSauceValue"/>
 						<button id="selectSauce">버튼</button>
 					</div>
-
-
-
 				</div>
 			</div>
 		</div>
-
-		<div class=" modal fade" id="FavoriteList" data-backdrop="static">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h3>즐겨 찾기</h3>
-					</div>
-					<div class="modal-body">
-						<table class="table">
-							<tr>
-								<th>메뉴</th>
-								<th>세부내용</th>
-								<th>선택</th>
-							</tr>
-						</table>
-
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-primary" data-dismiss="modal">닫기</button>
-					</div>
+	</div>
+	
+	
+	<div class=" modal fade" id="FavoriteList" data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3>즐겨 찾기</h3>
+				</div>
+				<div class="modal-body">
+					<table class="table">
+						<tr>
+							<th>메뉴</th>
+							<th>세부내용</th>
+							<th>선택</th>
+						</tr>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-primary" data-dismiss="modal">닫기</button>
 				</div>
 			</div>
 		</div>
+	</div>
+	
 		<!-- 공간주기 -->
 		<div style="height: 50px;">&nbsp;</div>
 		<footer>
@@ -401,17 +322,22 @@
 	<script src="../lib/bootstrap/js/bootstrap.js"></script>
 	<script>
 		$(function() {
+			// 즐겨찾기 목록 
 			$("#Favorites").click(function() {
 				$("#FavoriteList").modal();
 			});
-			
+			//야채 전체선택
 			$("#AllVegetable").click(function() {
 				VegetableCheckAll();
 			});
+			//선택된 소스 보기
 			$("#selectSauce").click(function(){
 				selectSauRow();
-			})
-			
+			});
+			$("input[name='menu_size[]']").click(function(){
+				var size = $(":radio[name='menu_size[]']:checked").val();
+				
+			});
 			
 		});
 		
@@ -468,9 +394,9 @@
 			}
 		}
 		
-		
+		//소스 체크된것 확인 3개이상일경우 못넘어가게 
+		//아닐경우에 소스 value 값을 SelectSauceValue에다가 넣기 |값으로 구분하기
 		function selectSauRow() {
-			alert("qwer");
 			var chk = document.getElementsByName("sauce_no[]");
 			var len = chk.length;    //체크박스의 전체 개수
 			var checkRow = '';      //체크된 체크박스의 value를 담기위한 변수
@@ -501,14 +427,19 @@
 					checkRow = '';    //checkRow초기화.
 				}
 			}
-			if(checkCnt > 4){
+			alert(checkCnt);
+			if(checkCnt > 3){
 				alert("소스는 3가지 까지 선택 가능합니다.");
 				$("#sauce").focus();
 			}else{
 				$("#SelectSauceValue").val(rowid);
 			}
 		}
-		
+		// 메뉴 class 선택시 나오는 것
+		function SelMenuClass(cla){
+			var menuclass = $("#menu_class").val();
+			alert(menuclass);
+		}
 		
 		
 	</script>
