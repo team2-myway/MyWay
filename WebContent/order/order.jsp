@@ -54,55 +54,45 @@
 				</div>
 				<div class="col-md-12" style="padding-top: 20px;">
 					<label class="col-md-2">사이즈선택</label> 
-					<input type="radio"	name="menu_size[]" value="15" /> 15cm &nbsp;&nbsp;&nbsp;
-					<input type="radio" name="menu_size[]" value="30" /> 30cm
+					<input type="radio"	name="menu_size" value="15" checked/> 15cm &nbsp;&nbsp;&nbsp;
+					<input type="radio" name="menu_size" value="30" /> 30cm
 				</div>
 				<div class="col-md-12" style="padding-top: 20px;">
 					<div class="col-md-3">
 						<select id="menu_class" name="menu_class" onchange="SelMenuClass()">
-							<option value="클래식">클래식</option>
-							<option value="프리미엄">프리미엄</option>
-							<option value="베스트">베스트</option>
+							<%
+							try {
+								ArrayList menu_classList = dao.MenuClassList();
+								for (int i = 0; i < menu_classList.size(); i++) {
+									OrderDto dto = (OrderDto) menu_classList.get(i);
+									String menu_class= "";
+									String selected = "";
+									if(dto.getMenu_class().equals("best")){
+										menu_class = "베스트";
+										selected = "selected";
+									}else if(dto.getMenu_class().equals("classic")){
+										menu_class = "클래식";
+										selected = "";
+									}else{
+										menu_class = "프리미엄";
+										selected = "";
+									}
+							%>
+								<option value="<%=dto.getMenu_class()%>" <%=selected%>><%=menu_class%></option>
+							<%
+							}
+
+							} catch (Exception err) {
+								System.out.println("index.jsp : " + err);
+							}
+							%>
+							
 						</select>
 					</div>
 						<!-- 메뉴들 for문 돌릴 부분  -->
 					<div class="col-md-9">
-						<div class="col-md-12">
+						<div class="col-md-12" id="Html_MenuList">
 						
-							<div class="col-md-4" style="border-color: aqua; border: solid;">
-								<div style="text-align: center">
-									<input type="radio" name="menu_no" value="메뉴 id값" />
-								</div>
-								<div class="cmsms_our_team">
-									<div class="wrap_person">
-										<img src="../lib/images/menu/best_CT.PNG" class="fullwidth"	alt="female-practitioner-s-1">
-									</div>
-									<hr>
-									<div>
-										가격 정보
-										<hr>
-										<span>치킨 한스콜</span>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4" style="border-color: aqua; border: solid;">
-								<div style="text-align: center">
-										<input type="radio" name="menu_no" value="메뉴 id값" />
-									</div>
-									<div class="cmsms_our_team">
-										<div class="wrap_person">
-											<img src="../lib/images/menu/best_CT.PNG" class="fullwidth"
-												alt="female-practitioner-s-1">
-										</div>
-										<hr>
-										<div>
-											가격 정보
-											<hr>
-											<span>치킨 한스콜</span>
-										</div>
-									</div>
-								</div>
-							</div>
 						</div>
 						<!-- 메뉴들 for문 돌릴 부분 끝 -->
 					</div>
@@ -320,6 +310,7 @@
 	</section>
 	<script src="../lib/bootstrap/js/jquery-3.1.1.min.js"></script>
 	<script src="../lib/bootstrap/js/bootstrap.js"></script>
+	<script src = "../lib/ajax.js"></script>
 	<script>
 		$(function() {
 			// 즐겨찾기 목록 
@@ -334,8 +325,9 @@
 			$("#selectSauce").click(function(){
 				selectSauRow();
 			});
-			$("input[name='menu_size[]']").click(function(){
-				var size = $(":radio[name='menu_size[]']:checked").val();
+			$("input[name='menu_size']").click(function(){
+				var size = $(":radio[name='menu_size']:checked").val();
+				
 				
 			});
 			
@@ -356,7 +348,6 @@
 					chk[i].checked = false;     //모두 해제
 				}
 			}
-			selectVegRow();
 		}
 		
 		//선택된 채소의 값 부르기
@@ -436,9 +427,24 @@
 			}
 		}
 		// 메뉴 class 선택시 나오는 것
-		function SelMenuClass(cla){
+		function SelMenuClass(){
 			var menuclass = $("#menu_class").val();
-			alert(menuclass);
+			var size = $(":radio[name='menu_size']:checked").val();
+			var param = "class="+menuclass+"size="+size;
+			
+			sendRequest("POST", "menuSelectClass.jsp", Classback, param);
+			
+		}
+		function Classback(){
+			if(httpRequest.readyState == 4){
+				if(httpRequest.status == 200){
+					var div = $("#Html_MenuList");
+			 		div.innerHTML = httpRequest.responseText;
+			 		alert(httpRequest.responseText);
+				}else{
+					alert(httpRequest.status);
+				}
+			}
 		}
 		
 		

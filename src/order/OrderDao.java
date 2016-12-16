@@ -29,7 +29,7 @@ public class OrderDao {
 	//메뉴 사이즈 별로 나오게 하는 것들 클래스도 지정
 	public ArrayList MenuSizeList(String menusize, String menuclass){
 		ArrayList list = new ArrayList();
-		String sql = "select * from menu where size = '"+menusize+"' and class = '"+menuclass+"'";
+		String sql = "select * from menu where menu_size = '"+menusize+"' and class = '"+menuclass+"'";
 		try{
 			con = ds.getConnection();
 			stmt = con.prepareStatement(sql);
@@ -43,6 +43,7 @@ public class OrderDao {
 				dto.setMenu_image(rs.getString("img"));
 				dto.setMenu_price(rs.getInt("price"));
 				dto.setMenu_bestSouce(rs.getString("sauce_no"));
+				dto.setMenu_detail(rs.getString("detail"));
 				list.add(dto);
 			}
 			
