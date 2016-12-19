@@ -21,7 +21,7 @@
 	try{
 		pool = DBConnectionMgr.getInstance();
 		Class.forName("oracle.jdbc.driver.OracleDriver");
-		con = DriverManager.getConnection(url, "scott", "1111");
+		con = DriverManager.getConnection(url, "root", "1111");
 		stmt = con.prepareStatement(sql);
 		stmt.setString(1, s_no);
 		stmt.executeUpdate();
