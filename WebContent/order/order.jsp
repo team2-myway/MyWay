@@ -21,6 +21,7 @@
 	<%@ include file="../include/header.jsp"%>
 	<jsp:useBean id="dao" class="order.OrderDao"/>
 	<div class="container">
+			<input type="file" name="file"/>
 		<div class="col-md-12">
 			<div class="col-md-2">
 				<ul>
@@ -33,17 +34,33 @@
 				<div class="col-md-12">
 					<label class="col-md-3">매장 선택</label>
 					<div class="col-md-3">
-						<select id="manage_addr">
-							<option>서울</option>
-							<option>경기</option>
-							<option>부산</option>
+						<select id="manage_addr" onchange="SelectManage_name">
+							<%
+							try {
+								ArrayList manageList = dao.ManagerAddrList();
+								for (int i = 0; i < manageList.size(); i++) {
+									OrderDto dto = (OrderDto) manageList.get(i);
+									String selected = "";
+									if(dto.getManage_addr().equals("경기")){
+										selected="selected";
+									}else{
+										selected="";
+									}
+								%>
+								<option value="<%=dto.getManage_addr()%>"<%=selected%>><%=dto.getManage_addr()%></option>
+							<%
+							}
+
+							} catch (Exception err) {
+								System.out.println("index.jsp : " + err);
+							}
+							%>
+						
 						</select>
 					</div>
 					<div class="col-md-3">
 						<select id="manage_name">
-							<option>화정점</option>
-							<option>부산점</option>
-							<option>선릉점</option>
+						
 						</select>
 					</div>
 				</div>
@@ -54,12 +71,13 @@
 				</div>
 				<div class="col-md-12" style="padding-top: 20px;">
 					<label class="col-md-2">사이즈선택</label> 
-					<input type="radio"	name="menu_size" value="15" checked/> 15cm &nbsp;&nbsp;&nbsp;
-					<input type="radio" name="menu_size" value="30" /> 30cm
+					<input type="radio"	name="menu_size" value="15" checked onclick="SelMenuClass()"/> 15cm &nbsp;&nbsp;&nbsp;
+					<input type="radio" name="menu_size" value="30" onclick="SelMenuClass()"/> 30cm
 				</div>
 				<div class="col-md-12" style="padding-top: 20px;">
 					<div class="col-md-3">
 						<select id="menu_class" name="menu_class" onchange="SelMenuClass()">
+						<option value="All" selected>전체보기</option>
 							<%
 							try {
 								ArrayList menu_classList = dao.MenuClassList();
@@ -69,16 +87,13 @@
 									String selected = "";
 									if(dto.getMenu_class().equals("best")){
 										menu_class = "베스트";
-										selected = "";
 									}else if(dto.getMenu_class().equals("classic")){
 										menu_class = "클래식";
-										selected = "selected";
 									}else{
 										menu_class = "프리미엄";
-										selected = "";
 									}
 							%>
-								<option value="<%=dto.getMenu_class()%>" <%=selected%>><%=menu_class%></option>
+								<option value="<%=dto.getMenu_class()%>"><%=menu_class%></option>
 							<%
 							}
 
@@ -115,7 +130,7 @@
 									for (int i = 0; i < vegetableList.size(); i++) {
 										OrderDto dto = (OrderDto) vegetableList.get(i);
 							%>	
-								<div class="col-md-4 vegetables" style="border-color:aqua; border:solid;">
+								<div class="col-md-4 vegetables" style=" height:200px;">
 									<div style="text-align: center">
 										<input type="checkbox" id="vegetable_no_<%=dto.getVegetable_no()%>" 
 										name="vegetable_no[]" value="<%=dto.getVegetable_no()%>" />
@@ -123,11 +138,6 @@
 									<div class="cmsms_our_team">
 										<div class="wrap_person">
 											<img src="<%=dto.getVegetable_img()%>" class="fullwidth" alt="female-practitioner-s-1">
-										</div>
-										<hr>
-										<div>
-											<span><%=dto.getVegetable_name()%></span>
-											<span><%=dto.getVegetable_no()%></span>
 										</div>
 									</div>
 								</div>
@@ -434,21 +444,41 @@
 			var size = $(":radio[name='menu_size']:checked").val();
 
 			var param = "class="+menuclass+"&size="+size;
-			sendRequest("POST", "menuSelectClass.jsp", Classback, param);
+			sendRequest("POST", "menuSelectClass.jsp", MenuClassback, param);
 			
 		}
-		function Classback(){
+		// 메뉴 html 생성
+		function MenuClassback(){
 			if(httpRequest.readyState == 4){
 				if(httpRequest.status == 200){
 					var div = document.getElementById("Html_MenuList");
 			 		div.innerHTML = httpRequest.responseText;
-			 		alert(httpRequest.responseText);
-				}else{
+			 	}else{
 					alert(httpRequest.status);
 				}
 			}
 		}
 		
+		// 매장 지점 
+		function SelManagerAddr(){
+			var manageraddr = $("#manage_addr").val();
+			
+			var param = "manager_addr=" + manageraddr;
+			sendRequest("POST","managerSelect.jsp",Addrback,param);
+		}
+		// 매장이름 나오게 할 부분
+		function Addrback(){
+			if(httpRequest.readyState == 4){
+				if(httpRequest.status == 200){
+					var div = document.getElementById("manage_name");
+			 		div.innerHTML = httpRequest.responseText;
+			 		alert("qwer");
+			 		alert(httpRequest.responseText);
+			 	}else{
+					alert(httpRequest.status);
+				}
+			}
+		}
 		
 	</script>
 

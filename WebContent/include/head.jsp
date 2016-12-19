@@ -1,3 +1,5 @@
+	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+	
 	<link rel="stylesheet" href="../lib/css/style.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="../lib/css/styles/fonts.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="../lib/css/styles/adaptive.css" type="text/css" media="screen" />
@@ -13,4 +15,18 @@
 	
 	<script src="../lib/js/jquery.min.js" type="text/javascript"></script>
 	<script src="../lib/js/modernizr.custom.all.js" type="text/javascript"></script>
+	
+	<script src="../lib/js/respond.min.js" type="text/javascript"></script>
+	<script type="text/javascript"	src="../lib/revolution/js/jquery.themepunch.revolution.js"></script>
+	<script type="text/javascript"	src="../lib/revolution/js/jquery.themepunch.revolution.min.js"></script>
+	<script type="text/javascript"	src="../lib/revolution/js/jquery.themepunch.plugins.min.js"></script>
+	<script type='text/javascript'	src='../lib/js/jquery.easing.min.js?ver=1.3.0'></script>
+	<script src="../lib/js/jquery.script.js" type="text/javascript"></script>
+	<script src="../lib/js/jackbox-lib.js" type="text/javascript"></script>
+	<script src="../lib/js/jackbox.js" type="text/javascript"></script>
+	<script src="../lib/js/jquery.flickrfeed.min.js" type="text/javascript"></script>
+	<script src="../lib/js/jquery.tweet.min.js" type="text/javascript"></script>
+	<script src="../lib/js/jquery.validationEngine-lang.js"	type="text/javascript"></script>
+	<script src="../lib/js/jquery.validationEngine.min.js"	type="text/javascript"></script>
+
 	

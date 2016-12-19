@@ -29,9 +29,13 @@ public class OrderDao {
 	//메뉴 사이즈 별로 나오게 하는 것들 클래스도 지정
 	public ArrayList MenuSizeList(String menusize, String menuclass){
 		ArrayList list = new ArrayList();
-		String sql = "select * from menu where menu_size = '"+menusize+"' and class = '"+menuclass+"'";
+		String sql="";
+		if(menuclass.equals("All")){
+			sql = "select * from menu where menu_size = '"+menusize+"'";
+		}else{
+			sql = "select * from menu where menu_size = '"+menusize+"' and class = '"+menuclass+"'";
+		}
 		try{
-			System.out.println(sql);
 			con = ds.getConnection();
 			stmt = con.prepareStatement(sql);
 			rs = stmt.executeQuery();
@@ -44,6 +48,7 @@ public class OrderDao {
 				dto.setMenu_image(rs.getString("image"));
 				dto.setMenu_price(rs.getInt("price"));
 				dto.setMenu_bestSouce(rs.getString("sauce_no"));
+				dto.setMenu_calorie(rs.getInt("calorie"));
 				dto.setMenu_detail(rs.getString("detail"));
 				list.add(dto);
 			}
@@ -130,6 +135,52 @@ public class OrderDao {
 	}
 		return list;
 	}
+	
+	public ArrayList ManagerAddrList(){
+		ArrayList list = new ArrayList();
+		String sql = "SELECT manager_area FROM myway.account where level = 'super' or level = 'manager' group by manager_area;";
+	try{
+		con = ds.getConnection();
+		stmt = con.prepareStatement(sql);
+		rs = stmt.executeQuery();
+		
+		while(rs.next()){
+			OrderDto dto = new OrderDto();
+			dto.setManage_addr(rs.getString("manager_area"));;
+			list.add(dto);
+		}
+		
+	}catch(Exception err){
+		System.out.println("ManagerAddrList" + err);
+	}finally{
+		freeConnection();
+	}
+		return list;
+	}
+	
+	public ArrayList ManagerList(String area){
+		
+		ArrayList list = new ArrayList();
+		String sql = "SELECT * FROM myway.account where (level = 'super' or level = 'manager') and manager_area='"+area+"'";
+	try{
+		con = ds.getConnection();
+		stmt = con.prepareStatement(sql);
+		rs = stmt.executeQuery();
+		
+		while(rs.next()){
+			OrderDto dto = new OrderDto();
+			dto.setManage_name(rs.getString(""));
+			list.add(dto);
+		}
+		
+	}catch(Exception err){
+		System.out.println("ManagerAddrList" + err);
+	}finally{
+		freeConnection();
+	}
+		return list;
+	}
+	
 	
 		
 	public void freeConnection(){
