@@ -33,96 +33,124 @@
 					<li>사이드메뉴</li>
 				</ul>
 			</div>
-			<div class="col-md-10">
-				<div class="col-md-12 padding">
-					<div class="col-md-3">
-						<h3> 매장 선택</h3>
-					</div>
-					<div class="col-md-4">
-						<select id="manage_addr" onchange="SelManagerAddr()">
-								<option value="" width="200px;"> 선택해주세요</option>
-							<%
-							try {
-								ArrayList manageList = dao.ManagerAddrList();
-								for (int i = 0; i < manageList.size(); i++) {
-									OrderDto dto = (OrderDto) manageList.get(i);
-								%>
-								<option value="<%=dto.getManage_addr()%>"><%=dto.getManage_addr()%></option>
-							<%
-							}
-
-							} catch (Exception err) {
-								System.out.println("index.jsp : " + err);
-							}
-							%>
-						
-						</select>
-					</div>
-					<div class="col-md-4" id="manage_name">
-					</div>
-				</div>
-					<!-- 메뉴 선택 시작-->
-				<div class="col-md-12 padding" style="padding-top: 20px;">
-					<div class="col-md-3">
-						<h3>메뉴선택</h3>
-					</div>
-					<button id="Favorites" class="btn btn-primary">★ 즐겨찾기</button>
-				</div>
-				<div class="col-md-12 padding" style="padding-top: 20px;">
-					<div class="col-md-3">
-						<h3>사이즈선택</h3>
-					</div>
-					<input type="radio"	name="menu_size" value="15" checked onclick="SelMenuClass()"/> 15cm &nbsp;&nbsp;&nbsp;
-					<input type="radio" name="menu_size" value="30" onclick="SelMenuClass()"/> 30cm
-				</div>
-				<div class="col-md-12 padding" style="padding-top: 20px;">
-					<div class="col-md-3">
-						<select id="menu_class" name="menu_class" onchange="SelMenuClass()">
-						<option value="All" selected>전체보기</option>
-							<%
-							try {
-								ArrayList menu_classList = dao.MenuClassList();
-								for (int i = 0; i < menu_classList.size(); i++) {
-									OrderDto dto = (OrderDto) menu_classList.get(i);
-									String menu_class= "";
-									String selected = "";
-									if(dto.getMenu_class().equals("best")){
-										menu_class = "베스트";
-									}else if(dto.getMenu_class().equals("classic")){
-										menu_class = "클래식";
-									}else{
-										menu_class = "프리미엄";
-									}
-							%>
-								<option value="<%=dto.getMenu_class()%>"><%=menu_class%></option>
-							<%
-							}
-
-							} catch (Exception err) {
-								System.out.println("index.jsp : " + err);
-							}
-							%>
-							
-						</select>
-					</div>
-						<!-- 메뉴들 for문 돌릴 부분  -->
-					<div class="col-md-9">
-						<div class="col-md-12" id="Html_MenuList">
-						
+			<form id="OrderSaveForm" class="form-horizontal" onsubmit="return false;">
+				<div class="col-md-10">
+					<div class="col-md-12 padding">
+						<input type="hidden" name="account_no" value="5"/>
+						<div class="col-md-3">
+							<h3> 매장 선택</h3>
 						</div>
-						<!-- 메뉴들 for문 돌릴 부분 끝 -->
+						<div class="col-md-4">
+							<select id="manage_addr" onchange="SelManagerAddr()">
+									<option value="" width="200px;"> 선택해주세요</option>
+								<%
+								try {
+									ArrayList manageList = dao.ManagerAddrList();
+									for (int i = 0; i < manageList.size(); i++) {
+										OrderDto dto = (OrderDto) manageList.get(i);
+									%>
+									<option value="<%=dto.getManage_addr()%>"><%=dto.getManage_addr()%></option>
+								<%
+								}
+	
+								} catch (Exception err) {
+									System.out.println("index.jsp : " + err);
+								}
+								%>
+							
+							</select>
+						</div>
+						<div class="col-md-4" id="manage_name" >
+						</div>
 					</div>
-				</div>
-					<!-- 메뉴 선택 끝-->
-					<!--  채소 선택 시작 -->
+					<div class="col-md-12 padding">
+						<div class="col-md-3">
+							<h3>빵 선택</h3>
+						</div>
+						<div class="col-md-9">
+							
+								<%
+								try {
+									ArrayList BreadList = dao.BreadList();
+									for (int i = 0; i < BreadList.size(); i++) {
+										OrderDto dto = (OrderDto) BreadList.get(i);
+									%>
+									<div class="col-md-12 radio">
+										<input type="radio" name="bread_no" value="<%=dto.getBread_no()%>"/>
+										<p><b><%=dto.getBread_name() %> : </b> (<%=dto.getBread_detail()%>) </p>
+									</div>
+								<%
+								}
+	
+								} catch (Exception err) {
+									System.out.println("index.jsp : " + err);
+								}
+								%>
+	
+						</div>
+					</div>
+						<!-- 메뉴 선택 시작-->
+					<div class="col-md-12 padding">
+						<div class="col-md-3">
+							<h3>메뉴선택</h3>
+						</div>
+						<button id="Favorites" class="btn btn-primary">★ 즐겨찾기</button>
+					</div>
+					<div class="col-md-12 padding" style="padding-top: 20px;">
+						<div class="col-md-3">
+							<h3>사이즈선택</h3>
+						</div>
+						<input type="radio"	name="menu_size" value="15" checked onclick="SelMenuClass()"/> 15cm &nbsp;&nbsp;&nbsp;
+						<input type="radio" name="menu_size" value="30" onclick="SelMenuClass()"/> 30cm
+					</div>
+					<div class="col-md-12 padding" style="padding-top: 20px;">
+						<div class="col-md-3">
+							<select id="menu_class" name="menu_class" onchange="SelMenuClass()">
+							<option value="All" selected>전체보기</option>
+								<%
+								try {
+									ArrayList menu_classList = dao.MenuClassList();
+									for (int i = 0; i < menu_classList.size(); i++) {
+										OrderDto dto = (OrderDto) menu_classList.get(i);
+										String menu_class= "";
+										String selected = "";
+										if(dto.getMenu_class().equals("best")){
+											menu_class = "베스트";
+										}else if(dto.getMenu_class().equals("classic")){
+											menu_class = "클래식";
+										}else{
+											menu_class = "프리미엄";
+										}
+								%>
+									<option value="<%=dto.getMenu_class()%>"><%=menu_class%></option>
+								<%
+								}
+	
+								} catch (Exception err) {
+									System.out.println("index.jsp : " + err);
+								}
+								%>
+								
+							</select>
+						</div>
+							<!-- 메뉴들 for문 돌릴 부분  -->
+						<div class="col-md-9">
+							<div class="col-md-12" id="Html_MenuList">
+							
+							</div>
+							<!-- 메뉴들 for문 돌릴 부분 끝 -->
+						</div>
+					</div>
+						<!-- 메뉴 선택 끝-->
+						<!--  채소 선택 시작 -->
 					<div class="col-md-12 padding" style="padding-top: 20px;">
 						<div class="col-md-3"><h3>채소선택</h3></div>
 					</div>
+					<!-- 채소  -->
 					<div class="col-md-12 padding" style="padding-top: 20px;">
 						<div class="col-md-3">
 							<button class="btn btn-primary" id="AllVegetable">All</button>
 						</div>
-
 						<!-- 채소들 for문 돌릴 부분  -->
 						<div class="col-md-9">
 							<div class="col-md-12 padding">
@@ -131,7 +159,7 @@
 									ArrayList vegetableList = dao.VegetableList();
 									for (int i = 0; i < vegetableList.size(); i++) {
 										OrderDto dto = (OrderDto) vegetableList.get(i);
-							%>	
+								%>	
 								<div class="col-md-4 vegetables" style=" height:200px;">
 									<div style="text-align: center">
 										<input type="checkbox" id="vegetable_no_<%=dto.getVegetable_no()%>" 
@@ -144,25 +172,25 @@
 									</div>
 								</div>
 							
-							<%
-								}
-
-								} catch (Exception err) {
-									System.out.println("index.jsp : " + err);
-								}
+								<%
+									}
+	
+									}catch (Exception err) {
+										System.out.println("index.jsp : " + err);
+									}
 								%>
 								<input type="hidden" id="VegetableList" name="VegetableList"/>
 							</div>
 						</div>
-						<!-- 메뉴들 for문 돌릴 부분 끝 -->
+							<!-- 메뉴들 for문 돌릴 부분 끝 -->
 					</div>
-					
-					<!--  채소 선택 끝 -->
-					<!-- 공간 -->
+						
+						<!--  채소 선택 끝 -->
+						<!-- 공간 -->
 					<div style="height: 50px; padding-top:20px; padding-bottom:20px;">&nbsp;</div>
-					<!-- 공간 -->
-					
-					<!-- 소스 선택 -->
+						<!-- 공간 -->
+						
+						<!-- 소스 선택 -->
 					<div id="sauce padding">
 						<div class="col-md-3">
 							<h3>소스선택</h3>
@@ -172,155 +200,166 @@
 							<div class="col-md-12 padding" >
 								<div class="col-md-4 padding " style="height:150px;">
 								<label>달콤한소스</label>
-							
-								<%
-									try {
-										String sauce_class = "달콤한소스";
-										ArrayList sauce = dao.SauceList(sauce_class);
-										for (int i = 0; i < sauce.size(); i++) {
-											OrderDto dto = (OrderDto) sauce.get(i);
-								%>
+									<%
+										try {
+											String sauce_class = "달콤한소스";
+											ArrayList sauce = dao.SauceList(sauce_class);
+											for (int i = 0; i < sauce.size(); i++) {
+												OrderDto dto = (OrderDto) sauce.get(i);
+									%>
 									<div class="checkbox">
-										<input type="checkbox" name="sauce_no[]"
-											value="<%=dto.getSauce_no()%>" />
-										<span style="padding-left: 10px;"> <%=dto.getSauce_name()%>
-										</span>
+										<input type="checkbox" name="sauce_no[]" value="<%=dto.getSauce_no()%>" />
+										<span style="padding-left: 10px;"> <%=dto.getSauce_name()%></span>
 									</div>
-								
-								<%
+									<%
+											}
+		
+										} catch (Exception err) {
+											System.out.println("index.jsp : " + err);
 										}
-	
-									} catch (Exception err) {
-										System.out.println("index.jsp : " + err);
-									}
-								%>
-								
-							</div>
-							<div class="col-md-4 padding" style="height:150px;">
-								<label>매콤한소스</label>
-								
-								<%
-									try {
-										String sauce_class = "매콤한소스";
-										ArrayList sauce = dao.SauceList(sauce_class);
-										for (int i = 0; i < sauce.size(); i++) {
-											OrderDto dto = (OrderDto) sauce.get(i);
-								%>
-									<div class="checkbox">
-										<input type="checkbox" name="sauce_no[]"
-											value="<%=dto.getSauce_no()%>" /> <span
-											style="padding-left: 10px;"> <%=dto.getSauce_name()%>
-										</span>
-									</div>
-								<%
-									}
-	
-									} catch (Exception err) {
-										System.out.println("index.jsp : " + err);
-									}
-								%>
-								
-							</div>
-							<div class="col-md-4 padding" style="height:150px;">
-								<label>고소한소스</label>
-								
-								<%
-									try {
-										String sauce_class = "고소한소스";
-										ArrayList sauce = dao.SauceList(sauce_class);
-										for (int i = 0; i < sauce.size(); i++) {
-											OrderDto dto = (OrderDto) sauce.get(i);
-								%>
-								<div class="checkbox">
-									<input type="checkbox" name="sauce_no[]"
-										value="<%=dto.getSauce_no()%>" /> <span
-										style="padding-left: 10px;"> <%=dto.getSauce_name()%>
-									</span>
+									%>
+									
 								</div>
-								<%
-									}
-	
-									} catch (Exception err) {
-										System.out.println("index.jsp : " + err);
-									}
-								%>
-							</div>
-							<div class="col-md-4 padding" style="height:150px;">
-								<label>새콤한소스</label>
-								
-								<%
-									try {
-										String sauce_class = "새콤한소스";
-										ArrayList sauce = dao.SauceList(sauce_class);
-										for (int i = 0; i < sauce.size(); i++) {
-											OrderDto dto = (OrderDto) sauce.get(i);
-								%>
+								<div class="col-md-4 padding" style="height:150px;">
+									<label>매콤한소스</label>
+									
+									<%
+										try {
+											String sauce_class = "매콤한소스";
+											ArrayList sauce = dao.SauceList(sauce_class);
+											for (int i = 0; i < sauce.size(); i++) {
+												OrderDto dto = (OrderDto) sauce.get(i);
+									%>
+										<div class="checkbox">
+											<input type="checkbox" name="sauce_no[]"
+												value="<%=dto.getSauce_no()%>" /> <span
+												style="padding-left: 10px;"> <%=dto.getSauce_name()%>
+											</span>
+										</div>
+									<%
+										}
+		
+										} catch (Exception err) {
+											System.out.println("index.jsp : " + err);
+										}
+									%>
+									
+								</div>
+								<div class="col-md-4 padding" style="height:150px;">
+									<label>고소한소스</label>
+									
+									<%
+										try {
+											String sauce_class = "고소한소스";
+											ArrayList sauce = dao.SauceList(sauce_class);
+											for (int i = 0; i < sauce.size(); i++) {
+												OrderDto dto = (OrderDto) sauce.get(i);
+									%>
 									<div class="checkbox">
 										<input type="checkbox" name="sauce_no[]"
 											value="<%=dto.getSauce_no()%>" /> <span
 											style="padding-left: 10px;"> <%=dto.getSauce_name()%>
 										</span>
 									</div>
-								<%
-									}
-	
-									} catch (Exception err) {
-										System.out.println("index.jsp : " + err);
-									}
-								%>
-							</div>
-							<div class="col-md-4 padding" style="height:150px;">
-								<label>일반소스</label>
-								
-								<%
-									try {
-										String sauce_class = "일반소스";
-										ArrayList sauce = dao.SauceList(sauce_class);
-										for (int i = 0; i < sauce.size(); i++) {
-											OrderDto dto = (OrderDto) sauce.get(i);
-								%>
-									<div class="checkbox">
-										<input type="checkbox" name="sauce_no[]" value="<%=dto.getSauce_no()%>"/> 
-										<span style="padding-left: 10px;">
-											 <%=dto.getSauce_name()%>
-										</span>
-									</div>
-								<%
+									<%
 										}
-	
-									} catch (Exception err) {
-										System.out.println("index.jsp : " + err);
-									}
-								%>
+		
+										} catch (Exception err) {
+											System.out.println("index.jsp : " + err);
+										}
+									%>
+								</div>
+								<div class="col-md-4 padding" style="height:150px;">
+									<label>새콤한소스</label>
+									
+									<%
+										try {
+											String sauce_class = "새콤한소스";
+											ArrayList sauce = dao.SauceList(sauce_class);
+											for (int i = 0; i < sauce.size(); i++) {
+												OrderDto dto = (OrderDto) sauce.get(i);
+									%>
+										<div class="checkbox">
+											<input type="checkbox" name="sauce_no[]"
+												value="<%=dto.getSauce_no()%>" /> <span
+												style="padding-left: 10px;"> <%=dto.getSauce_name()%>
+											</span>
+										</div>
+									<%
+										}
+		
+										} catch (Exception err) {
+											System.out.println("index.jsp : " + err);
+										}
+									%>
+								</div>
+								<div class="col-md-4 padding" style="height:150px;">
+									<label>일반소스</label>
+									
+									<%
+										try {
+											String sauce_class = "일반소스";
+											ArrayList sauce = dao.SauceList(sauce_class);
+											for (int i = 0; i < sauce.size(); i++) {
+												OrderDto dto = (OrderDto) sauce.get(i);
+									%>
+										<div class="checkbox">
+											<input type="checkbox" name="sauce_no[]" value="<%=dto.getSauce_no()%>"/> 
+											<span style="padding-left: 10px;">
+												 <%=dto.getSauce_name()%>
+											</span>
+										</div>
+									<%
+											}
+		
+										} catch (Exception err) {
+											System.out.println("index.jsp : " + err);
+										}
+									%>
+								</div>
+
+								<input type="hidden" id="SelectSauceValue" name="SelectSauceValue"/>
+								<button id="selectSauce">버튼</button>
 							</div>
-							<input type="hidden" id="SelectSauceValue" name="SelectSauceValue"/>
-							<button id="selectSauce">버튼</button>
+						</div>
+					</div>
+					
+					<!-- 소스끝 -->
+					<div class="col-md-12 padding">
+						<aside class="box success_box">
+							<table >
+								<tbody >
+									<tr>
+										<td style="text-align:center;"><h4>메뉴 이름</h4> </td>
+										<td id="Html_menu_name" style="text-align:center;"></td>
+										<td style="text-align:center;"><h4>가격</h4></td>
+										<td id="Html_basic_price" style="text-align:center;"></td>
+										<td style="text-align:center;">
+											<h4>수량</h4> 
+										</td>
+										<td style="text-align:center;"><input type="text" class="form-control" placeholder="수량을 입력해주세요" id="Menu_count" name="count" onblur="Menu_CountPrice()"/></td>
+									</tr>
+									<tr>
+										<td colspan="6" style="text-align:right;">
+										<h4>합계 : <span id="Html_CountPrice" style="padding-left:20px; padding-right:20px;"></span></h4>
+											<input type="text" id="CountPirce" name="CountPirce"/>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</aside>
+					</div>
+				
+					<div class="col-md-12">
+						<div class="col-md-6">
+							<button class="btn btn-primary" id="Order_Save">주문하기</button>
+						</div>
+						<div class="col-md-6">
+							<button class="btn btn-primary" id="DetailOrder_Save">다른메뉴 주문하기</button>
 						</div>
 					</div>
 				</div>
-				<!-- 소스끝 -->
-				<div class="col-md-12 padding">
-					<aside class="box success_box">
-						<table >
-							<tbody >
-								<tr>
-									<td style="text-align:center;"><h4>메뉴 이름</h4> </td>
-									<td id="Html_menu_name" style="text-align:center;"></td>
-									<td style="text-align:center;"><h4>가격</h4></td>
-									<td id="Html_basic_price" style="text-align:center;"></td>
-									<td style="text-align:center;">
-										<h4>수량</h4> 
-									</td>
-									<td style="text-align:center;"><input type="text" class="form-control" placeholder="수량을 입력해주세요" id="Menu_count" name="count" onblur="Menu_CountPrice()"/></td>
-								</tr>
-								<tr>
-									<td colspan="6" style="text-align:right;"><h4>합계 : <span id="Html_CountPrice" style="padding-left:20px; padding-right:20px;"></span></h4></td>
-								</tr>
-							</tbody>
-						</table>
-					</aside>
-				</div>
-			</div>
+			</form>
 		</div>
 	</div>
 	
@@ -365,7 +404,7 @@
 				$("#FavoriteList").modal();
 			});
 			//야채 전체선택
-			$("#AllVegetable").click(function() {
+			$("#AllVegetable").click(function(){
 				VegetableCheckAll();
 			});
 			//선택된 소스 보기
@@ -374,6 +413,9 @@
 			});
 			$("input[name='menu_size']").click(function(){
 				var size = $(":radio[name='menu_size']:checked").val();
+			});
+			$("#Order_Save").click(function(){
+				SelectValues();
 			});
 		
 		});
@@ -463,7 +505,6 @@
 					checkRow = '';    //checkRow초기화.
 				}
 			}
-			alert(checkCnt);
 			if(checkCnt > 3){
 				alert("소스는 3가지 까지 선택 가능합니다.");
 				$("#sauce").focus();
@@ -512,8 +553,7 @@
 		}
 		//메뉴 베스트 소스 알기
 		function Menu_Bestsauce(){
-			ViewPrice();
-			var menu_no = $(":radio[name='List_menuno']:checked").val();
+			var menu_no = $(":radio[name='menu_no']:checked").val();
 			var param = "menu_no=" + menu_no;
 			sendRequest("POST","bestSauce.jsp", Sauceback ,param);
 		}
@@ -524,7 +564,8 @@
 					var div = document.getElementById("bestSauceHtml");
 			 		div.innerHTML = httpRequest.responseText;
 			 		div.style.display = "";
-			 	//	alert(httpRequest.responseText);
+			 		ViewPrice();
+			 		//	alert(httpRequest.responseText);
 			 	}else{
 					alert(httpRequest.status);
 				}
@@ -532,7 +573,7 @@
 		}
 		
 		function ViewPrice(){
-			var menu_no = $(":radio[name='List_menuno']:checked").val();
+			var menu_no = $(":radio[name='menu_no']:checked").val();
 			var basic_price = $("#basic_price_"+menu_no).val();
 			var menu_name = $("#menu_name_"+menu_no).val();	
 			$("#Html_menu_name").text(menu_name);
@@ -545,10 +586,48 @@
 			var basic_price = $("#Html_basic_price").val();
 			var menu_count = $("#Menu_count").val();
 			var menuPrice = basic_price * menu_count;
-			$("#Html_CountPrice").val(menuPrice);
+			$("#CountPirce").val(menuPrice);
 			$("#Html_CountPrice").html(menuPrice);
 		}
+		function SelectValues(){
+			selectVegRow();
+			selectSauRow();
+			OrderSave_Check();
+		}
+		function OrderSave_Check(){
 		
+			var menu_no = $(":radio[name='menu_no']:checked").val();
+			var bread_no = $(":radio[name='bread_no']:checked").val();
+			var store_no = $("#store_no").val();
+			if(store_no == ""){
+				alert("매장을 선택해 주세요.");
+				return;
+			}
+			if(bread_no == null){
+				alert("빵종류를 선택해 주세요");
+				return;
+			}
+			if(menu_no == null){
+				alert("메뉴를 선택해 주세요.");
+				return;
+			}
+		
+			if($("#VegetableList").val()==""){
+				alert("채소를 선택 해 주세요.");
+				return;
+			}
+			if($("#SelectSauceValue").val()==""){
+				alert("소스를 선택 해 주세요.");
+				return;
+			}
+			
+			OrderSave();
+		}
+		
+		function OrderSave(){
+			var param = $("#OrderSaveForm").serialize();
+			alert(param);
+		}
 		
 	</script>
 

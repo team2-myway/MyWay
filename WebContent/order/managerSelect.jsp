@@ -2,8 +2,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page contentType="text/html; charset=EUC-KR"%>
 <jsp:useBean id="dao" class="order.OrderDao"></jsp:useBean>
-		<select name="store_no">
-						
+		<select name="store_no" id="store_no">
+		<option value="">선택해주세요</option>
 				
 <%
 	String manager_addr = request.getParameter("manager_addr");

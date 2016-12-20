@@ -132,7 +132,30 @@ public class OrderDao {
 		
 		return list;
 	}
-	
+	//빵 리스트 뽑기
+	public ArrayList BreadList(){
+		ArrayList list = new ArrayList();
+		String sql = "select * from bread";
+		try{
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				OrderDto dto = new OrderDto();
+				dto.setBread_no(rs.getInt("bread_no"));
+				dto.setBread_name(rs.getString("name"));
+				dto.setBread_detail(rs.getString("detail"));
+				list.add(dto);
+			}
+		}catch(Exception err){
+			System.out.println("SouceList" + err);
+		}finally{
+			freeConnection();
+		}
+		
+		return list;
+	}
 	
 	
 	//소스 리스트 
