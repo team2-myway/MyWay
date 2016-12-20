@@ -14,6 +14,10 @@
 		padding-right:5px;
 		padding-bottom:5px;
 	}
+	.padding{
+		padding-top:10px;
+		padding-bottom:10px;
+	}
 </style>
 </head>
 <body class="page">
@@ -30,7 +34,7 @@
 				</ul>
 			</div>
 			<div class="col-md-10">
-				<div class="col-md-12">
+				<div class="col-md-12 padding">
 					<label class="col-md-3">매장 선택</label>
 					<div class="col-md-4">
 						<select id="manage_addr" onchange="SelManagerAddr()">
@@ -56,16 +60,16 @@
 					</div>
 				</div>
 					<!-- 메뉴 선택 시작-->
-				<div class="col-md-12" style="padding-top: 20px;">
+				<div class="col-md-12 padding" style="padding-top: 20px;">
 					<label class="col-md-2">메뉴선택</label>
 					<button id="Favorites" class="btn btn-primary">★ 즐겨찾기</button>
 				</div>
-				<div class="col-md-12" style="padding-top: 20px;">
+				<div class="col-md-12 padding" style="padding-top: 20px;">
 					<label class="col-md-2">사이즈선택</label> 
 					<input type="radio"	name="menu_size" value="15" checked onclick="SelMenuClass()"/> 15cm &nbsp;&nbsp;&nbsp;
 					<input type="radio" name="menu_size" value="30" onclick="SelMenuClass()"/> 30cm
 				</div>
-				<div class="col-md-12" style="padding-top: 20px;">
+				<div class="col-md-12 padding" style="padding-top: 20px;">
 					<div class="col-md-3">
 						<select id="menu_class" name="menu_class" onchange="SelMenuClass()">
 						<option value="All" selected>전체보기</option>
@@ -105,17 +109,17 @@
 				</div>
 					<!-- 메뉴 선택 끝-->
 					<!--  채소 선택 시작 -->
-					<div class="col-md-12" style="padding-top: 20px;">
+					<div class="col-md-12 padding" style="padding-top: 20px;">
 						<label class="col-md-2">채소선택</label>
 					</div>
-					<div class="col-md-12" style="padding-top: 20px;">
+					<div class="col-md-12 padding" style="padding-top: 20px;">
 						<div class="col-md-3">
 							<button class="btn btn-primary" id="AllVegetable">All</button>
 						</div>
 
 						<!-- 채소들 for문 돌릴 부분  -->
 						<div class="col-md-9">
-							<div class="col-md-12">
+							<div class="col-md-12 padding">
 								<% 
 								try {
 									ArrayList vegetableList = dao.VegetableList();
@@ -141,7 +145,7 @@
 									System.out.println("index.jsp : " + err);
 								}
 								%>
-								<input type="text" id="VegetableList"/>
+								<input type="hidden" id="VegetableList" name="VegetableList"/>
 							</div>
 						</div>
 						<!-- 메뉴들 for문 돌릴 부분 끝 -->
@@ -149,16 +153,17 @@
 					
 					<!--  채소 선택 끝 -->
 					<!-- 공간 -->
+					<div style="height: 50px; padding-top:20px; padding-bottom:20px;">&nbsp;</div>
 					<!-- 공간 -->
 					
 					<!-- 소스 선택 -->
-					<div id="sauce">
+					<div id="sauce padding">
 						<div class="col-md-2">
-							소스선택
+							<label>소스선택</label>
 						</div>
-						<div class="col-md-10">
-							<div class="col-md-12"id="bestSauceHtml"></div>
-							<div class="col-md-12">
+						<div class="col-md-10 ">
+							<div class="col-md-12 padding" id="bestSauceHtml" style="padding-top:10px; padding-bottom:10px;"></div>
+							<div class="col-md-12 padding">
 							<label>달콤한소스</label>
 							<div class="sauce_class">
 							<%
@@ -182,7 +187,7 @@
 							%>
 							</div>
 						</div>
-						<div class="col-md-12">
+						<div class="col-md-12 padding">
 							<label>매콤한소스</label>
 							<div class="sauce_class">
 							<%
@@ -205,7 +210,7 @@
 							%>
 							</div>
 						</div>
-						<div class="col-md-12">
+						<div class="col-md-12 padding">
 							<label>고소한소스</label>
 							<div class="sauce_class">
 							<%
@@ -228,7 +233,7 @@
 							%>
 							</div>
 						</div>
-						<div class="col-md-12">
+						<div class="col-md-12 padding">
 							<label>새콤한소스</label>
 							<div class="sauce_class">
 							<%
@@ -251,7 +256,7 @@
 							%>
 							</div>
 						</div>
-						<div class="col-md-12">
+						<div class="col-md-12 padding">
 							<label>일반소스</label>
 							<div class="sauce_class">
 							<%
@@ -279,6 +284,20 @@
 					</div>
 				</div>
 				<!-- 소스끝 -->
+				<div class="col-md-12 padding">
+					<aside class="box success_box">
+						<table>
+							<tbody>
+								<tr>
+									<td>메뉴 이름</td>
+									<td id="Html_menu_name"></td>
+									<td>가격</td>
+									<td id="Html_basic_price"></td>
+								</tr>
+							</tbody>
+						</table>
+					</aside>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -485,7 +504,7 @@
 				if(httpRequest.status == 200){
 					var div = document.getElementById("bestSauceHtml");
 			 		div.innerHTML = httpRequest.responseText;
-			 		alert(httpRequest.responseText);
+			 	//	alert(httpRequest.responseText);
 			 	}else{
 					alert(httpRequest.status);
 				}
@@ -494,8 +513,17 @@
 		function ViewPrice(){
 			var menu_no = $(":radio[name='List_menuno']:checked").val();
 			var basic_price = $("#basic_price_"+menu_no).val();
-			
+			var menu_name = $("#menu_name_"+menu_no).val();
+			$("#Html_menu_name").text(menu_name);
+			$("#Html_basic_price").text(basic_price);
+			$("#Html_menu_name").val(menu_name);
+			$("#Html_basic_price").val(basic_price);
+			//alert(basic_price);
 		}
+		function TotalPrice(){
+		
+		}
+		
 		
 	</script>
 

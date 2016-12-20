@@ -45,6 +45,7 @@ try {
 		</article>
 	</div>
 	<input type="hidden" id="basic_price_<%=dto.getMenu_no()%>" value="<%=dto.getMenu_price()%>"/>
+	<input type="hidden" id="menu_name_<%=dto.getMenu_no()%>" value="<%=dto.getMenu_name()%>"/>
 <%
 }
 

@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 	
+=======
+<%@ page contentType="text/html; charset=EUC-KR"%>
+>>>>>>> refs/remotes/origin/nahye
 	<link rel="stylesheet" href="../lib/css/style.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="../lib/css/styles/fonts.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="../lib/css/styles/adaptive.css" type="text/css" media="screen" />

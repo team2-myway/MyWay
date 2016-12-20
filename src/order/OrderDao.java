@@ -77,7 +77,6 @@ public class OrderDao {
 					dto.setMenu_bestSouce(rs.getString("sauce_no"));
 				}
 				
-				System.out.println(dto.getMenu_bestSouce());
 				String[] sauce = dto.getMenu_bestSouce().split("\\|");
 				String bestsauce = "";
 				String sql1="select name from sauce where ";
@@ -99,8 +98,6 @@ public class OrderDao {
 					for(int i=0; i<sauce.length; i++){
 						rs.next();
 						list.add(rs.getString("name"));
-						System.out.println(rs.getString("name"));
-						
 					}
 			
 			}catch(Exception err){
