@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=EUC-KR"%>
 	<link rel="stylesheet" href="../lib/css/style.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="../lib/css/styles/fonts.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="../lib/css/styles/adaptive.css" type="text/css" media="screen" />

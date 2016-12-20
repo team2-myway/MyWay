@@ -1,5 +1,5 @@
 	<div class="footer">
-		<span class="copyright">Medicure © 2014 | All Rights Reserved</span>
+		<span class="copyright">Medicure ï¿½ 2014 | All Rights Reserved</span>
 		<ul id="footer_nav" class="footer_nav">
 			<li class="menu-item">
 				<a href="index.html">Home</a>
