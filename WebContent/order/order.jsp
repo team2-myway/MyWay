@@ -35,7 +35,9 @@
 			</div>
 			<div class="col-md-10">
 				<div class="col-md-12 padding">
-					<label class="col-md-3">매장 선택</label>
+					<div class="col-md-3">
+						<h3> 매장 선택</h3>
+					</div>
 					<div class="col-md-4">
 						<select id="manage_addr" onchange="SelManagerAddr()">
 								<option value="" width="200px;"> 선택해주세요</option>
@@ -61,11 +63,15 @@
 				</div>
 					<!-- 메뉴 선택 시작-->
 				<div class="col-md-12 padding" style="padding-top: 20px;">
-					<label class="col-md-2">메뉴선택</label>
+					<div class="col-md-3">
+						<h3>메뉴선택</h3>
+					</div>
 					<button id="Favorites" class="btn btn-primary">★ 즐겨찾기</button>
 				</div>
 				<div class="col-md-12 padding" style="padding-top: 20px;">
-					<label class="col-md-2">사이즈선택</label> 
+					<div class="col-md-3">
+						<h3>사이즈선택</h3>
+					</div>
 					<input type="radio"	name="menu_size" value="15" checked onclick="SelMenuClass()"/> 15cm &nbsp;&nbsp;&nbsp;
 					<input type="radio" name="menu_size" value="30" onclick="SelMenuClass()"/> 30cm
 				</div>
@@ -110,7 +116,7 @@
 					<!-- 메뉴 선택 끝-->
 					<!--  채소 선택 시작 -->
 					<div class="col-md-12 padding" style="padding-top: 20px;">
-						<label class="col-md-2">채소선택</label>
+						<div class="col-md-3"><h3>채소선택</h3></div>
 					</div>
 					<div class="col-md-12 padding" style="padding-top: 20px;">
 						<div class="col-md-3">
@@ -158,141 +164,157 @@
 					
 					<!-- 소스 선택 -->
 					<div id="sauce padding">
-						<div class="col-md-2">
-							<label>소스선택</label>
+						<div class="col-md-3">
+							<h3>소스선택</h3>
 						</div>
-						<div class="col-md-10 ">
-							<div class="col-md-12 padding" id="bestSauceHtml" style="padding-top:10px; padding-bottom:10px;"></div>
-							<div class="col-md-12 padding">
-							<label>달콤한소스</label>
-							<div class="sauce_class">
-							<%
-								try {
-									String sauce_class = "달콤한소스";
-									ArrayList sauce = dao.SauceList(sauce_class);
-									for (int i = 0; i < sauce.size(); i++) {
-										OrderDto dto = (OrderDto) sauce.get(i);
-							%>
-								<input type="checkbox" name="sauce_no[]"
-									value="<%=dto.getSauce_no()%>" /> <span
-									style="padding-left: 10px;"> <%=dto.getSauce_name()%>
-								</span>
+						<div class="col-md-9 ">
+							<div class="col-md-12 padding" id="bestSauceHtml" style="display:none;"></div>
+							<div class="col-md-12 padding" >
+								<div class="col-md-4 padding " style="height:150px;">
+								<label>달콤한소스</label>
 							
-							<%
-								}
-
-								} catch (Exception err) {
-									System.out.println("index.jsp : " + err);
-								}
-							%>
-							</div>
-						</div>
-						<div class="col-md-12 padding">
-							<label>매콤한소스</label>
-							<div class="sauce_class">
-							<%
-								try {
-									String sauce_class = "매콤한소스";
-									ArrayList sauce = dao.SauceList(sauce_class);
-									for (int i = 0; i < sauce.size(); i++) {
-										OrderDto dto = (OrderDto) sauce.get(i);
-							%>
-								<input type="checkbox" name="sauce_no[]"
-									value="<%=dto.getSauce_no()%>" /> <span
-									style="padding-left: 10px;"> <%=dto.getSauce_name()%>
-								</span>
-							<%
-								}
-
-								} catch (Exception err) {
-									System.out.println("index.jsp : " + err);
-								}
-							%>
-							</div>
-						</div>
-						<div class="col-md-12 padding">
-							<label>고소한소스</label>
-							<div class="sauce_class">
-							<%
-								try {
-									String sauce_class = "고소한소스";
-									ArrayList sauce = dao.SauceList(sauce_class);
-									for (int i = 0; i < sauce.size(); i++) {
-										OrderDto dto = (OrderDto) sauce.get(i);
-							%>
-								<input type="checkbox" name="sauce_no[]"
-									value="<%=dto.getSauce_no()%>" /> <span
-									style="padding-left: 10px;"> <%=dto.getSauce_name()%>
-								</span>
-							<%
-								}
-
-								} catch (Exception err) {
-									System.out.println("index.jsp : " + err);
-								}
-							%>
-							</div>
-						</div>
-						<div class="col-md-12 padding">
-							<label>새콤한소스</label>
-							<div class="sauce_class">
-							<%
-								try {
-									String sauce_class = "새콤한소스";
-									ArrayList sauce = dao.SauceList(sauce_class);
-									for (int i = 0; i < sauce.size(); i++) {
-										OrderDto dto = (OrderDto) sauce.get(i);
-							%>
-								<input type="checkbox" name="sauce_no[]"
-									value="<%=dto.getSauce_no()%>" /> <span
-									style="padding-left: 10px;"> <%=dto.getSauce_name()%>
-								</span>
-							<%
-								}
-
-								} catch (Exception err) {
-									System.out.println("index.jsp : " + err);
-								}
-							%>
-							</div>
-						</div>
-						<div class="col-md-12 padding">
-							<label>일반소스</label>
-							<div class="sauce_class">
-							<%
-								try {
-									String sauce_class = "일반소스";
-									ArrayList sauce = dao.SauceList(sauce_class);
-									for (int i = 0; i < sauce.size(); i++) {
-										OrderDto dto = (OrderDto) sauce.get(i);
-							%>
-								<input type="checkbox" name="sauce_no[]" value="<%=dto.getSauce_no()%>"/> 
-								<span style="padding-left: 10px;">
-									 <%=dto.getSauce_name()%>
-								</span>
-							<%
+								<%
+									try {
+										String sauce_class = "달콤한소스";
+										ArrayList sauce = dao.SauceList(sauce_class);
+										for (int i = 0; i < sauce.size(); i++) {
+											OrderDto dto = (OrderDto) sauce.get(i);
+								%>
+									<div class="checkbox">
+										<input type="checkbox" name="sauce_no[]"
+											value="<%=dto.getSauce_no()%>" />
+										<span style="padding-left: 10px;"> <%=dto.getSauce_name()%>
+										</span>
+									</div>
+								
+								<%
+										}
+	
+									} catch (Exception err) {
+										System.out.println("index.jsp : " + err);
 									}
-
-								} catch (Exception err) {
-									System.out.println("index.jsp : " + err);
-								}
-							%>
+								%>
+								
 							</div>
+							<div class="col-md-4 padding" style="height:150px;">
+								<label>매콤한소스</label>
+								
+								<%
+									try {
+										String sauce_class = "매콤한소스";
+										ArrayList sauce = dao.SauceList(sauce_class);
+										for (int i = 0; i < sauce.size(); i++) {
+											OrderDto dto = (OrderDto) sauce.get(i);
+								%>
+									<div class="checkbox">
+										<input type="checkbox" name="sauce_no[]"
+											value="<%=dto.getSauce_no()%>" /> <span
+											style="padding-left: 10px;"> <%=dto.getSauce_name()%>
+										</span>
+									</div>
+								<%
+									}
+	
+									} catch (Exception err) {
+										System.out.println("index.jsp : " + err);
+									}
+								%>
+								
+							</div>
+							<div class="col-md-4 padding" style="height:150px;">
+								<label>고소한소스</label>
+								
+								<%
+									try {
+										String sauce_class = "고소한소스";
+										ArrayList sauce = dao.SauceList(sauce_class);
+										for (int i = 0; i < sauce.size(); i++) {
+											OrderDto dto = (OrderDto) sauce.get(i);
+								%>
+								<div class="checkbox">
+									<input type="checkbox" name="sauce_no[]"
+										value="<%=dto.getSauce_no()%>" /> <span
+										style="padding-left: 10px;"> <%=dto.getSauce_name()%>
+									</span>
+								</div>
+								<%
+									}
+	
+									} catch (Exception err) {
+										System.out.println("index.jsp : " + err);
+									}
+								%>
+							</div>
+							<div class="col-md-4 padding" style="height:150px;">
+								<label>새콤한소스</label>
+								
+								<%
+									try {
+										String sauce_class = "새콤한소스";
+										ArrayList sauce = dao.SauceList(sauce_class);
+										for (int i = 0; i < sauce.size(); i++) {
+											OrderDto dto = (OrderDto) sauce.get(i);
+								%>
+									<div class="checkbox">
+										<input type="checkbox" name="sauce_no[]"
+											value="<%=dto.getSauce_no()%>" /> <span
+											style="padding-left: 10px;"> <%=dto.getSauce_name()%>
+										</span>
+									</div>
+								<%
+									}
+	
+									} catch (Exception err) {
+										System.out.println("index.jsp : " + err);
+									}
+								%>
+							</div>
+							<div class="col-md-4 padding" style="height:150px;">
+								<label>일반소스</label>
+								
+								<%
+									try {
+										String sauce_class = "일반소스";
+										ArrayList sauce = dao.SauceList(sauce_class);
+										for (int i = 0; i < sauce.size(); i++) {
+											OrderDto dto = (OrderDto) sauce.get(i);
+								%>
+									<div class="checkbox">
+										<input type="checkbox" name="sauce_no[]" value="<%=dto.getSauce_no()%>"/> 
+										<span style="padding-left: 10px;">
+											 <%=dto.getSauce_name()%>
+										</span>
+									</div>
+								<%
+										}
+	
+									} catch (Exception err) {
+										System.out.println("index.jsp : " + err);
+									}
+								%>
+							</div>
+							<input type="hidden" id="SelectSauceValue" name="SelectSauceValue"/>
+							<button id="selectSauce">버튼</button>
 						</div>
-						<input type="text" id="SelectSauceValue" name="SelectSauceValue"/>
-						<button id="selectSauce">버튼</button>
 					</div>
 				</div>
 				<!-- 소스끝 -->
 				<div class="col-md-12 padding">
 					<aside class="box success_box">
-						<table>
-							<tbody>
+						<table >
+							<tbody >
 								<tr>
-									<td>메뉴 이름</td>
-									<td id="Html_menu_name"></td>
-									<td>가격</td>
-									<td id="Html_basic_price"></td>
+									<td style="text-align:center;"><h4>메뉴 이름</h4> </td>
+									<td id="Html_menu_name" style="text-align:center;"></td>
+									<td style="text-align:center;"><h4>가격</h4></td>
+									<td id="Html_basic_price" style="text-align:center;"></td>
+									<td style="text-align:center;">
+										<h4>수량</h4> 
+									</td>
+									<td style="text-align:center;"><input type="text" class="form-control" placeholder="수량을 입력해주세요" id="Menu_count" name="count" onblur="Menu_CountPrice()"/></td>
+								</tr>
+								<tr>
+									<td colspan="6" style="text-align:right;"><h4>합계 : <span id="Html_CountPrice" style="padding-left:20px; padding-right:20px;"></span></h4></td>
 								</tr>
 							</tbody>
 						</table>
@@ -337,8 +359,6 @@
 	window.onload = function(){
 		SelMenuClass();
 	}
-	Html_MenuList();
-	
 		$(function() {
 			// 즐겨찾기 목록 
 			$("#Favorites").click(function() {
@@ -355,8 +375,7 @@
 			$("input[name='menu_size']").click(function(){
 				var size = $(":radio[name='menu_size']:checked").val();
 			});
-			
-			
+		
 		});
 		
 		var check = false;
@@ -504,24 +523,30 @@
 				if(httpRequest.status == 200){
 					var div = document.getElementById("bestSauceHtml");
 			 		div.innerHTML = httpRequest.responseText;
+			 		div.style.display = "";
 			 	//	alert(httpRequest.responseText);
 			 	}else{
 					alert(httpRequest.status);
 				}
 			}	
 		}
+		
 		function ViewPrice(){
 			var menu_no = $(":radio[name='List_menuno']:checked").val();
 			var basic_price = $("#basic_price_"+menu_no).val();
-			var menu_name = $("#menu_name_"+menu_no).val();
+			var menu_name = $("#menu_name_"+menu_no).val();	
 			$("#Html_menu_name").text(menu_name);
 			$("#Html_basic_price").text(basic_price);
 			$("#Html_menu_name").val(menu_name);
 			$("#Html_basic_price").val(basic_price);
 			//alert(basic_price);
 		}
-		function TotalPrice(){
-		
+		function Menu_CountPrice(){	
+			var basic_price = $("#Html_basic_price").val();
+			var menu_count = $("#Menu_count").val();
+			var menuPrice = basic_price * menu_count;
+			$("#Html_CountPrice").val(menuPrice);
+			$("#Html_CountPrice").html(menuPrice);
 		}
 		
 		
