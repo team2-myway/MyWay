@@ -33,7 +33,7 @@
 					<li>사이드메뉴</li>
 				</ul>
 			</div>
-			<form id="OrderSaveForm" class="form-horizontal" onsubmit="return false;">
+			<form id="OrderSaveForm" class="form-horizontal" onsubmit="return false;" method="post" action="OrderSave.jsp">
 				<div class="col-md-10">
 					<div class="col-md-12 padding">
 						<input type="hidden" name="account_no" value="5"/>
@@ -625,8 +625,7 @@
 		}
 		
 		function OrderSave(){
-			var param = $("#OrderSaveForm").serialize();
-			alert(param);
+			document.getElementById("OrderSaveForm").submit();
 		}
 		
 	</script>
