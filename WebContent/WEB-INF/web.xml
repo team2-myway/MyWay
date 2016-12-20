@@ -10,7 +10,7 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   	
-  	<resource-ref>
+  <resource-ref>
       <description>DB Connection</description>
       <res-ref-name>jdbc/MysqlDB</res-ref-name>
       <res-type>javax.sql.DataSource</res-type>
