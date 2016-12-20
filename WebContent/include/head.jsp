@@ -1,6 +1,6 @@
 
 	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-<%@ page contentType="text/html; charset=EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="../lib/css/style.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="../lib/css/styles/fonts.css" type="text/css" media="screen" />

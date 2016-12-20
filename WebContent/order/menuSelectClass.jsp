@@ -1,6 +1,6 @@
 <%@page import="order.OrderDto"%>
 <%@page import="java.util.ArrayList"%>
-<%@page contentType="text/html; charset=EUC-KR"%>
+<%@page contentType="text/html; charset=UTF-8"%>
 <%@ include file="../include/head.jsp"%>
 <jsp:useBean id="dao" class="order.OrderDao"></jsp:useBean>
 <%
@@ -31,7 +31,7 @@ try {
 					</h5>
 				</header>
 				<footer class="entry-meta">
-					<span class="post_category">°Ў°Э : <b><%=dto.getMenu_price()%></b>їш,
+					<span class="post_category">к°ЂкІ© : <b><%=dto.getMenu_price()%></b>м›ђ,
 					 calorie :<b><%=dto.getMenu_calorie() %></b> calorie
 					</span>
 				<div style="text-align:center">
