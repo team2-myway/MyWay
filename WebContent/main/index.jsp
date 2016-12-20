@@ -19,7 +19,7 @@
 			<%@ include file="../include/footer.jsp"%>
 		</footer>
 	</section>
-	<script src="./lib/bootstrap/js/jquery-3.1.1.min.js"></script>
-	<script src="./lib/bootstrap/js/bootstrap.js"></script>
+	<script src="../lib/bootstrap/js/jquery-3.1.1.min.js"></script>
+	<script src="../lib/bootstrap/js/bootstrap.js"></script>
 </body>
 </html>

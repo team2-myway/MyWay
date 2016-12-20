@@ -14,6 +14,7 @@
 <%
 		//if (session.getAttribute("super").equals("super")){
 %>
+<!-- 
 		<div class="col-sm-12">
 			<div class="col-sm-3">
 				<a href="index.html" title="Medicure" class="logo"> <img
@@ -21,7 +22,7 @@
 					class="responsive_nav" href="javascript:void(0);"> <span></span></a>
 			</div>
 			<div class="col-sm-9">
-				<!-- _________________________ Start Navigation _________________________ -->
+				
 				<div class="wrap_nav">
 					<nav role="navigation">
 						<ul id="navigation" class="navigation">
@@ -40,13 +41,14 @@
 						</ul>
 					</nav>
 				</div>
-				<!-- _________________________ Finish Navigation _________________________ -->
+				
 			</div>
 		</div>
+-->
 <%
 		//} else if (session.getAttribute("manager").equals("manager")) {
 %>
-<!-- 
+
 		<div class="col-sm-12">
 			<div class="col-sm-3">
 				<a href="index.html" title="Medicure" class="logo"> <img
@@ -54,7 +56,7 @@
 					class="responsive_nav" href="javascript:void(0);"> <span></span></a>
 			</div>
 			<div class="col-sm-9">
-				
+				<!-- _________________________ Start Navigation _________________________ -->
 				<div class="wrap_nav">
 					<nav role="navigation">
 						<ul id="navigation" class="navigation">
@@ -74,10 +76,10 @@
 						</ul>
 					</nav>
 				</div>
-				
+				<!-- _________________________ Finish Navigation _________________________ -->
 			</div>
 		</div>
-		 -->
+
 <%
 		//} else {
 %>
