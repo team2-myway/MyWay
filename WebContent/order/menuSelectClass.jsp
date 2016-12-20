@@ -8,11 +8,14 @@
 	String menusize = request.getParameter("size");
 try {
 	ArrayList menuList = dao.MenuSizeList(menusize, menuclass);
+	%>
+		<input type="hidden" id="menuList_len" value="<%=menuList.size()%>"/>
+	<%
 	for (int i = 0; i < menuList.size(); i++) {
 		OrderDto dto = (OrderDto) menuList.get(i);
 %>
 	<div class="col-md-4" style=" height:300px; text-align:center; ">
-		<input type="radio" value="<%=dto.getMenu_no()%>" name="List_menuno"><br>
+		<input type="radio" value="<%=dto.getMenu_no()%>" name="List_menuno" onclick="Menu_Bestsauce()"><br>
 		<article class="service type-service hentry one_fourth format-slider col-md-12">
 			<figure>
 				<span class="image_container_img">
@@ -41,7 +44,7 @@ try {
 			</div>
 		</article>
 	</div>
-	<input type="hidden" value="<%=dto.getMenu_price()%>"/>
+	<input type="hidden" id="basic_price_<%=dto.getMenu_no()%>" value="<%=dto.getMenu_price()%>"/>
 <%
 }
 

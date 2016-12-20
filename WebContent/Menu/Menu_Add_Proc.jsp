@@ -14,7 +14,6 @@
 <jsp:setProperty property="*" name="dto" />
 <jsp:useBean id="dao" class="Menu.dao.MenuDao" />
 <%
-	dao.Menu_Add(dto);
 %>
 	<script>
 		alert("추가 되었습니다.");

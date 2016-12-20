@@ -18,10 +18,9 @@
 </head>
 <body class="page">
 <section id="page" class="csstransition cmsms_resp hfeed site">
-	<%@ include file="../include/header.jsp"%>
-	<jsp:useBean id="dao" class="order.OrderDao"/>
+<%@ include file="../include/header.jsp"%>
+<jsp:useBean id="dao" class="order.OrderDao"/>
 	<div class="container">
-			<input type="file" name="file"/>
 		<div class="col-md-12">
 			<div class="col-md-2">
 				<ul>
@@ -33,21 +32,16 @@
 			<div class="col-md-10">
 				<div class="col-md-12">
 					<label class="col-md-3">매장 선택</label>
-					<div class="col-md-3">
-						<select id="manage_addr" onchange="SelectManage_name">
+					<div class="col-md-4">
+						<select id="manage_addr" onchange="SelManagerAddr()">
+								<option value="" width="200px;"> 선택해주세요</option>
 							<%
 							try {
 								ArrayList manageList = dao.ManagerAddrList();
 								for (int i = 0; i < manageList.size(); i++) {
 									OrderDto dto = (OrderDto) manageList.get(i);
-									String selected = "";
-									if(dto.getManage_addr().equals("경기")){
-										selected="selected";
-									}else{
-										selected="";
-									}
 								%>
-								<option value="<%=dto.getManage_addr()%>"<%=selected%>><%=dto.getManage_addr()%></option>
+								<option value="<%=dto.getManage_addr()%>"><%=dto.getManage_addr()%></option>
 							<%
 							}
 
@@ -58,10 +52,7 @@
 						
 						</select>
 					</div>
-					<div class="col-md-3">
-						<select id="manage_name">
-						
-						</select>
+					<div class="col-md-4" id="manage_name">
 					</div>
 				</div>
 					<!-- 메뉴 선택 시작-->
@@ -111,6 +102,7 @@
 						</div>
 						<!-- 메뉴들 for문 돌릴 부분 끝 -->
 					</div>
+				</div>
 					<!-- 메뉴 선택 끝-->
 					<!--  채소 선택 시작 -->
 					<div class="col-md-12" style="padding-top: 20px;">
@@ -165,6 +157,7 @@
 							소스선택
 						</div>
 						<div class="col-md-10">
+							<div class="col-md-12"id="bestSauceHtml"></div>
 							<div class="col-md-12">
 							<label>달콤한소스</label>
 							<div class="sauce_class">
@@ -285,10 +278,10 @@
 						<button id="selectSauce">버튼</button>
 					</div>
 				</div>
+				<!-- 소스끝 -->
 			</div>
 		</div>
 	</div>
-	
 	
 	<div class=" modal fade" id="FavoriteList" data-backdrop="static">
 		<div class="modal-dialog">
@@ -325,6 +318,8 @@
 	window.onload = function(){
 		SelMenuClass();
 	}
+	Html_MenuList();
+	
 		$(function() {
 			// 즐겨찾기 목록 
 			$("#Favorites").click(function() {
@@ -462,9 +457,8 @@
 		// 매장 지점 
 		function SelManagerAddr(){
 			var manageraddr = $("#manage_addr").val();
-			
 			var param = "manager_addr=" + manageraddr;
-			sendRequest("POST","managerSelect.jsp",Addrback,param);
+			sendRequest("POST","managerSelect.jsp", Addrback ,param);
 		}
 		// 매장이름 나오게 할 부분
 		function Addrback(){
@@ -472,12 +466,35 @@
 				if(httpRequest.status == 200){
 					var div = document.getElementById("manage_name");
 			 		div.innerHTML = httpRequest.responseText;
-			 		alert("qwer");
 			 		alert(httpRequest.responseText);
 			 	}else{
 					alert(httpRequest.status);
 				}
 			}
+		}
+		//메뉴 베스트 소스 알기
+		function Menu_Bestsauce(){
+			ViewPrice();
+			var menu_no = $(":radio[name='List_menuno']:checked").val();
+			var param = "menu_no=" + menu_no;
+			sendRequest("POST","bestSauce.jsp", Sauceback ,param);
+		}
+		
+		function Sauceback(){
+			if(httpRequest.readyState == 4){
+				if(httpRequest.status == 200){
+					var div = document.getElementById("bestSauceHtml");
+			 		div.innerHTML = httpRequest.responseText;
+			 		alert(httpRequest.responseText);
+			 	}else{
+					alert(httpRequest.status);
+				}
+			}	
+		}
+		function ViewPrice(){
+			var menu_no = $(":radio[name='List_menuno']:checked").val();
+			var basic_price = $("#basic_price_"+menu_no).val();
+			
 		}
 		
 	</script>

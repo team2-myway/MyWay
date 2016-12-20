@@ -14,7 +14,6 @@
 <jsp:setProperty property="*" name="dto" />
 <jsp:useBean id="dao" class="Menu.dao.MenuDao" />
 <%
-	dao.Menu_Edit(dto);
 %>
 
 <script>
