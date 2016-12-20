@@ -187,16 +187,5 @@
 	</section>
 	<script src="../lib/bootstrap/js/jquery-3.1.1.min.js"></script>
 	<script src="../lib/bootstrap/js/bootstrap.js"></script>
-	<script type="text/javascript">
-		$(function(){
-			$("#today").click(function(){
-				$.get("basic01.jsp", {name:$("#name").val()}, 
-						function(data){
-							alert(data);
-						}
-					);
-			})
-		});
-	</script>
 </body>
 </html>
