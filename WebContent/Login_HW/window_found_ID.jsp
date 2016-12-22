@@ -24,7 +24,7 @@
 		} else {
 	%>
 		<h3>당신의 아이디는</h3><br/>
-		<strong><%=dao.findByID(name, email).getId() %></strong>
+		<strong><%=dao.findID(name, email).getId() %></strong>
 		<h3>입니다.</h3>
 	<%
 		}
