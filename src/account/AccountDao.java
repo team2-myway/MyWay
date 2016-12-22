@@ -84,7 +84,7 @@ package account;
 
 		public AccountDto login(String id) {
 			AccountDto adto = new AccountDto();
-			String sql = "select pw from account where id=?";
+			String sql = "select account_no, pw from account where id=?";
 			try {
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(sql);
@@ -99,7 +99,7 @@ package account;
 			}
 			return adto;
 		}
-		public AccountDto findByID(String name,String email) {
+		public AccountDto findID(String name,String email) {
 			AccountDto adto = new AccountDto();
 			String sql = "select id from account where account_name=? and email=?";
 			try {
@@ -110,6 +110,32 @@ package account;
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
 					adto.setId(rs.getString("id"));
+				}
+			} catch (Exception e) {
+				System.out.println("findID() : " + e);
+			}
+			return adto;
+		}
+		
+		public AccountDto findByID(int account_no) {
+			AccountDto adto = new AccountDto();
+			String sql = "select * from account where account_no = ?";
+			try {
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, account_no);
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					String[] str = rs.getString("email").split("@");
+					adto.setId(rs.getString("id"));
+					adto.setPw(rs.getString("pw"));
+					adto.setAccount_name(rs.getString("account_name"));
+					adto.setTel1(rs.getString("tel").substring(0, 3));
+					adto.setTel2(rs.getString("tel").substring(3, 7));
+					adto.setTel3(rs.getString("tel").substring(7, 11));
+					adto.setEmail1(str[0]);
+					adto.setEmail2(str[1]);
+					adto.setStamp(rs.getInt("stamp"));
 				}
 			} catch (Exception e) {
 				System.out.println("findByID() : " + e);
@@ -147,9 +173,29 @@ package account;
 				pstmt.setInt(2, no);
 				
 				pstmt.executeUpdate();
-				System.out.println("OK");
 			} catch (SQLException e) {
 				System.out.println("updatePW()"+e);
+			} finally {
+				freeConnection();
+			}
+		}
+		public void updateAccount(AccountDto dto){
+			String sql = "update account set pw=?, account_name=?, tel=?, email=? where account_no = ?";
+			System.out.println(dto.getAccount_name());
+			System.out.println(dto.getAccount_no());
+			try {
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, dto.getPw());
+				pstmt.setString(2, dto.getAccount_name());
+				pstmt.setString(3, dto.getTel1()+dto.getTel2()+dto.getTel3());
+				pstmt.setString(4, dto.getEmail1()+"@"+dto.getEmail2());
+				pstmt.setInt(5, dto.getAccount_no());
+				
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("updateAccount()"+e);
 			} finally {
 				freeConnection();
 			}

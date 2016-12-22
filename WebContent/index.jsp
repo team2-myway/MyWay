@@ -10,6 +10,7 @@
 <body>
 	<jsp:include page="/include/header.jsp" />
 	MAIN
+	<input type="button" value="gotoupdate" onclick="javascript:location.href='Login_HW/update_account.jsp';"/>
 	<jsp:include page="/include/footer.jsp" />
 </body>
 </html>

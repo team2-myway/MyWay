@@ -14,7 +14,7 @@
 		request.setCharacterEncoding("euc-kr");
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
-		if (dao.findByID(name, email).getId() == null) {
+		if (dao.findID(name, email).getId() == null) {
 	%>
 	<script>
 		alert("name, email not exist");

@@ -11,8 +11,14 @@ public class AccountDto {
 	String email1;
 	String email2;
 	String level;
+	int stamp;
 	
-	
+	public int getStamp() {
+		return stamp;
+	}
+	public void setStamp(int stamp) {
+		this.stamp = stamp;
+	}
 	public int getAccount_no() {
 		return account_no;
 	}
