@@ -1,13 +1,13 @@
-<%@ page contentType="text/html; charset=EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@include file="head.jsp"%>
 
 <div class="header">
 	<div class="header_inner">
 		<div class="custom_header">
 			<div class="header_html">
-				<span class="contact_widget_phone"><a>·Î±×ÀÎ</a> <span></span> </span>
+				<span class="contact_widget_phone"><a>ë¡œê·¸ì¸</a> <span></span> </span>
 				<span class="contact_widget_email"> <span></span> <a
-					href="mailto:info@medicuredemo.web">È¸¿ø°¡ÀÔ</a></span>
+					href="mailto:info@medicuredemo.web">íšŒì›ê°€ìž…</a></span>
 			</div>
 		</div>
 
@@ -22,22 +22,23 @@
 					class="responsive_nav" href="javascript:void(0);"> <span></span></a>
 			</div>
 			<div class="col-sm-9">
-				
+			
 				<div class="wrap_nav">
 					<nav role="navigation">
 						<ul id="navigation" class="navigation">
 							<li class="menu-item current_page_item"><a
-								href="../main/index.jsp"><span>¸ÞÀÎ</span></a></li>
-							<li class="dropdown menu-item menu-item-has-children"><a><span>¸Þ´ºµî·Ï</span></a>
+								href="../main/index.jsp"><span>ë©”ì¸</span></a></li>
+							<li class="dropdown menu-item menu-item-has-children"><a><span>ì£¼ë¬¸</span></a>
 								<ul class="sub-menu">
-									<li class="dropdown menu-item menu-item-has-children"><a><span>Å¬·¡½Ä</span></a></li>
-									<li class="dropdown menu-item menu-item-has-children"><a><span>ÇÁ¸®¹Ì¾ö</span></a></li>
-									<li class="dropdown menu-item menu-item-has-children"><a><span>º£½ºÆ®</span></a></li>
-									<li class="dropdown menu-item menu-item-has-children"><a><span>»çÀÌµå¸Þ´º</span></a></li>
+									<li class="dropdown menu-item menu-item-has-children"><a><span>í´ëž˜ì‹</span></a></li>
+									<li class="dropdown menu-item menu-item-has-children"><a><span>í”„ë¦¬ë¯¸ì—„</span></a></li>
+									<li class="dropdown menu-item menu-item-has-children"><a><span>ë² ìŠ¤íŠ¸</span></a></li>
+									<li class="dropdown menu-item menu-item-has-children"><a><span>ì‚¬ì´ë“œë©”ë‰´</span></a></li>
 								</ul></li>
-							<li class="menu-item"><a href="/MyWay/super/store_list.jsp"><span>¸ÅÀåÇöÈ²</span></a></li>
-							<li class="dropdown menu-item menu-item-has-children"><a><span>¹®ÀÇ»çÇ×</span></a></li>
-							<li class="dropdown menu-item menu-item-has-children"><a><span>ÈÄ±â</span></a></li>
+							<li class="menu-item"><a href="/MyWay/manager/store_detail.jsp"><span>ë§¤ìž¥í˜„í™©</span></a></li>
+							<li class="dropdown menu-item menu-item-has-children"><a><span>ë¬¸ì˜ì‚¬í•­</span></a></li>
+							<li class="dropdown menu-item menu-item-has-children"><a href="../review_board/review_List.jsp"><span>í›„ê¸°</span></a></li>
+							
 						</ul>
 					</nav>
 				</div>
@@ -61,17 +62,17 @@
 					<nav role="navigation">
 						<ul id="navigation" class="navigation">
 							<li class="menu-item current_page_item"><a
-								href="../main/index.jsp"><span>¸ÞÀÎ</span></a></li>
-							<li class="dropdown menu-item menu-item-has-children"><a><span>¸Þ´º</span></a>
+								href="../main/index.jsp"><span>ë©”ì¸</span></a></li>
+							<li class="dropdown menu-item menu-item-has-children"><a><span>ì£¼ë¬¸</span></a>
 								<ul class="sub-menu">
-									<li class="dropdown menu-item menu-item-has-children"><a><span>Å¬·¡½Ä</span></a></li>
-									<li class="dropdown menu-item menu-item-has-children"><a><span>ÇÁ¸®¹Ì¾ö</span></a></li>
-									<li class="dropdown menu-item menu-item-has-children"><a><span>º£½ºÆ®</span></a></li>
-									<li class="dropdown menu-item menu-item-has-children"><a><span>»çÀÌµå¸Þ´º</span></a></li>
+									<li class="dropdown menu-item menu-item-has-children"><a><span>í´ëž˜ì‹</span></a></li>
+									<li class="dropdown menu-item menu-item-has-children"><a><span>í”„ë¦¬ë¯¸ì—„</span></a></li>
+									<li class="dropdown menu-item menu-item-has-children"><a><span>ë² ìŠ¤íŠ¸</span></a></li>
+									<li class="dropdown menu-item menu-item-has-children"><a><span>ì‚¬ì´ë“œë©”ë‰´</span></a></li>
 								</ul></li>
-							<li class="menu-item"><a href="/MyWay/manager/store_detail.jsp"><span>¸ÅÀåÇöÈ²</span></a></li>
-							<li class="dropdown menu-item menu-item-has-children"><a><span>¹®ÀÇ»çÇ×</span></a></li>
-							<li class="dropdown menu-item menu-item-has-children"><a><span>ÈÄ±â</span></a></li>
+							<li class="menu-item"><a href="/MyWay/manager/store_detail.jsp"><span>ë§¤ìž¥í˜„í™©</span></a></li>
+							<li class="dropdown menu-item menu-item-has-children"><a><span>ë¬¸ì˜ì‚¬í•­</span></a></li>
+							<li class="dropdown menu-item menu-item-has-children"><a href="../review_board/review_List.jsp"><span>í›„ê¸°</span></a></li>
 							
 						</ul>
 					</nav>
@@ -84,7 +85,7 @@
 		//} else {
 %>
 <!-- 
-		<div class="col-sm-12">
+				<div class="col-sm-12">
 			<div class="col-sm-3">
 				<a href="index.html" title="Medicure" class="logo"> <img
 					src="images/logo-jpeg.jpg" alt="Medicure"></a> <a
@@ -96,18 +97,18 @@
 					<nav role="navigation">
 						<ul id="navigation" class="navigation">
 							<li class="menu-item current_page_item"><a
-								href="../main/index.jsp"><span>¸ÞÀÎ</span></a></li>
-							<li class="dropdown menu-item menu-item-has-children"><a><span>¸Þ´º</span></a>
+								href="../main/index.jsp"><span>ë©”ì¸</span></a></li>
+							<li class="dropdown menu-item menu-item-has-children"><a><span>ì£¼ë¬¸</span></a>
 								<ul class="sub-menu">
-									<li class="dropdown menu-item menu-item-has-children"><a><span>Å¬·¡½Ä</span></a></li>
-									<li class="dropdown menu-item menu-item-has-children"><a><span>ÇÁ¸®¹Ì¾ö</span></a></li>
-									<li class="dropdown menu-item menu-item-has-children"><a><span>º£½ºÆ®</span></a></li>
-									<li class="dropdown menu-item menu-item-has-children"><a><span>»çÀÌµå¸Þ´º</span></a></li>
+									<li class="dropdown menu-item menu-item-has-children"><a><span>í´ëž˜ì‹</span></a></li>
+									<li class="dropdown menu-item menu-item-has-children"><a><span>í”„ë¦¬ë¯¸ì—„</span></a></li>
+									<li class="dropdown menu-item menu-item-has-children"><a><span>ë² ìŠ¤íŠ¸</span></a></li>
+									<li class="dropdown menu-item menu-item-has-children"><a><span>ì‚¬ì´ë“œë©”ë‰´</span></a></li>
 								</ul></li>
-							<li class="menu-item"><a href="#"><span>ÁÖ¹®</span></a></li>
-							<li class="dropdown menu-item menu-item-has-children"><a><span>¹®ÀÇ»çÇ×</span></a></li>
-							<li class="dropdown menu-item menu-item-has-children"><a><span>ÈÄ±â</span></a></li>
-							<li class="menu-item"><a href="#"><span>¸¶ÀÌÆäÀÌÁö</span></a></li>
+							<li class="menu-item"><a href="/MyWay/manager/store_detail.jsp"><span>ë§¤ìž¥í˜„í™©</span></a></li>
+							<li class="dropdown menu-item menu-item-has-children"><a><span>ë¬¸ì˜ì‚¬í•­</span></a></li>
+							<li class="dropdown menu-item menu-item-has-children"><a href="../review_board/review_List.jsp"><span>í›„ê¸°</span></a></li>
+							
 						</ul>
 					</nav>
 				</div>

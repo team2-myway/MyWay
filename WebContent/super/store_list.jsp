@@ -1,10 +1,10 @@
 <%@page import="management.StoreDto"%>
 <%@page import="java.util.List"%>
-<%@ page contentType="text/html; charset=EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body class="page">
@@ -13,15 +13,15 @@
 	<%
 		List list = dao.getStore_list("accountno");
 
-		///////////////////////////paging ±â¹ı///////////////////////////
-		int totalRecord = 0; //ÀüÃ¼ ±ÛÀÇ °¹¼ö
-		int numPerPage = 5; //ÇÑÆäÀÌÁö´ç ±ÛÀÇ °³¼ö
-		int pagePerBlock = 3; //ÇÑ ºí·° ´ç ÆäÀÌÁö ¼ö
-		int totalPage = 0; //ÀüÃ¼ ÆäÀÌÁö ¼ö
-		int totalBlock = 0; //ÀüÃ¼ ºí·ÏÀÇ ¼ö
-		int nowPage = 0; //ÇöÀç ÆäÀÌÁö ¹øÈ£
-		int nowBlock = 0; //ÇöÀç ºí·° ¹øÈ£
-		int beginPerPage = 0; //ÆäÀÌÁö´ç ½ÃÀÛ¹øÈ£
+		///////////////////////////paging ê¸°ë²•///////////////////////////
+		int totalRecord = 0; //ì „ì²´ ê¸€ì˜ ê°¯ìˆ˜
+		int numPerPage = 5; //í•œí˜ì´ì§€ë‹¹ ê¸€ì˜ ê°œìˆ˜
+		int pagePerBlock = 3; //í•œ ë¸”ëŸ­ ë‹¹ í˜ì´ì§€ ìˆ˜
+		int totalPage = 0; //ì „ì²´ í˜ì´ì§€ ìˆ˜
+		int totalBlock = 0; //ì „ì²´ ë¸”ë¡ì˜ ìˆ˜
+		int nowPage = 0; //í˜„ì¬ í˜ì´ì§€ ë²ˆí˜¸
+		int nowBlock = 0; //í˜„ì¬ ë¸”ëŸ­ ë²ˆí˜¸
+		int beginPerPage = 0; //í˜ì´ì§€ë‹¹ ì‹œì‘ë²ˆí˜¸
 
 		totalRecord = list.size();
 		totalPage = (int) Math.ceil(((double) totalRecord / numPerPage));
@@ -41,24 +41,24 @@
 	<section id="page" class="csstransition cmsms_resp hfeed site">
 		<%@ include file="../include/header.jsp"%>
 		<div class="container">
-			<!-- ¸®½ºÆ® -->
+			<!-- ë¦¬ìŠ¤íŠ¸ -->
 			<div id="store_list" align="center">
 				<table width=100% border=0 cellspacing=0 cellpadding=3>
 					<tr align=center bgcolor=#D0D0D0 height=120%>
-						<td width="200px" align="center">°ü¸®ÀÚ¸í</td>
-						<td width="200px" align="center">¸ÅÀå¸í</td>
-						<td width="200px" align="center">¸ÅÃâº¸±â</td>
+						<td width="200px" align="center">ê´€ë¦¬ìëª…</td>
+						<td width="200px" align="center">ë§¤ì¥ëª…</td>
+						<td width="200px" align="center">ë§¤ì¶œë³´ê¸°</td>
 					</tr>
 					<%
 						if (list.isEmpty()) {
 					%>
 					<tr align="center">
-						<td>µî·ÏµÈ µ¥ÀÌÅÍ°¡ ¾ø½À´Ï´Ù!</td>
+						<td>ë“±ë¡ëœ ë°ì´í„°ê°€ ì—†ìŠµë‹ˆë‹¤!</td>
 					</tr>
 					<%
 						} else {
 							try {
-								request.setCharacterEncoding("euc-kr");
+								request.setCharacterEncoding("UTF-8");
 
 								for (int i = 0; i < list.size(); i++) {
 									dto = (StoreDto) list.get(i);
@@ -67,7 +67,7 @@
 						<td><%=dto.getAccount_name()%></td>
 						<td><%=dto.getManager_name()%></td>
 						<td><a
-							href="store_detail.jsp?account_no=<%=dto.getAccount_no()%>">»ó¼¼º¸±â</a></td>
+							href="store_detail.jsp?account_no=<%=dto.getAccount_no()%>">ìƒì„¸ë³´ê¸°</a></td>
 					</tr>
 					<%
 						}
@@ -83,7 +83,7 @@
 						<td align="left">Go to Page &nbsp;&nbsp;&nbsp;&nbsp; <%
  						if (nowBlock > 0) {
  %> 
- 						<a href="store_list.jsp?nowPage=<%=(nowBlock - 1) * pagePerBlock%>&nowBlock=<%=(nowBlock - 1)%>">ÀÌÀü <%=pagePerBlock%>°³
+ 						<a href="store_list.jsp?nowPage=<%=(nowBlock - 1) * pagePerBlock%>&nowBlock=<%=(nowBlock - 1)%>">ì´ì „ <%=pagePerBlock%>ê°œ
 						</a>:::&nbsp;&nbsp;&nbsp; 
 <%
  						}
@@ -98,8 +98,8 @@
 						}
 						if (totalBlock > nowBlock + 1) {
 %>
-							&nbsp;&nbsp;&nbsp;:::<a href="List.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=(nowBlock + 1)%>">´ÙÀ½
-							<%=pagePerBlock%>°³ </a> 
+							&nbsp;&nbsp;&nbsp;:::<a href="List.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=(nowBlock + 1)%>">ë‹¤ìŒ
+							<%=pagePerBlock%>ê°œ </a> 
 <%
  						}
 %>
@@ -110,7 +110,7 @@
 		</div>
 
 
-		<!-- °ø°£ÁÖ±â -->
+		<!-- ê³µê°„ì£¼ê¸° -->
 		<div style="height: 50px;">&nbsp;</div>
 		<footer>
 			<%@ include file="../include/footer.jsp"%>

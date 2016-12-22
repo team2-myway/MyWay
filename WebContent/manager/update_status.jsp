@@ -1,10 +1,10 @@
 <%@page import="management.StoreDto"%>
 <%@page import="java.util.List"%>
-<%@ page contentType="text/html; charset=EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="../lib/js/jquery-3.1.1.min.js"></script>
 </head>
@@ -19,14 +19,14 @@
 	if(update == true) {
 %>
 		<script>
-			alert("°áÁ¦ ¿Ï·á");
+			alert("ê²°ì œ ì™„ë£Œ");
 			location.href="store_detail.jsp";
 		</script>
 <%
 	} else {
 %>
 	<script>
-		alert("°áÁ¦µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+		alert("ê²°ì œë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 		location.href="store_detail.jsp";
 	</script>
 <%
