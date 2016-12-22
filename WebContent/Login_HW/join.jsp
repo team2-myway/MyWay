@@ -1,59 +1,64 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JOIN PAGE</title>
 </head>
 <script>
 	function fncCheck() {
 		var id = document.getElementById("id").value;
 		var pw = document.getElementById("pw").value;
-		var account = document.getElementById("account").checked;
-		
-		if (id.length<4) {
+		var accept = document.getElementById("accept").checked;
+
+		if (id.length < 4) {
 			alert("ID>3");
-			return false;
-		}else if(pw.length<4){
+			document.joinform.id.focus();
+		} else if (pw.length < 4) {
 			alert("PW>3");
-			return false;
-		}else if(account==false){
+			document.joinform.pw.focus();
+		} else if (accept == false) {
 			alert("Plz Check");
-			return false;
+		} else {
+			document.joinform.submit();
+			return true;
 		}
 	}
 </script>
 <body>
-	<form action="join_proc.jsp" name="joinform" method="get" onsubmit="return fncCheck()">
+	<jsp:include page="../include/head.jsp"></jsp:include>
+	<jsp:include page="../include/header.jsp"></jsp:include>
+	<form action="join_proc.jsp" name="joinform" method="post" onsubmit="fncCheck();return false">
 		<center>
 			<table>
 				<tr>
 					<th><label>ID</label></th>
-					<td><input type="text" id="id" value="id" /></td>
+					<td><input type="text" id="id" name="id" value="id" /></td>
 				</tr>
 				<tr>
 					<th><label>PW</label></th>
-					<td><input type="text" id="pw" value="pw" /></td>
+					<td><input type="password" id="pw" name="pw" value="pw" /></td>
 				</tr>
 				<tr>
 					<th><label>NAME</label></th>
-					<td><input type="text" id="name" value="name" /></td>
+					<td><input type="text" id="account_name" name="account_name" value="name" /></td>
 				</tr>
 				<tr>
 					<th><label>TEL</label></th>
-					<td><select id="tel1">
+					<td>
+					<select id="tel1" name="tel1">
 							<option selected="selected">010</option>
 							<option>011</option>
 							<option>012</option>
 							<option>013</option>
-					</select> - <input type="text" id="tel2" size="4"> - <input type="text"
-						id="tel3" size="4" ></td>
+					</select>
+					</td><td> - <input type="text" id="tel2" name="tel2"> </td> 
+					<td> - <input type="text" id="tel3" name="tel3"></td>
 				</tr>
 				<tr>
 					<th><label>E-MAIL</label></th>
-					<td><input type="text" id="email1" size="10" /> @ <select
-						id="email2">
+					<td><input type="text" id="email1" name ="email1" size="10" /> </td>
+					<td> @ <select id="email2" name="email2">
 							<option>naver.com</option>
 							<option>daum.net</option>
 							<option>gmail.com</option>
@@ -62,17 +67,19 @@
 					</select></td>
 				</tr>
 				<tr>
-					<td colspan="2"><textarea rows="5" cols="40">°³ÀÎÁ¤º¸ µ¿ÀÇ</textarea></td>
+					<td colspan="2"><textarea rows="5" cols="40" readonly="readonly">ê°œì¸ì •ë³´ ë™ì˜</textarea></td>
 				</tr>
 				<tr>
-					<td><input type="checkbox" id="account">µ¿ÀÇÇÕ´Ï´Ù</td>
+					<td><input type="checkbox" id="accept" name="accept">ë™ì˜í•©ë‹ˆë‹¤</td>
 				</tr>
 				<tr align="center">
-					<td><input type="submit" value="È®ÀÎ"/></td>
-					<td><input type="button" value="GotoMain" onclick="javascript:location.href='main.jsp';" /></td>
+					<td><input type="submit" value="í™•ì¸" /></td>
+					<td><input type="button" value="GotoMain"
+						onclick="javascript:location.href='../index.jsp';" /></td>
 				</tr>
 			</table>
 		</center>
 	</form>
+	<jsp:include page="../include/footer.jsp" />
 </body>
 </html>

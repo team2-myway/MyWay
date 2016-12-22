@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//WebContent/Login_HW=UTF-8
 encoding//WebContent/include/footer.jsp=euc-kr
 encoding//WebContent/include/head.jsp=euc-kr
 encoding//WebContent/include/header.jsp=euc-kr
@@ -8,3 +9,4 @@ encoding//WebContent/lib/css/styles/adaptive.css=UTF-8
 encoding//WebContent/lib/css/styles/fonts.css=UTF-8
 encoding//WebContent/lib/css/styles/retina.css=UTF-8
 encoding//WebContent/order/order.jsp=euc-kr
+encoding//src/account/AccountDao.java=UTF-8
