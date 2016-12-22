@@ -7,7 +7,7 @@
 </head>
 <body>
 	<%
-		request.setCharacterEncoding("euc-kr");
+		request.setCharacterEncoding("UTF-8");
 	%>
 	<jsp:useBean id="dto" class="account.AccountDto"></jsp:useBean>
 	<jsp:useBean id="dao" class="account.AccountDao"></jsp:useBean>

@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -11,7 +11,7 @@
 	<jsp:useBean id="dao" class="account.AccountDao"></jsp:useBean>
 	<jsp:setProperty property="*" name="dto" />
 	<%
-		request.setCharacterEncoding("euc-kr");
+		request.setCharacterEncoding("UTF-8");
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		if (dao.findID(name, email).getId() == null) {
@@ -23,9 +23,9 @@
 	<%
 		} else {
 	%>
-		<h3>´ç½ÅÀÇ ¾ÆÀÌµğ´Â</h3><br/>
+		<h3>ë‹¹ì‹ ì˜ ì•„ì´ë””ëŠ”</h3><br/>
 		<strong><%=dao.findByID(name, email).getId() %></strong>
-		<h3>ÀÔ´Ï´Ù.</h3>
+		<h3>ì…ë‹ˆë‹¤.</h3>
 	<%
 		}
 	%>

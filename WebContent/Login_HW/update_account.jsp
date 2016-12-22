@@ -1,10 +1,10 @@
 <%@page import="account.AccountDto"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <%
@@ -21,7 +21,7 @@
 		<center>
 			<table>
 				<tr>
-					<td><h2>È¸¿ø Á¤º¸ ¼öÁ¤</h2></td>
+					<td><h2>íšŒì› ì •ë³´ ìˆ˜ì •</h2></td>
 				</tr>
 				<tr>
 					<th><label>ID</label></th>
@@ -72,10 +72,10 @@
 				</tr>
 				<tr>
 					<td><input type="text" id="stamp" name="stamp" value=<%=list.getStamp()%>
-						readonly="readonly" /> °³
+						readonly="readonly" /> ê°œ
 				</tr>
 				<tr align="center">
-					<td><input type="submit" value="¼öÁ¤¿Ï·á" /></td>
+					<td><input type="submit" value="ìˆ˜ì •ì™„ë£Œ" /></td>
 					<td><input type="button" value="GotoMain"
 						onclick="javascript:location.href='../index.jsp';" /></td>
 				</tr>
