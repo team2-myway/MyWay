@@ -92,6 +92,7 @@ package account;
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
 					adto.setPw(rs.getString("pw"));
+					adto.setAccount_no(rs.getInt("account_no"));
 				}
 			} catch (Exception e) {
 				System.out.println("login() : " + e);

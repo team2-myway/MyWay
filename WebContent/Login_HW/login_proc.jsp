@@ -18,6 +18,8 @@
 		if (dao.login(id).getPw().equals(pw)) {
 			response.sendRedirect("../index.jsp");
 			session.setAttribute("id", id);
+			session.setAttribute("account_no", dao.login(id).getAccount_no());
+			// account_no까지
 		} else {
 	%>
 	<script>
