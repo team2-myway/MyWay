@@ -10,7 +10,10 @@
 		<%@ include file="../include/header.jsp"%>
 		<div class="container">
 		<table class="table table-striped">
-
+			<tr>
+				<th>No</th>
+				<th></th>
+			</tr>
 		 </table>
 		
 		</div>

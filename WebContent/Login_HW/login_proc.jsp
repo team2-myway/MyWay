@@ -8,16 +8,28 @@
 <body>
 	<%
 		request.setCharacterEncoding("euc-kr");
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pw");
 	%>
 	<jsp:useBean id="dto" class="account.AccountDto"></jsp:useBean>
 	<jsp:useBean id="dao" class="account.AccountDao"></jsp:useBean>
 	<jsp:setProperty property="*" name="dto" />
 	<%
-		dao.addAccount(dto);
+		if (dao.login(id).getPw().equals(pw)) {
+			response.sendRedirect("../index.jsp");
+			session.setAttribute("id", id);
+			session.setAttribute("account_no", dao.login(id).getAccount_no());
+			// account_no까지
+		} else {
 	%>
 	<script>
-		alert("OK");
-		location.href="../index.jsp"
+		alert("chk id or pw")
+		location.href = "login.jsp";
 	</script>
+
+	<%
+		}
+	%>
+
 </body>
 </html>

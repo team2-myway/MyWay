@@ -337,7 +337,7 @@
 					</div>
 					<div class="col-md-12 padding">
 						<div class="checkbox">
-							<label class="btn btn-primary"><input type="checkbox" name="favorite" value="ok"/>★ 즐겨찾기 추가</label>
+							<input type="checkbox" name="favorite" value="ok"/>★ 즐겨찾기 추가</label>
 						</div>
 					</div>
 					<!-- 소스끝 -->

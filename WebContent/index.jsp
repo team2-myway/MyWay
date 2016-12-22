@@ -9,6 +9,10 @@
 <!--[if !(IE 7) | !(IE 8)  ]><!-->
 <html lang="en-US">
 <!--<![endif]-->
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
 	<meta content="text/html;charset=utf-8" http-equiv="content-type" />
 	<meta name="description" content="cmsmasters responsive html5 website template" />
@@ -458,5 +462,19 @@
 	<script src="lib/js/jquery.tweet.min.js" type="text/javascript"></script>
 	<script src="lib/js/jquery.validationEngine-lang.js" type="text/javascript"></script>
 	<script src="lib/js/jquery.validationEngine.min.js" type="text/javascript"></script>
+=======
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
+<jsp:include page="/include/header.jsp" />
+</head>
+<body>
+	<jsp:include page="/include/header.jsp" />
+	MAIN
+	<jsp:include page="/include/footer.jsp" />
+>>>>>>> refs/remotes/origin/Login_HW
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> refs/remotes/origin/Login_HW
