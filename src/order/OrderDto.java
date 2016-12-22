@@ -1,6 +1,10 @@
 package order;
 
 public class OrderDto {
+	//고객 정보
+	private int account_no;
+	private String account_name;
+	private String account_tel;
 	//매장
 	private String manage_addr;
 	private String manage_name;
@@ -16,6 +20,7 @@ public class OrderDto {
 	private int menu_calorie;
 	private String menu_bestSouce;
 	private String menu_detail;
+	private int menu_count;
 	//채소
 	private int vegetable_no;
 	private String vegetable_name;
@@ -43,7 +48,45 @@ public class OrderDto {
 	private String vegetable_no_List;
 	private String Sauce_no_List;
 	
+	private String order_code;
+	private String favorite;
 	
+	public String getFavorite() {
+		return favorite;
+	}
+	public void setFavorite(String favorite) {
+		this.favorite = favorite;
+	}
+	public String getOrder_code() {
+		return order_code;
+	}
+	public void setOrder_code(String order_code) {
+		this.order_code = order_code;
+	}
+	public int getMenu_count() {
+		return menu_count;
+	}
+	public void setMenu_count(int menu_count) {
+		this.menu_count = menu_count;
+	}
+	public int getAccount_no() {
+		return account_no;
+	}
+	public void setAccount_no(int account_no) {
+		this.account_no = account_no;
+	}
+	public String getAccount_name() {
+		return account_name;
+	}
+	public void setAccount_name(String account_name) {
+		this.account_name = account_name;
+	}
+	public String getAccount_tel() {
+		return account_tel;
+	}
+	public void setAccount_tel(String account_tel) {
+		this.account_tel = account_tel;
+	}
 	public int getManage_no() {
 		return manage_no;
 	}

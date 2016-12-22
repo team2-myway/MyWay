@@ -1,11 +1,14 @@
 eclipse.preferences.version=1
+encoding//WebContent/Login_HW/join_proc.jsp=UTF-8
 encoding//WebContent/include/footer.jsp=UTF-8
-encoding//WebContent/include/head.jsp=euc-kr
-encoding//WebContent/include/header.jsp=euc-kr
+encoding//WebContent/include/head.jsp=UTF-8
+encoding//WebContent/include/header.jsp=UTF-8
 encoding//WebContent/index.jsp=UTF-8
 encoding//WebContent/lib/css/fonts/css/fontello.css=UTF-8
 encoding//WebContent/lib/css/style.css=MS949
 encoding//WebContent/lib/css/styles/adaptive.css=UTF-8
 encoding//WebContent/lib/css/styles/fonts.css=UTF-8
 encoding//WebContent/lib/css/styles/retina.css=UTF-8
+encoding//WebContent/order/OrderList.jsp=UTF-8
+encoding//WebContent/order/OrderSave.jsp=UTF-8
 encoding//WebContent/order/order.jsp=UTF-8

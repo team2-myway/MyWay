@@ -31,8 +31,8 @@ try {
 					</h5>
 				</header>
 				<footer class="entry-meta">
-					<span class="post_category">가격 : <b><%=dto.getMenu_price()%></b>원,
-					 calorie :<b><%=dto.getMenu_calorie() %></b> calorie
+					<span class="post_category">가격 : <b><%=dto.getMenu_price()%></b>원<br>
+					 calorie :<b><%=dto.getMenu_calorie() %></b>
 					</span>
 				<div style="text-align:center">
 					<p><%=dto.getMenu_detail() %></p>
