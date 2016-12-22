@@ -30,7 +30,30 @@ public class OrderDao {
 	public void FavoriteSave(OrderDto dto){
 		String sql = "insert into fa";
 	}
-	
+	public void StampAdd(int account_no, int count){
+		String sql = "";
+		try{
+		sql = "select stamp from account where account_no = ?";
+		con = ds.getConnection();
+		stmt = con.prepareStatement(sql);
+		stmt.setInt(1, account_no);
+		rs = stmt.executeQuery();
+		rs.next();
+		int stamp = rs.getInt("stamp");
+		int countstamp = stamp+count;
+		// 회원의 스탬프의 갯수를 늘림
+		sql ="update account set stamp=? where account_no = ?";
+		con = ds.getConnection();
+		stmt = con.prepareStatement(sql);
+		stmt.setInt(1, countstamp);
+		stmt.setInt(2, account_no);
+		stmt.executeUpdate();
+		}catch(Exception err){
+			System.out.println("addSawon"+err);
+		}finally{
+			freeConnection();
+		}
+	}
 	public void DetailOrderSave(OrderDto dto){
 		String sql = "";
 		
@@ -50,12 +73,9 @@ public class OrderDao {
 			stmt.setString(8, dto.getFavorite());
 			stmt.executeUpdate();
 		//	System.out.println(sql);
-			
-			
+			//회원이 가진 스템프의 갯수 알기위함
+			StampAdd(dto.getAccount_no(), dto.getMenu_count());
 			OrderSave(dto);
-			if(dto.getFavorite().equals("ok")){
-				FavoriteSave(dto);
-			}
 		}catch(Exception err){
 			System.out.println("addSawon"+err);
 		}finally{

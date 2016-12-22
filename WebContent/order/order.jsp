@@ -5,7 +5,8 @@
 <%
 	java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("ddHHmmss");
 	String today = formatter.format(new java.util.Date());
-	int account_no = 5;
+	int account_no = (Integer)session.getAttribute("account_no");
+
 	String order_code = dao.Order_Code(account_no,today);
 	session.setAttribute("order_code", order_code);
 	
@@ -647,7 +648,7 @@
 			if(httpRequest.readyState == 4){
 				if(httpRequest.status == 200){
 					alert("저장 성공!");
-					location.href="NewFile.jsp";
+					location.href="OrderList.jsp";
 			 		//	alert(httpRequest.responseText);
 			 	}else{
 					alert(httpRequest.status);
