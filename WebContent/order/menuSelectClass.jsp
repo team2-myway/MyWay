@@ -12,7 +12,7 @@ try {
 		OrderDto dto = (OrderDto) menuList.get(i);
 %>
 	<div class="col-md-4" style=" height:300px; text-align:center; ">
-		<input type="radio" value="<%=dto.getMenu_no()%>" name="menu_no" onclick="Menu_Bestsauce()"><br>
+		<input type="radio" value="<%=dto.getMenu_no()%>" id="menu_no_<%=dto.getMenu_no()%>" name="menu_no" onclick="Menu_Bestsauce()"><br>
 		<article class="service type-service hentry one_fourth format-slider col-md-12">
 			<figure>
 				<span class="image_container_img">

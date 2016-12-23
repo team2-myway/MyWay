@@ -1,6 +1,23 @@
 package order;
 
+import java.util.ArrayList;
+
 public class OrderDto {
+	private ArrayList vegetableOrderNo;
+	private ArrayList sauceOrderNo;
+	
+	public ArrayList getVegetableOrderNo() {
+		return vegetableOrderNo;
+	}
+	public void setVegetableOrderNo(ArrayList vegetableOrderNo) {
+		this.vegetableOrderNo = vegetableOrderNo;
+	}
+	public ArrayList getSauceOrderNo() {
+		return sauceOrderNo;
+	}
+	public void setSauceOrderNo(ArrayList sauceOrderNo) {
+		this.sauceOrderNo = sauceOrderNo;
+	}
 	//°í°´ Á¤º¸
 	private int account_no;
 	private String account_name;
@@ -50,7 +67,14 @@ public class OrderDto {
 	
 	private String order_code;
 	private String favorite;
+	private String order_date;
 	
+	public String getOrder_date() {
+		return order_date;
+	}
+	public void setOrder_date(String order_date) {
+		this.order_date = order_date;
+	}
 	public String getFavorite() {
 		return favorite;
 	}

@@ -21,7 +21,7 @@ public class OrderDao {
 	public OrderDao(){
 		try{
 			Context ctx = new InitialContext();
-			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/MysqlDB");
+			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/mysqlDB");
 			
 		}catch(Exception err){
 			System.out.println("연결 실패" + err);
@@ -75,7 +75,7 @@ public class OrderDao {
 		//	System.out.println(sql);
 			//회원이 가진 스템프의 갯수 알기위함
 			StampAdd(dto.getAccount_no(), dto.getMenu_count());
-			OrderSave(dto);
+		//	OrderSave(dto);
 		}catch(Exception err){
 			System.out.println("addSawon"+err);
 		}finally{
@@ -126,6 +126,135 @@ public class OrderDao {
 		return ordermax_no;
 	}
 	
+	public ArrayList MyOrderList(int account_no, String map){
+		ArrayList list = new ArrayList();
+		String sql = "";
+		if(map.equals("orderlist")){
+			sql="select a.manager_area manager_area, a.manager_name, m.total, d.vegetable_no, substr(m.date,1,16) date, "
+					+ "d.sauce_no, d.count, menu.menu_name, b.name bread_name from main_order m "
+					+ "left join detail_order d on m.order_code = d.order_code "
+					+ "left join bread b on b.bread_no = d.bread_no "
+					+ "left join menu on menu.menu_no = d.menu_no "
+					+ "left join account a on a.account_no = m.store_no "
+					+ "where m.account_no="+account_no;
+		}else{
+			sql="select a.manager_area manager_area, a.manager_name, m.total, d.vegetable_no, substr(m.date,1,16) date, "
+					+ "d.sauce_no, d.count, menu.menu_name, menu.menu_size, d.menu_no, d.bread_no, b.name bread_name from main_order m "
+					+ "left join detail_order d on m.order_code = d.order_code "
+					+ "left join bread b on b.bread_no = d.bread_no "
+					+ "left join menu on menu.menu_no = d.menu_no "
+					+ "left join account a on a.account_no = m.store_no "
+					+ "where m.account_no="+account_no +" and d.favorite ='ok'";
+		}
+		//System.out.println(sql);
+		try{
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			if(map.equals("orderlist")){
+				while(rs.next()){
+					OrderDto dto = new OrderDto();
+					dto.setManage_addr(rs.getString("manager_area"));
+					dto.setManage_name(rs.getString("a.manager_name"));
+					dto.setMenu_price(rs.getInt("m.total"));
+					dto.setMenu_count(rs.getInt("d.count"));
+					dto.setMenu_name(rs.getString("menu.menu_name"));
+					dto.setBread_name(rs.getString("bread_name"));
+					dto.setOrder_date(rs.getString("date"));
+					dto.setVegetable_no_List(rs.getString("d.vegetable_no"));
+					dto.setSauce_no_List(rs.getString("d.sauce_no"));
+					list.add(dto);
+				}
+			}else{
+				while(rs.next()){
+					OrderDto dto = new OrderDto();
+					dto.setMenu_name(rs.getString("menu.menu_name"));
+					dto.setBread_name(rs.getString("bread_name"));
+					dto.setVegetable_no_List(rs.getString("d.vegetable_no"));
+					dto.setSauce_no_List(rs.getString("d.sauce_no"));
+					dto.setMenu_no(rs.getInt("d.menu_no"));
+					dto.setBread_no(rs.getInt("d.bread_no"));
+					dto.setMenu_size(rs.getString("menu.menu_size"));
+					list.add(dto);
+				}
+				
+			}
+			
+		}catch(Exception err){
+			System.out.println("SouceList" + err);
+		}finally{
+			freeConnection();
+		}
+		
+		return list;
+	}
+	
+	public ArrayList VegetableOrderList(String vegetable_no){
+		ArrayList list = new ArrayList();
+		try{
+			String[] vegetalbe = vegetable_no.split("\\|");
+			String ordervegetable = "";
+			String sql1="select name from vegetable where ";
+				
+				for(int i=0; i<vegetalbe.length; i++){
+					ordervegetable = vegetalbe[i];
+					// 배열의 마지막을 확인 마지막때는 or 을 넣으면 안되기 때문
+					if(vegetalbe[i]==vegetalbe[vegetalbe.length-1]){
+						sql1 += "vegetable_no = '"+ ordervegetable +"'";
+					}else{
+						sql1 += "vegetable_no = '"+ ordervegetable +"' or ";
+					}
+				}
+				//System.out.println(sql1);
+				con = ds.getConnection();
+				stmt = con.prepareStatement(sql1);
+				rs = stmt.executeQuery();
+				
+				for(int i=0; i<vegetalbe.length; i++){
+					rs.next();
+					list.add(rs.getString("name"));
+				}
+				
+		}catch(Exception err){
+			System.out.println("SouceList" + err);
+		}finally{
+			freeConnection();
+		}
+		return list;
+	}
+	public ArrayList SauceOrderList(String sauce_no){
+		ArrayList list = new ArrayList();
+		try{
+			String[] sauce = sauce_no.split("\\|");
+			String ordersauce = "";
+			String sql2="select name from sauce where ";
+			//System.out.println(sql1);
+			for(int i=0; i<sauce.length; i++){
+				ordersauce = sauce[i];
+				// 배열의 마지막을 확인 마지막때는 or 을 넣으면 안되기 때문
+				if(sauce[i]==sauce[sauce.length-1]){
+					sql2 += "sauce_no = '"+ ordersauce +"'";
+				}else{
+					sql2 += "sauce_no = '"+ ordersauce +"' or ";
+				}
+			}
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql2);
+			rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				list.add(rs.getString("name"));
+				
+			}
+		}catch(Exception err){
+			System.out.println("SouceList" + err);
+		}finally{
+			freeConnection();
+		}
+		
+		return list;
+	}
 
 	//메뉴 사이즈 별로 나오게 하는 것들 클래스도 지정
 	public ArrayList MenuSizeList(String menusize, String menuclass){
@@ -225,6 +354,57 @@ public class OrderDao {
 				dto.setMenu_class(rs.getString("class"));
 				list.add(dto);
 			}
+		}catch(Exception err){
+			System.out.println("SouceList" + err);
+		}finally{
+			freeConnection();
+		}
+		
+		return list;
+	}
+	public ArrayList SideMenuClassList(){
+		ArrayList list = new ArrayList();
+		String sql = "select category from side_menu group by category";
+		try{
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				OrderDto dto = new OrderDto();
+				dto.setSide_category(rs.getString("category"));;
+				list.add(dto);
+			}
+		}catch(Exception err){
+			System.out.println("SouceList" + err);
+		}finally{
+			freeConnection();
+		}
+		
+		return list;
+	}
+	public ArrayList SideMenuList(String category){
+		ArrayList list = new ArrayList();
+		String sql="";
+		if(category.equals("All")){
+			sql = "select * from side_menu";
+		}else{
+			sql = "select * from side_menu where category = '"+category+"'";
+		}
+		try{
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				OrderDto dto = new OrderDto();
+				dto.setSide_menu_no(rs.getInt("side_menu_no"));
+				dto.setSide_menu_name(rs.getString("side_menu_name"));
+				dto.setSide_menu_img(rs.getString("image"));
+				dto.setSide_menu_price(rs.getInt("price"));
+				list.add(dto);
+			}
+			
 		}catch(Exception err){
 			System.out.println("SouceList" + err);
 		}finally{

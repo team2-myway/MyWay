@@ -4,8 +4,8 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 
-	int account_no = Integer.parseInt(request.getParameter("account_no"));
-	int manage_no = Integer.parseInt(request.getParameter("store_no"));
+	//int account_no = Integer.parseInt(request.getParameter("account_no"));
+	//int manage_no = Integer.parseInt(request.getParameter("store_no"));
 	int menu_no = Integer.parseInt(request.getParameter("menu_no"));
 	int bread_no = Integer.parseInt(request.getParameter("bread_no"));
 	String menu_size = request.getParameter("menu_size");
@@ -18,8 +18,8 @@
 	
 	
 
-	dto.setAccount_no(account_no);
-	dto.setManage_no(manage_no);
+	//dto.setAccount_no(account_no);
+	//dto.setManage_no(manage_no);
 	dto.setMenu_no(menu_no);
 	dto.setBread_no(bread_no);
 	dto.setMenu_size(menu_size);

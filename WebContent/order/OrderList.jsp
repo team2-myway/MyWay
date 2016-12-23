@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="order.OrderDto"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -7,8 +10,9 @@
 </head>
 <jsp:useBean id="dao" class="order.OrderDao"></jsp:useBean>
 <%
-	int account_no = (int)session.getAttribute("account_no");
-	
+	//int account_no = (int)session.getAttribute("account_no");
+	int account_no = 5;	
+
 %>
 <body class="page">
 	<section id="page" class="csstransition cmsms_resp hfeed site">
@@ -23,8 +27,46 @@
 				<th>적립내역</th>
 			</tr>
 			<%
-				
-			
+				try {
+					ArrayList OrderList = dao.MyOrderList(account_no,"orderlist");
+					for (int i = 0; i < OrderList.size(); i++) {
+					OrderDto dto = (OrderDto) OrderList.get(i);
+			%>
+					<tr>
+						<td><%=(i+1)%></td>
+						<td><%=dto.getOrder_date()%></td>
+						<td><%=dto.getMenu_name()%></td>
+						<td>
+						<span>빵 : <%=dto.getBread_name()%></span><br>
+						<span>채소 :
+						 <%
+							ArrayList VegetableList = dao.VegetableOrderList(dto.getVegetable_no_List());
+							for(int j=0; j<VegetableList.size(); j++){
+								%>
+									<%=VegetableList.get(j)%>
+								<%
+							}
+						%>
+						</span><br>
+						<span>소스 :
+						 <%
+							List SauceList = dao.SauceOrderList(dto.getSauce_no_List());
+							for(int j=0; j<SauceList.size(); j++){
+								%>
+									<%=SauceList.get(j)%>
+								<%
+							}
+						%>
+						
+						</span>
+						</td>
+						<td><%=dto.getMenu_count() %></td>
+					</tr>
+			<%
+					}
+					} catch (Exception err) {
+						System.out.println("OrderList.jsp : " + err);
+					}
 			%>
 		 </table>
 		
