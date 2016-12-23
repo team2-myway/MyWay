@@ -4,6 +4,8 @@ public class OrderDto {
 	//매장
 	private String manage_addr;
 	private String manage_name;
+	private int manage_no;
+	
 	//메뉴
 	private String menu_size;
 	private String menu_class;
@@ -41,6 +43,13 @@ public class OrderDto {
 	private String vegetable_no_List;
 	private String Sauce_no_List;
 	
+	
+	public int getManage_no() {
+		return manage_no;
+	}
+	public void setManage_no(int manage_no) {
+		this.manage_no = manage_no;
+	}
 	public String getVegetable_no_List() {
 		return vegetable_no_List;
 	}

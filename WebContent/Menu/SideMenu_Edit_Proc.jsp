@@ -5,8 +5,8 @@
 <% 
 	request.setCharacterEncoding("UTF-8");
 %>
-<jsp:useBean id = "dao" class="Menu.dao.MenuDao" />
-<jsp:useBean id="dto" class="Menu.dto.MenuDto"/>
+<jsp:useBean id = "dao" class="Menu.dao.SideMenuDao" />
+<jsp:useBean id="dto" class="Menu.dto.SideMenuDto"/>
 <%
 	String path1 = request.getRealPath("/menu");
 	System.out.println(path1);
@@ -17,28 +17,24 @@
 	String fileName = mr.getFilesystemName("image");
 	String fileFullPath = path + "\\" + fileName;
 	
-	int menu_no = Integer.parseInt(mr.getParameter("menu_no"));
-	String menu_name = mr.getParameter("menu_name");
-	String menu_class = mr.getParameter("class");
+	int side_menu_no = Integer.parseInt(mr.getParameter("menu_no"));
+	String side_menu_name = mr.getParameter("side_menu_name");
+	String category = mr.getParameter("category");
 	int calorie = Integer.parseInt(mr.getParameter("calorie"));
 	int price = Integer.parseInt(mr.getParameter("price"));
-	String recomsauce = mr.getParameter("SelectSauceValue");
-	String size = mr.getParameter("menu_size");
 	String detail = mr.getParameter("detail");
 	
-	dto.setM_no(menu_no);
-	dto.setM_name(menu_name);
-	dto.setM_class(menu_class);
+	dto.setM_no(side_menu_no);
+	dto.setM_name(side_menu_name);
+	dto.setM_category(category);
 	dto.setM_calorie(calorie);
 	dto.setM_price(price);
 	dto.setM_img(fileFullPath);
-	dto.setM_recomsauce(recomsauce);
-	dto.setM_size(size);
 	dto.setM_detail(detail);
 	
-	dao.UpdateMenu(dto);
+	dao.UpdateSideMenu(dto);
 %>
 <script>
 	alert("수정 완료");
-	location.href="MenuIndex.jsp";
+	location.href="SideMenuIndex.jsp";
 </script>

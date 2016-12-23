@@ -12,7 +12,7 @@ try {
 		OrderDto dto = (OrderDto) menuList.get(i);
 %>
 	<div class="col-md-4" style=" height:300px; text-align:center; ">
-		<input type="radio" value="<%=dto.getMenu_no()%>" name="List_menuno"><br>
+		<input type="radio" value="<%=dto.getMenu_no()%>" name="menu_no" onclick="Menu_Bestsauce()"><br>
 		<article class="service type-service hentry one_fourth format-slider col-md-12">
 			<figure>
 				<span class="image_container_img">
@@ -41,7 +41,8 @@ try {
 			</div>
 		</article>
 	</div>
-	<input type="hidden" value="<%=dto.getMenu_price()%>"/>
+	<input type="hidden" id="basic_price_<%=dto.getMenu_no()%>" value="<%=dto.getMenu_price()%>"/>
+	<input type="hidden" id="menu_name_<%=dto.getMenu_no()%>" value="<%=dto.getMenu_name()%>"/>
 <%
 }
 

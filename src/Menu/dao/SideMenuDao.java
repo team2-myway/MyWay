@@ -10,21 +10,22 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import Menu.dto.MenuDto;
+import Menu.dto.SideMenuDto;
 import order.OrderDto;
 
-public class MenuDao {
+public class SideMenuDao {
 	private Connection con;
 	private PreparedStatement stmt;
 	private ResultSet rs;
 	private DataSource ds;
 	
-	public MenuDao(){
+	public SideMenuDao(){
 		try{
 			Context ctx = new InitialContext();
 			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/MysqlDB");
 			
 		}catch(Exception err){
-			System.out.println("���� ����" + err);
+			System.out.println("DBConnect error : " + err);
 		}
 	}
 	
@@ -53,27 +54,26 @@ public class MenuDao {
 			return list;
 		}
 	
-	public void AddMenu(MenuDto dto){
+	public void AddSideMenu(SideMenuDto dto){
 		try{
-			String sql = "insert into menu "
-					+ "(class, menu_size, menu_name, image, calorie, price, detail, sauce_no)"
-					+ " value(?, ?, ?, ?, ?, ?, ?, ?);";
+			String sql = "insert into side_menu "
+					+ "(category, side_menu_name, image, calorie, price, detail)"
+					+ " value(?, ?, ?, ?, ?, ?);";
 			con = ds.getConnection();
 			
 			stmt = con.prepareStatement(sql);
-			stmt.setString(1, dto.getM_class());
-			stmt.setString(2, dto.getM_size());
-			stmt.setString(3, dto.getM_name());
-			stmt.setString(4, dto.getM_img());
-			stmt.setInt(5, dto.getM_calorie());
-			stmt.setInt(6, dto.getM_price());
-			stmt.setString(7, dto.getM_detail());
-			stmt.setString(8, dto.getM_recomsauce());
+			stmt.setString(1, dto.getM_category());
+			stmt.setString(2, dto.getM_name());
+			stmt.setString(3, dto.getM_img());
+			stmt.setInt(4, dto.getM_calorie());
+			stmt.setInt(5, dto.getM_price());
+			stmt.setString(6, dto.getM_detail());
+			
 			stmt.executeUpdate();
 			
 		}
 		catch(Exception err){
-			System.out.println("AddMenu() : " + err);
+			System.out.println("AddSideMenu() : " + err);
 		}
 		finally{
 			freeConnection();
@@ -82,25 +82,25 @@ public class MenuDao {
 	}
 	
 	
-	public ArrayList MenuList(){
+	public ArrayList SideMenuList(){
 		ArrayList list = new ArrayList();
-		String sql = "select menu_no, menu_name, image, price from menu";
+		String sql = "select side_menu_no, side_menu_name, image, price from side_menu";
 		try{
 			con = ds.getConnection();
 			stmt = con.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			
 			while(rs.next()){
-				MenuDto dto = new MenuDto();
-				dto.setM_no(rs.getInt("menu_no"));
-				dto.setM_name(rs.getString("menu_name"));
+				SideMenuDto dto = new SideMenuDto();
+				dto.setM_no(rs.getInt("side_menu_no"));
+				dto.setM_name(rs.getString("side_menu_name"));
 				dto.setM_img(rs.getString("image"));
 				dto.setM_price(rs.getInt("price"));
 				list.add(dto);
 			}
 			
 		}catch(Exception err){
-			System.out.println("MenuList" + err);
+			System.out.println("SideMenuList" + err);
 		
 		}finally{
 			freeConnection();
@@ -109,9 +109,9 @@ public class MenuDao {
 	}
 	
 	//�󼼺���
-	public MenuDto MenuDetailList(int menu_no){
-		MenuDto dto = new MenuDto();
-		String sql = "select class, menu_size, menu_name, calorie, price, detail, sauce_no from menu where menu_no=?";
+	public SideMenuDto SideMenuDetailList(int menu_no){
+		SideMenuDto dto = new SideMenuDto();
+		String sql = "select category, side_menu_name, calorie, price, detail from side_menu where side_menu_no=?";
 		try{
 			con = ds.getConnection();
 			stmt = con.prepareStatement(sql);
@@ -119,44 +119,40 @@ public class MenuDao {
 			rs = stmt.executeQuery();
 			
 			while(rs.next()){
-				dto.setM_class(rs.getString("class"));
-				dto.setM_size(rs.getString("menu_size"));
-				dto.setM_name(rs.getString("menu_name"));
+				dto.setM_category(rs.getString("category"));
+				dto.setM_name(rs.getString("side_menu_name"));
 				dto.setM_calorie(rs.getInt("calorie"));
 				dto.setM_price(rs.getInt("price"));
 				dto.setM_detail(rs.getString("detail"));
-				dto.setM_recomsauce(rs.getString("sauce_no"));
 			}
 			
 		}catch(Exception err){
-			System.out.println("MenuDetailList" + err);
+			System.out.println("SideMenuDetailList" + err);
 		
 		}finally{
 			freeConnection();
 		}
 		return dto;
 	}
-	public void UpdateMenu(MenuDto dto){
+	public void UpdateSideMenu(SideMenuDto dto){
 		try{
-			String sql = "update menu set class=?, menu_size=?, menu_name=?, image=?, calorie=?, price=?, detail=?, sauce_no=?"
-					+ "where menu_no=?";
+			String sql = "update side_menu set category=?, side_menu_name=?, image=?, calorie=?, price=?, detail=? "
+					+ "where side_menu_no=?";
 			con = ds.getConnection();
 			
 			stmt = con.prepareStatement(sql);
-			stmt.setString(1, dto.getM_class());
-			stmt.setString(2, dto.getM_size());
-			stmt.setString(3, dto.getM_name());
-			stmt.setString(4, dto.getM_img());
-			stmt.setInt(5, dto.getM_calorie());
-			stmt.setInt(6, dto.getM_price());
-			stmt.setString(7, dto.getM_detail());
-			stmt.setString(8, dto.getM_recomsauce());
-			stmt.setInt(9, dto.getM_no());
-			stmt.executeUpdate();
+			stmt.setString(1, dto.getM_category());
+			stmt.setString(2, dto.getM_name());
+			stmt.setString(3, dto.getM_img());
+			stmt.setInt(4, dto.getM_calorie());
+			stmt.setInt(5, dto.getM_price());
+			stmt.setString(6, dto.getM_detail());
+			stmt.setInt(7, dto.getM_no());
 			
+			stmt.executeUpdate();
 		}
 		catch(Exception err){
-			System.out.println("UpdateMenu() : " + err);
+			System.out.println("UpdateSideMenu() : " + err);
 		}
 		finally{
 			freeConnection();
@@ -164,8 +160,8 @@ public class MenuDao {
 
 	}
 	
-	public void MenuDelete(int menu_no) {
-		String sql = "delete from menu where menu_no=?";
+	public void SideMenuDelete(int menu_no) {
+		String sql = "delete from side_menu where side_menu_no=?";
 		try{
 			con = ds.getConnection();
 			stmt = con.prepareStatement(sql);
@@ -173,7 +169,8 @@ public class MenuDao {
 			stmt.executeUpdate();
 			
 		}catch(Exception err){
-			System.out.println("MenuDelete" + err);
+			System.out.println("SideMenuDelete" + err);
+			
 		
 		}finally{
 			freeConnection();

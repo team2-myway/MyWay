@@ -62,6 +62,54 @@ public class OrderDao {
 		return list;
 	}
 	
+	// 메뉴의 추천소스를 뽑아오기 
+	public ArrayList BestSauce(String menu_no){
+		ArrayList list = new ArrayList();
+		OrderDto dto = new OrderDto();
+		
+			try{
+				String sql = "select sauce_no from menu where menu_no = '"+menu_no+"'";
+				
+				con = ds.getConnection();
+				stmt = con.prepareStatement(sql);
+				rs = stmt.executeQuery();
+				while(rs.next()){
+					dto.setMenu_bestSouce(rs.getString("sauce_no"));
+				}
+				
+				String[] sauce = dto.getMenu_bestSouce().split("\\|");
+				String bestsauce = "";
+				String sql1="select name from sauce where ";
+					
+					for(int i=0; i<sauce.length; i++){
+						bestsauce = sauce[i];
+						// 배열의 마지막을 확인 마지막때는 or 을 넣으면 안되기 때문
+						if(sauce[i]==sauce[sauce.length-1]){
+							sql1 += "sauce_no = '"+ bestsauce +"'";
+						}else{
+							sql1 += "sauce_no = '"+ bestsauce +"' or ";
+						}
+					}
+					con = ds.getConnection();
+					stmt = con.prepareStatement(sql1);
+					rs = stmt.executeQuery();
+					
+					
+					for(int i=0; i<sauce.length; i++){
+						rs.next();
+						list.add(rs.getString("name"));
+					}
+			
+			}catch(Exception err){
+				System.out.println("BestSauce" + err);
+			}finally {
+				freeConnection();
+				
+			}
+		return list;
+	}
+	
+	
 	// 메뉴 클래스 에 대한 리스트
 	public ArrayList MenuClassList(){
 		ArrayList list = new ArrayList();
@@ -84,7 +132,30 @@ public class OrderDao {
 		
 		return list;
 	}
-	
+	//빵 리스트 뽑기
+	public ArrayList BreadList(){
+		ArrayList list = new ArrayList();
+		String sql = "select * from bread";
+		try{
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				OrderDto dto = new OrderDto();
+				dto.setBread_no(rs.getInt("bread_no"));
+				dto.setBread_name(rs.getString("name"));
+				dto.setBread_detail(rs.getString("detail"));
+				list.add(dto);
+			}
+		}catch(Exception err){
+			System.out.println("SouceList" + err);
+		}finally{
+			freeConnection();
+		}
+		
+		return list;
+	}
 	
 	
 	//소스 리스트 
@@ -169,7 +240,9 @@ public class OrderDao {
 		
 		while(rs.next()){
 			OrderDto dto = new OrderDto();
-			dto.setManage_name(rs.getString(""));
+			dto.setManage_no(rs.getInt("account_no"));
+			dto.setManage_name(rs.getString("manager_name"));
+			dto.setManage_addr(rs.getString("manager_area"));
 			list.add(dto);
 		}
 		
