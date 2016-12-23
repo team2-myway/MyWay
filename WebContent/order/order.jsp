@@ -51,6 +51,7 @@
 				<div class="col-md-10">
 					<div class="col-md-12 padding">
 						<input type="hidden" name="account_no" value="<%=account_no%>"/>
+						<input type="hidden" id="OrderTypes" name="OrderTypes"/>
 						<div class="col-md-3">
 							<h3> 매장 선택</h3>
 						</div>
@@ -347,6 +348,7 @@
 								</label>
 							</div>
 						</div>
+						
 						<!-- 소스끝 -->
 						<div class="col-md-12 padding">
 							<aside class="box success_box">
@@ -372,34 +374,42 @@
 								</table>
 							</aside>
 						</div>
+						<div class="col-md-12">
+							<div class="col-md-6">
+								<button class="btn btn-primary" id="Order_Save">주문하기</button>
+							</div>
+							<div class="col-md-6">
+								<button class="btn btn-primary" id="DetailOrder_Save">다른메뉴 주문하기</button>
+							</div>
+						</div>	
 					</div>
 					<div class="col-md-12 padding" id="side_menu" style="display:none;">
-					<div class="col-md-3">
-						<select id="sidemenu_category" name="sidemenu_category" onchange="SelSideMenuClass()">
-						<option value="All" selected>전체보기</option>
-						<%
-							try {
-								ArrayList Sidemenu_classList = dao.SideMenuClassList();
-								for (int i = 0; i < Sidemenu_classList.size(); i++) {
-									OrderDto dto = (OrderDto) Sidemenu_classList.get(i);
-									
-						%>
-								<option value="<%=dto.getSide_category()%>"><%=dto.getSide_category()%></option>
-						<%
+						<div class="col-md-3">
+							<select id="sidemenu_category" name="sidemenu_category" onchange="SelSideMenuClass()">
+							<option value="All" selected>전체보기</option>
+							<%
+								try {
+									ArrayList Sidemenu_classList = dao.SideMenuClassList();
+									for (int i = 0; i < Sidemenu_classList.size(); i++) {
+										OrderDto dto = (OrderDto) Sidemenu_classList.get(i);
+										
+							%>
+									<option value="<%=dto.getSide_category()%>"><%=dto.getSide_category()%></option>
+							<%
+										}
+				
+									} catch (Exception err) {
+										System.out.println("index.jsp : " + err);
 									}
-			
-								} catch (Exception err) {
-									System.out.println("index.jsp : " + err);
-								}
-						%>
-							
-						</select>
-					</div>
-					<div class="col-md-9">
-						<div class="col-md-12" id="Html_SideMenuList">
+							%>
+								
+							</select>
 						</div>
-					</div>
-					<div class="col-md-12 padding">
+						<div class="col-md-9">
+							<div class="col-md-12" id="Html_SideMenuList">
+							</div>
+						</div>
+						<div class="col-md-12 padding">
 							<aside class="box success_box">
 								<table class="table">
 										<tr>
@@ -421,15 +431,16 @@
 								</table>
 							</aside>
 						</div>
+						<div class="col-md-12">
+							<div class="col-md-6">
+								<button class="btn btn-primary" id="SideOrder_Save">주문하기</button>
+							</div>
+							<div class="col-md-6">
+								<button class="btn btn-primary" id="">다른메뉴 주문하기</button>
+							</div>
+						</div>	
 					</div>
-					<div class="col-md-12">
-						<div class="col-md-6">
-							<button class="btn btn-primary" id="Order_Save">주문하기</button>
-						</div>
-						<div class="col-md-6">
-							<button class="btn btn-primary" id="DetailOrder_Save">다른메뉴 주문하기</button>
-						</div>
-					</div>	
+					
 				</div>
 			</form>
 		</div>
@@ -526,6 +537,9 @@
 			});
 			$("#Order_Save").click(function(){
 				SelectValues();
+			});
+			$("#SideOrder_Save").click(function(){
+				SideOrderSave();
 			});
 		
 		});
@@ -794,17 +808,19 @@
 			if(list =="side"){
 				$("#Sandwich").css("display","none");
 				$("#side_menu").css("display","");
+				$("#OrderTypes").val("side");
 				SelSideMenuClass();
 			}else{
 				$("#Sandwich").css("display","");
 				$("#side_menu").css("display","none");
+				$("#OrderTypes").val("bread");
 			}
 		}
 		// check박스의 checked 되어있으면 테이블 행 추가 아닐시 삭제 
 		function SelCheckbox(side_no){
 			var checked = $("input:checkbox[id='side_menu_no_"+side_no+"']").is(":checked");
 			if(checked == true){
-				$("#Html_SideAppend").append('<tr id="Html_TrAppeand_'+side_no+'"><td><button class="btn btn-danger" onclick="SideMenuDel('+side_no+')">선택취소</button></td><td id="Html_side_menu_name_'+side_no+'" style="text-align:center;"></td><td id="Html_side_basic_price_'+side_no+'" style="text-align:center;"></td><td style="text-lign:center;"><input type="text" class="form-control" placeholder="수량을 입력해주세요" id="SideMenu_count_'+side_no+'" name="count" onblur="SideMenu_CountPrice('+side_no+')"/></td><td id="SideCountPirce_'+side_no+'"></td></tr>');			
+				$("#Html_SideAppend").append('<tr id="Html_TrAppeand_'+side_no+'"><td><button class="btn btn-danger" onclick="SideMenuDel('+side_no+')">선택취소</button></td><td id="Html_side_menu_name_'+side_no+'" style="text-align:center;"></td><td id="Html_side_basic_price_'+side_no+'" style="text-align:center;"></td><td style="text-lign:center;"><input type="text" class="form-control" placeholder="수량을 입력해주세요" id="SideMenu_count_'+side_no+'" name="sidemenu_count" onblur="SideMenu_CountPrice('+side_no+')"/></td><td id="SideCountPirce_'+side_no+'"></td><input type="hidden" name="side_countprice" id="hidden_countPrice_'+side_no+'"/></tr>');			
 			}else{
 				SideMenuDel(side_no);
 			}
@@ -830,6 +846,7 @@
 			
 			$("#SideCountPirce_"+side_no).html(sidecountPrice);
 			$("#SideCountPirce_"+side_no).val(sidecountPrice);
+			$("#hidden_countPrice_"+side_no).val(sidecountPrice);
 			TotalSidePrice(null,side_no);
 		}
 		var TotalPrice = 0;
@@ -842,8 +859,6 @@
 			}else{
 				TotalPrice -= parseInt(price);	
 			}
-			alert(TotalPrice);
-			
 			$("#SideCountPirce").val(TotalPrice);
 			$("#HtmlSide_CountPrice").html(TotalPrice);
 		}
@@ -853,8 +868,11 @@
 			$("input:checkbox[id='side_menu_no_"+side_no+"']").prop("checked",false);
 			TotalSidePrice(price,side_no);
 			$("#Html_TrAppeand_"+side_no).remove();
-			
-			
+		}
+		function SideOrderSave(){
+			 var param = $("#OrderSaveForm").serialize();
+			// alert(param);
+			 sendRequest("POST","OrderSave.jsp", DetailOrderSaveBack,param);	
 		}
 		
 	</script>
