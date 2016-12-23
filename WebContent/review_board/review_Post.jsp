@@ -10,6 +10,13 @@
 <script src="../lib/daumeditor/js/editor_loader.js?environment=development" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 <script>
+	window.onload = function() {
+		var session_id = <%=session.getAttribute("id") %>;
+		if(session_id == null) {
+			alert("회원만 작성할 수 있습니다.");
+			history.back();
+		}
+	}
 	function validForm(editor) {
 	   var validator = new Trex.Validator();
 	   var content = editor.getContent();
@@ -52,17 +59,13 @@ function Addrback(){
     }
  }
 </script>
-
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body class="page">
-
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
-
    <section id="page" class="csstransition cmsms_resp hfeed site">
       <%@ include file="../include/header.jsp"%>
       <div class="container">

@@ -11,6 +11,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 
+
 public class OrderDao {
 	private Connection con;
 	private PreparedStatement stmt;
@@ -26,6 +27,106 @@ public class OrderDao {
 			System.out.println("연결 실패" + err);
 		}
 	}
+	public void FavoriteSave(OrderDto dto){
+		String sql = "insert into fa";
+	}
+	public void StampAdd(int account_no, int count){
+		String sql = "";
+		try{
+		sql = "select stamp from account where account_no = ?";
+		con = ds.getConnection();
+		stmt = con.prepareStatement(sql);
+		stmt.setInt(1, account_no);
+		rs = stmt.executeQuery();
+		rs.next();
+		int stamp = rs.getInt("stamp");
+		int countstamp = stamp+count;
+		// 회원의 스탬프의 갯수를 늘림
+		sql ="update account set stamp=? where account_no = ?";
+		con = ds.getConnection();
+		stmt = con.prepareStatement(sql);
+		stmt.setInt(1, countstamp);
+		stmt.setInt(2, account_no);
+		stmt.executeUpdate();
+		}catch(Exception err){
+			System.out.println("addSawon"+err);
+		}finally{
+			freeConnection();
+		}
+	}
+	public void DetailOrderSave(OrderDto dto){
+		String sql = "";
+		
+		try{
+			sql = "insert into detail_order(order_code, bread_no, menu_no, vegetable_no, sauce_no, count, price, favorite)"
+					+ " values (?, ?, ?, ?, ?, ?,?,?);";
+			
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, dto.getOrder_code());
+			stmt.setInt(2, dto.getBread_no());
+			stmt.setInt(3, dto.getMenu_no());
+			stmt.setString(4, dto.getVegetable_no_List());
+			stmt.setString(5, dto.getSauce_no_List());
+			stmt.setInt(6, dto.getMenu_count());
+			stmt.setInt(7, dto.getMenu_price());
+			stmt.setString(8, dto.getFavorite());
+			stmt.executeUpdate();
+		//	System.out.println(sql);
+			//회원이 가진 스템프의 갯수 알기위함
+			StampAdd(dto.getAccount_no(), dto.getMenu_count());
+			OrderSave(dto);
+		}catch(Exception err){
+			System.out.println("addSawon"+err);
+		}finally{
+			freeConnection();
+		}
+	}
+	public void OrderSave(OrderDto dto){
+		String sql = "insert into main_order(order_code,account_no, account_name, account_tel, store_no, total, date, status) "
+				+ "values (?, ?, ?, ?, ?, ?, date_format(now(),'%Y/%m/%d %H:%i:%s'),'주문완료')";
+		try{
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, dto.getOrder_code());
+			stmt.setInt(2, dto.getAccount_no());
+			stmt.setString(3, "");
+			stmt.setString(4, "");
+			stmt.setInt(5, dto.getManage_no());
+			stmt.setInt(6, dto.getMenu_price());
+			stmt.executeUpdate();
+			//System.out.println(sql);
+		}catch(Exception err){
+			System.out.println("addSawon"+err);
+		}finally{
+			freeConnection();
+		}
+	
+	}
+	
+	public String Order_Code(int account_no, String date){
+		String ordermax_no = "";
+		String sql = "select id from account where account_no = "+account_no;
+		try{
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			rs.next();
+			String dates = date.substring(1,6);
+			String id = rs.getString("id").substring(2);
+			ordermax_no = "ORD"+id+"NO"+dates;
+			//System.out.println(ordermax_no);
+			
+		}catch(Exception err){
+			System.out.println("SouceList" + err);
+		}finally{
+			freeConnection();
+		}
+		return ordermax_no;
+	}
+	
+
 	//메뉴 사이즈 별로 나오게 하는 것들 클래스도 지정
 	public ArrayList MenuSizeList(String menusize, String menuclass){
 		ArrayList list = new ArrayList();

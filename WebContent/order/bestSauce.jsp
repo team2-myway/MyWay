@@ -1,8 +1,8 @@
 <%@page import="order.OrderDto"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <jsp:useBean id="dao" class="order.OrderDao"></jsp:useBean>
-<label style="padding-right:10px;">ÃßÃµ¼Ò½º : </label><span><b style="color:aqua;"> 
+<label style="padding-right:10px;">ì¶”ì²œì†ŒìŠ¤ : </label><span><b style="color:aqua;"> 
 <%
 	String menu_no = request.getParameter("menu_no");
 					

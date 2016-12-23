@@ -38,7 +38,6 @@
 
 		.textwidget #pb_35 {padding-bottom:35px;}
 	</style>
-
 </head>
 <body class="page">
 	<section id="page" class="csstransition cmsms_resp hfeed site">

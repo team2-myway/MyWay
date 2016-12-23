@@ -8,13 +8,30 @@
 <link rel="stylesheet" href="../lib/daumeditor/css/editor.css" type="text/css" charset="utf-8" />
 <script src="../lib/daumeditor/js/editor_loader.js?environment=development" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
-<title>Insert title here</title>
+<title>후기글</title>
 <script>
-   function fnDeleteCheck(review_no) {
-      if(confirm("삭제하시겠습니까?")) {
-         location.href="review_DeleteProc.jsp?review_no="+review_no;
-      }
-   }
+	function fnDeleteCheck(review_no) {
+		if (confirm("삭제하시겠습니까?")) {
+			location.href = "review_DeleteProc.jsp?review_no=" + review_no;
+		}
+	}
+	function fnUpdateCheck(review_no) {
+		var session_id = <%=session.getAttribute("id")%>;
+		if (session_id == null) {
+			alert("회원만 작성할 수 있습니다.");
+			history.back();
+		} else {
+			location.href = "review_Update.jsp?review_no=" + review_no;
+		}
+	}
+
+	function fnSessionCheck() {
+		var session_id = <%=session.getAttribute("id")%>;
+		if (session_id == null) {
+			alert("회원만 작성할 수 있습니다.");
+			history.back();
+		}
+	}
 </script>
 </head>
 <body class="page">
@@ -57,7 +74,7 @@
 									<input type="button" id="modify" value="목록"
 									onclick="location.href='review_List.jsp'" />&nbsp;&nbsp;&nbsp;&nbsp;
 									<input type="button" id="modify" value="수정"
-									onclick="location.href='review_Update.jsp?review_no=<%=dto.getReview_no()%>'" />&nbsp;&nbsp;&nbsp;&nbsp;
+									onclick="fnUpdateCheck('<%=dto.getReview_no() %>')" />&nbsp;&nbsp;&nbsp;&nbsp;
 									<input type="button" id="delete" value="삭제"
 									onclick="fnDeleteCheck('<%=dto.getReview_no()%>')" /></td>
 							</tr>
@@ -107,7 +124,7 @@
 								<td><textarea name="content"></textarea></td>
 							</tr>
 							<tr>
-								<td><input type="submit" id="commentsave" value="댓글등록" /></td>
+								<td><input type="submit" id="commentsave" value="댓글등록" onclick="fnSessionCheck()"/></td>
 							</tr>
 						</table>
 					</form>

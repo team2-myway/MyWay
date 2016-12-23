@@ -272,6 +272,30 @@ public class ReviewDao {
 		return list;
 	}
 	
+	//셀렉트 자동으로 불러오기
+	public ReviewDto selectManagerArea(String manager_name) {
+		ArrayList list = new ArrayList();
+		String sql = null;
+		ReviewDto dto = new ReviewDto();
+
+		try {
+			con = ds.getConnection();
+			sql = "SELECT manager_area FROM account where manager_name=?";
+			pstmt = con.prepareStatement(sql);				
+			pstmt.setString(1, manager_name);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				dto.setManager_area(rs.getString("manager_area"));
+			}
+		} catch (Exception err) {
+			System.out.println("selectManagerArea() : " + err);
+		} finally {
+			freeConnection();
+		}
+		return dto;
+	}
+	
 	public void freeConnection() {
 		if (rs != null) {try { rs.close(); } catch (Exception err) {} }
 		if (pstmt != null) { try { pstmt.close(); } catch (Exception err) {} }

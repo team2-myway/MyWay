@@ -3,6 +3,12 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <jsp:useBean id="dto" class="myway.ReviewDto"></jsp:useBean>
 <jsp:useBean id="dao" class="myway.ReviewDao"></jsp:useBean>
+<%
+	request.setCharacterEncoding("UTF-8");
+	int review_no = Integer.parseInt(request.getParameter("review_no"));
+	dto = dao.getReviewRead(review_no);
+	ReviewDto selectdto = dao.selectManagerArea(dto.getManager_name());
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,38 +39,62 @@ function setForm(editor) {
 }
 </script>
 <script> 
+window.onload = function() { 
+	var grade = "<%=dto.getGrade()%>";
+	var imanager_area ="<%=selectdto.getManager_area()%>";
+	var imanager_name ="<%=dto.getManager_name ()%>";
+	
+	if( grade != null ) {
+		$("input:radio[name=grade][value="+grade+"]").attr("checked","checked");
+	}
+
+}
+
 // 매장 지점 
 function SelManagerAddr(){
 	var manager_area = $("#manager_area").val();
-    var param = "manager_area=" + manager_area;
-    alert("SelManagerAddr : " + param);
+    var param = "manager_area=" + manager_area + "?manager_name=" + manager_name;
     sendRequest("POST","managerSelect.jsp", Addrback, param);
-    alert("request");
 }
 
 function Addrback(){
-	alert("Addrback");
     if(httpRequest.readyState == 4){
        if(httpRequest.status == 200){
           var div = document.getElementById("manager_name");
-           //div.innerHTML = httpRequest.responseText;
-           alert(httpRequest.responseText);
+           div.innerHTML = httpRequest.responseText;
+           //alert(httpRequest.responseText);
         }else{
           alert("error : " + httpRequest.status);
        }
     }
  }
 </script>
+<script type="text/javascript">
+ function loadContent() {
+  var attachments = {};
+  /* 저장된 컨텐츠를 불러오기 위한 함수 호출 */
+  Editor.modify({
+   "attachments": function () { /* 저장된 첨부가 있을 경우 배열로 넘김, 위의 부분을 수정하고 아래 부분은 수정없이 사용 */
+    var allattachments = [];
+    for (var i in attachments) {
+     allattachments = allattachments.concat(attachments[i]);
+    }
+    return allattachments;
+   }(),
+   "content": $tx('content2') /* 내용 문자열, 주어진 필드(textarea) 엘리먼트 */
+  });
+ }
+</script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+	$(document).ready(loadContent());
+</script>
+
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body class="page">
-<%
-	request.setCharacterEncoding("UTF-8");
-	int review_no = Integer.parseInt(request.getParameter("review_no"));
-	dto = dao.getReviewRead(review_no);
-%>
-
    <section id="page" class="csstransition cmsms_resp hfeed site">
       <%@ include file="../include/header.jsp"%>
       <div class="container">
@@ -91,7 +121,7 @@ function Addrback(){
                            for (int i = 0; i < areaList.size(); i++) {
                         	   ReviewDto areadto = (ReviewDto) areaList.get(i);
                            %>
-                           <option value="<%= areadto.getManager_area()%>"><%=areadto.getManager_area()%></option>
+                           <option value="<%= areadto.getManager_area()%>" <%=areadto.getManager_area().equals(selectdto.getManager_area())?"selected":"" %>><%=areadto.getManager_area()%></option>
                         <%
                         	} 
 
@@ -143,6 +173,7 @@ function Addrback(){
          <%@ include file="../include/footer.jsp"%>
       </footer>
    </section>
+   <script src="../lib/ajax.js"></script>
    <script src="../lib/bootstrap/js/jquery-3.1.1.min.js"></script>
    <script src="../lib/bootstrap/js/bootstrap.js"></script>
    <script>
