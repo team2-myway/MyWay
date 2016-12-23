@@ -1,0 +1,71 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+
+<%@page import="java.util.List"%>
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="../lib/daumeditor/css/editor.css"
+	type="text/css" charset="utf-8" />
+<script
+	src="../lib/daumeditor/js/editor_loader.js?environment=development"
+	type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript"
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script>
+	function fnDeleteCheck(board_no) {
+		if(confirm("삭제하시겠습니까?")) {
+			location.href="inquiry_DeleteProc.jsp?board_no="+board_no;
+		}
+	}
+</script>
+</head>
+<body class="page">
+<jsp:useBean id="dao" class="myway.InquiryDao" />
+<jsp:useBean id="dto" class="myway.InquiryDto" />
+<%
+	request.setCharacterEncoding("UTF-8");
+	int board_no = Integer.parseInt(request.getParameter("board_no"));
+	dto = dao.getInquiryRead(board_no);
+%>
+	<section id="page" class="csstransition cmsms_resp hfeed site">
+		<%@ include file="../include/header.jsp"%>
+		<div class="container">
+			<div class="col-md-12">
+				<div class="col-md-12">
+					<form method="post" accept-charset="utf-8">
+						<table width=80% align=left cellpadding=4 cellspacing=0 boarder="1">
+							<tr>
+								<td align=left>제 목</td>
+								<td size=40><%=dto.getTitle() %></td>
+							</tr>
+							<tr>
+								<td>카테고리</td>
+								<td><%=dto.getCategory() %></td>
+							</tr>
+							
+							<tr>
+								<td>내용</td>
+								<td><%=dto.getContent() %> </td>
+							</tr>
+							<tr>
+								<td colspan="2"><input type="button" id="modify" value="수정" onclick="location.href='inquiry_Update.jsp?board_no=<%=dto.getBoard_no()%>'"/>
+									<input type="button" id="delete" value="삭제" onclick="fnDeleteCheck('<%=dto.getBoard_no()%>')"/>
+									<input type="button" id="reply" value="답변" onclick="location.href='inquiry_Reply.jsp?board_no=<%=dto.getBoard_no()%>'"/></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- 공간주기 -->
+		<div style="height: 50px;">&nbsp;</div>
+		<footer>
+			<%@ include file="../include/footer.jsp"%>
+		</footer>
+	</section>
+	<script src="../lib/bootstrap/js/jquery-3.1.1.min.js"></script>
+	<script src="../lib/bootstrap/js/bootstrap.js"></script>
+</body>
+</html>

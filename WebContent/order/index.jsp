@@ -17,14 +17,19 @@
 				<div class="col-md-12">
 					<form name="tx_editor_form" id="tx_editor_form"
 						action="/insert.jsp" method="post" accept-charset="utf-8">
-						<table width="100%">
+						<table width="100%" >
 							<tr>
-								<td>力格</td>
-								<td><input type="text" id="title" name="title" /></td>
+								<td width=10% >力 格</td>
+								<td width=100% ><input type=text name=name size=10 maxlength=20></td>
 							</tr>
 							<tr>
+								<td width=10% >墨抛绊府</td>
+								<td width=100% ><input type=text name=name size=10 maxlength=20></td>
+							</tr>
+							
+							<tr>
 								<td>郴侩</td>
-								<td id="editorTd"></td>
+								<td cellspacing=0 cellpadding=2 id="editorTd"></td>
 							</tr>
 							<tr>
 								<td colspan="2"><input type="button" id="save" class="btn btn-primary" value="历厘" />
