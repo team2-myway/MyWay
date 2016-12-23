@@ -1,3 +1,7 @@
+<jsp:useBean id="dao" class="myway.ReviewDao"></jsp:useBean>
+
+<%@page import="myway.ReviewDto"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -28,27 +32,33 @@
 	     return true;
 	}
 </script>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript" src="../lib/js/jquery.raty.js"></script>
-	<script type="text/javascript">
-		$(function() {
-			$('div#star').raty({
-				score: 3
-				,path : "../lib/images/star"
-				,width : 200
-				,click: function(score, evt) {
-					$("#starRating").val(score);
-					$("#displayStarRating").html(score);
-				}
-			});
-		});
-	</script>
-					
-					
+<script> 
+// 매장 지점 
+function SelManagerAddr(){
+   var manager_area = $("#manager_area").val();
+   var param = "manager_area=" + manager_area;
+   sendRequest("POST","managerSelect.jsp", Addrback, param);
+}
+
+function Addrback(){
+    if(httpRequest.readyState == 4){
+       if(httpRequest.status == 200){
+          var div = document.getElementById("manager_name");
+           div.innerHTML = httpRequest.responseText;
+           //alert(httpRequest.responseText);
+        }else{
+          alert("error : " + httpRequest.status);
+       }
+    }
+ }
+</script>
+
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body class="page">
+
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
@@ -58,7 +68,7 @@
       <div class="container">
          <div class="col-md-12">
             <div class="col-md-12">
-               <form name="tx_editor_form" id="tx_editor_form" action="review_PostProc.jsp" method="post" accept-charset="utf-8">
+               <form name="post_form" id="tx_editor_form" action="review_PostProc.jsp" method="post" accept-charset="utf-8">
                   <table width=80% border=0 cellspacing=0 cellpadding=3 align="center">
                      <tr>
                         <td align=left>제 목</td>
@@ -68,42 +78,56 @@
                      </tr>
                      <tr>
                         <td>지 점</td>
-                        <td><input type=text name=manager_name size=40 maxlength=30></td>
-                        <td>별 점</td>
-                        
 						<td>
+						<div>
+						<div class="col-md-6">
+                    	<select id="manager_area" onchange="SelManagerAddr()">
+                           <option value="" width="200px;"> 지역선택</option>
+                        <%
+                           List areaList = dao.getManagerArea();
+                           for (int i = 0; i < areaList.size(); i++) {
+                        	   ReviewDto areadto = (ReviewDto) areaList.get(i);
+                           %>
+                           <option value="<%= areadto.getManager_area()%>"><%=areadto.getManager_area()%></option>
+                        <%
+                        	} 
 
-
-		
-		<div id="star" style="cursor: pointer; width: 200px;">
-		<img src="../lib/images/star/star-on.png" alt="1" title="bad">&nbsp;
-		<img src="../lib/images/star/star-on.png" alt="2" title="poor">&nbsp;
-		<img src="../lib/images/star/star-on.png" alt="3" title="regular">&nbsp;
-		<img src="../lib/images/star/star-off.png" alt="4" title="good">&nbsp;
-		<img src="../lib/images/star/star-off.png" alt="5" title="gorgeous">
-		<input type="hidden" name="score" value="3">
-		</div>
-
-		<div style="padding-top:20px;">
-			<label for="starRating">Value : </label><input type="text" name="grade" id="starRating" value="3">
-		</div>
-
-		<div style="padding-top:20px;">
-			<label for="displayStarRating">Value : </label><span id="displayStarRating" style="padding-left:20px;">3</span>
-	
-
-	
-						
+                        %>
+                     </select>
+                  	</div>
+                  	<div class="col-md-6">
+                     <select name="manager_name" id="manager_name">
+					 </select>
+                 	 </div>
+						</div>
 						</td>
+                        <td>별 점</td>
+						<td>
+						<div id="star" style="cursor: pointer; width: 200px;">
+							<img src="../lib/images/star/star-on.png" alt="1" title="bad">&nbsp;
+							<img src="../lib/images/star/star-on.png" alt="2" title="poor">&nbsp;
+							<img src="../lib/images/star/star-on.png" alt="3" title="regular">&nbsp;
+							<img src="../lib/images/star/star-on.png" alt="4" title="good">&nbsp;
+							<img src="../lib/images/star/star-on.png" alt="5" title="gorgeous">
+							<br/>
+							<input type="radio" id="grade" name="grade" value="1">&nbsp;&nbsp;
+							<input type="radio" id="grade" name="grade" value="2">&nbsp;&nbsp;
+							<input type="radio" id="grade" name="grade" value="3">&nbsp;&nbsp;
+							<input type="radio" id="grade" name="grade" value="4">&nbsp;&nbsp;
+							<input type="radio" id="grade" name="grade" value="5">
+						</div>
+						</td>
+						<td><br><br></td>
                      </tr>
-                     
                      <tr>
                         <td>내용</td>
                         <td id="editorTd"></td>
                      </tr>
                      <tr>
-                        <td colspan="2"><input type="button" id="save" value="저장"/>
-                           <input type="reset" value="취소" /></td>
+                        <td colspan="2">
+                        	<input type="button" id="save" value="저장"/>
+                            <input type="reset" value="취소" />
+                        </td>
                      </tr>
                   </table>
                </form>
@@ -119,6 +143,7 @@
          <%@ include file="../include/footer.jsp"%>
       </footer>
    </section>
+   <script src="../lib/ajax.js"></script>
    <script src="../lib/bootstrap/js/jquery-3.1.1.min.js"></script>
    <script src="../lib/bootstrap/js/bootstrap.js"></script>
    <script>

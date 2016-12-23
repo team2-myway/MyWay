@@ -18,15 +18,7 @@ public class ReviewDao {
 	public ReviewDao() { // 생성자
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/mysqlDB"); // lookup()
-																		// :
-																		// �̸���
-																		// �˰�
-																		// ������,
-																		// jndi��
-																		// ������
-																		// ��
-																		// �ִ�.
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/mysqlDB");
 		} catch (Exception e) {
 			System.out.println("DB connect error: " + e);
 		}
@@ -230,6 +222,56 @@ public class ReviewDao {
 		return result;
 	}
 
+	// 지역
+	public ArrayList getManagerArea() {
+		ArrayList list = new ArrayList();
+		String sql = null;
+
+		try {
+			con = ds.getConnection();
+			sql = "SELECT manager_area FROM account where level = 'super' or level = 'manager' group by manager_area";
+			pstmt = con.prepareStatement(sql);				
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				ReviewDto dto = new ReviewDto();
+				dto.setManager_area(rs.getString("manager_area"));
+				list.add(dto);
+			}
+		} catch (Exception err) {
+			System.out.println("getManagerArea() : " + err);
+		} finally {
+			freeConnection();
+		}
+		return list;
+	}
+	
+	// 매장
+	public ArrayList getManagerName(String manager_area) {
+		ArrayList list = new ArrayList();
+		String sql = null;
+
+		try {
+			con = ds.getConnection();
+			sql = "SELECT account_no, manager_name FROM account where (level = 'super' or level = 'manager') and manager_area=?";
+			pstmt = con.prepareStatement(sql);				
+			pstmt.setString(1, manager_area);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				ReviewDto dto = new ReviewDto();
+				dto.setAccount_no(rs.getInt("account_no"));
+				dto.setManager_name(rs.getString("manager_name"));
+				list.add(dto);
+			}
+		} catch (Exception err) {
+			System.out.println("getManagerName() : " + err);
+		} finally {
+			freeConnection();
+		}
+		return list;
+	}
+	
 	public void freeConnection() {
 		if (rs != null) {try { rs.close(); } catch (Exception err) {} }
 		if (pstmt != null) { try { pstmt.close(); } catch (Exception err) {} }

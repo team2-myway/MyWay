@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="myway.ReviewDto"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
@@ -114,6 +114,8 @@
 				</div>
 			</div>
 		</div>
+		
+		
 		<!-- 공간주기 -->
 		<div style="height: 50px;">&nbsp;</div>
 		<footer>

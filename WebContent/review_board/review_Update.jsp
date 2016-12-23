@@ -1,4 +1,8 @@
+<%@page import="myway.ReviewDto"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
+<jsp:useBean id="dto" class="myway.ReviewDto"></jsp:useBean>
+<jsp:useBean id="dao" class="myway.ReviewDao"></jsp:useBean>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,23 +32,46 @@ function setForm(editor) {
      return true;
 }
 </script>
+<script> 
+// 매장 지점 
+function SelManagerAddr(){
+	var manager_area = $("#manager_area").val();
+    var param = "manager_area=" + manager_area;
+    alert("SelManagerAddr : " + param);
+    sendRequest("POST","managerSelect.jsp", Addrback, param);
+    alert("request");
+}
+
+function Addrback(){
+	alert("Addrback");
+    if(httpRequest.readyState == 4){
+       if(httpRequest.status == 200){
+          var div = document.getElementById("manager_name");
+           //div.innerHTML = httpRequest.responseText;
+           alert(httpRequest.responseText);
+        }else{
+          alert("error : " + httpRequest.status);
+       }
+    }
+ }
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body class="page">
-<jsp:useBean id="dto" class="myway.ReviewDto"></jsp:useBean>
-<jsp:useBean id="dao" class="myway.ReviewDao"></jsp:useBean>
 <%
 	request.setCharacterEncoding("UTF-8");
-   int review_no = Integer.parseInt(request.getParameter("review_no"));
-   dto = dao.getReviewRead(review_no);
+	int review_no = Integer.parseInt(request.getParameter("review_no"));
+	dto = dao.getReviewRead(review_no);
 %>
+
    <section id="page" class="csstransition cmsms_resp hfeed site">
       <%@ include file="../include/header.jsp"%>
       <div class="container">
          <div class="col-md-12">
             <div class="col-md-12">
                <form name="tx_editor_form" id="tx_editor_form" action="review_UpdateProc.jsp?review_no=<%=dto.getReview_no()%>" method="post" accept-charset="utf-8">
+               	<textarea id="content2" ><%=dto.getContent() %></textarea> <!-- style="display:none" -->
                   <table width=80% border=0 cellspacing=0 cellpadding=3 align="center">
                      <tr>
                         <td align=left>제 목</td>
@@ -54,11 +81,49 @@ function setForm(editor) {
                      </tr>
                      <tr>
                         <td>지 점</td>
-                        <td><input type=text name=manager_name size=40 maxlength=30 value=<%=dto.getManager_name()%>></td>
+						<td>
+						<div>
+						<div class="col-md-6">
+                    	<select id="manager_area" onchange="SelManagerAddr()">
+                           <option value="" width="200px;"> 지역선택</option>
+                        <%
+                           List areaList = dao.getManagerArea();
+                           for (int i = 0; i < areaList.size(); i++) {
+                        	   ReviewDto areadto = (ReviewDto) areaList.get(i);
+                           %>
+                           <option value="<%= areadto.getManager_area()%>"><%=areadto.getManager_area()%></option>
+                        <%
+                        	} 
+
+                        %>
+                     </select>
+                  	</div>
+                  	<div class="col-md-6">
+                     <select name="manager_name" id="manager_name">
+					 </select>
+                 	 </div>
+						</div>
+						</td>
                         <td>별 점</td>
-                        <td><input type=text name=grade size=50 maxlength=30 value=<%=dto.getGrade()%>></td>
+						<td>
+						<div id="star" style="cursor: pointer; width: 200px;">
+							<img src="../lib/images/star/star-on.png" alt="1" title="bad">&nbsp;
+							<img src="../lib/images/star/star-on.png" alt="2" title="poor">&nbsp;
+							<img src="../lib/images/star/star-on.png" alt="3" title="regular">&nbsp;
+							<img src="../lib/images/star/star-on.png" alt="4" title="good">&nbsp;
+							<img src="../lib/images/star/star-on.png" alt="5" title="gorgeous">
+							<br/>
+							<input type="radio" id="grade" name="grade" value="1">&nbsp;&nbsp;
+							<input type="radio" id="grade" name="grade" value="2">&nbsp;&nbsp;
+							<input type="radio" id="grade" name="grade" value="3">&nbsp;&nbsp;
+							<input type="radio" id="grade" name="grade" value="4">&nbsp;&nbsp;
+							<input type="radio" id="grade" name="grade" value="5">
+						</div>
+						</td>
+						<td><br><br></td>
                      </tr>
-                     
+                     <tr>
+                     </tr>
                      <tr>
                         <td>내용</td>
                         <td id="editorTd"></td>
@@ -139,5 +204,6 @@ function setForm(editor) {
    }
    
    </script>
+
 </body>
 </html>
