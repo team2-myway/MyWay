@@ -27,9 +27,6 @@ public class OrderDao {
 			System.out.println("연결 실패" + err);
 		}
 	}
-	public void FavoriteSave(OrderDto dto){
-		String sql = "insert into fa";
-	}
 	public void StampAdd(int account_no, int count){
 		String sql = "";
 		try{
@@ -49,7 +46,7 @@ public class OrderDao {
 		stmt.setInt(2, account_no);
 		stmt.executeUpdate();
 		}catch(Exception err){
-			System.out.println("addSawon"+err);
+			System.out.println("StampAdd"+err);
 		}finally{
 			freeConnection();
 		}
@@ -75,9 +72,9 @@ public class OrderDao {
 		//	System.out.println(sql);
 			//회원이 가진 스템프의 갯수 알기위함
 			StampAdd(dto.getAccount_no(), dto.getMenu_count());
-		//	OrderSave(dto);
+			OrderSave(dto);
 		}catch(Exception err){
-			System.out.println("addSawon"+err);
+			System.out.println("DetailOrderSave"+err);
 		}finally{
 			freeConnection();
 		}
@@ -90,14 +87,15 @@ public class OrderDao {
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, dto.getOrder_code());
 			stmt.setInt(2, dto.getAccount_no());
-			stmt.setString(3, "");
-			stmt.setString(4, "");
+			stmt.setString(3, dto.getAccount_name());
+			stmt.setString(4, dto.getAccount_tel());
 			stmt.setInt(5, dto.getManage_no());
-			stmt.setInt(6, dto.getMenu_price());
+			stmt.setInt(6, dto.getOrder_price());
+			
 			stmt.executeUpdate();
 			//System.out.println(sql);
 		}catch(Exception err){
-			System.out.println("addSawon"+err);
+			System.out.println("OrderSave"+err);
 		}finally{
 			freeConnection();
 		}
@@ -119,7 +117,7 @@ public class OrderDao {
 			//System.out.println(ordermax_no);
 			
 		}catch(Exception err){
-			System.out.println("SouceList" + err);
+			System.out.println("Order_Code" + err);
 		}finally{
 			freeConnection();
 		}
@@ -182,7 +180,7 @@ public class OrderDao {
 			}
 			
 		}catch(Exception err){
-			System.out.println("SouceList" + err);
+			System.out.println("MyOrderList" + err);
 		}finally{
 			freeConnection();
 		}
@@ -217,12 +215,13 @@ public class OrderDao {
 				}
 				
 		}catch(Exception err){
-			System.out.println("SouceList" + err);
+			System.out.println("VegetableOrderList" + err);
 		}finally{
 			freeConnection();
 		}
 		return list;
 	}
+	//선택한 소스의 이름을 알기위함
 	public ArrayList SauceOrderList(String sauce_no){
 		ArrayList list = new ArrayList();
 		try{
@@ -248,7 +247,7 @@ public class OrderDao {
 				
 			}
 		}catch(Exception err){
-			System.out.println("SouceList" + err);
+			System.out.println("SauceOrderList" + err);
 		}finally{
 			freeConnection();
 		}
@@ -284,7 +283,7 @@ public class OrderDao {
 			}
 			
 		}catch(Exception err){
-			System.out.println("SouceList" + err);
+			System.out.println("MenuSizeList" + err);
 		}finally{
 			freeConnection();
 		}
@@ -355,7 +354,7 @@ public class OrderDao {
 				list.add(dto);
 			}
 		}catch(Exception err){
-			System.out.println("SouceList" + err);
+			System.out.println("MenuClassList" + err);
 		}finally{
 			freeConnection();
 		}
@@ -376,7 +375,7 @@ public class OrderDao {
 				list.add(dto);
 			}
 		}catch(Exception err){
-			System.out.println("SouceList" + err);
+			System.out.println("SideMenuClassList" + err);
 		}finally{
 			freeConnection();
 		}
@@ -406,7 +405,7 @@ public class OrderDao {
 			}
 			
 		}catch(Exception err){
-			System.out.println("SouceList" + err);
+			System.out.println("SideMenuList" + err);
 		}finally{
 			freeConnection();
 		}
@@ -430,7 +429,7 @@ public class OrderDao {
 				list.add(dto);
 			}
 		}catch(Exception err){
-			System.out.println("SouceList" + err);
+			System.out.println("BreadList" + err);
 		}finally{
 			freeConnection();
 		}
@@ -481,13 +480,13 @@ public class OrderDao {
 		}
 		
 	}catch(Exception err){
-		System.out.println("VegetableList" + err);
+		System.out.println("SauceList" + err);
 	}finally{
 		freeConnection();
 	}
 		return list;
 	}
-	
+	// 매장 지역별로 나오는 것
 	public ArrayList ManagerAddrList(){
 		ArrayList list = new ArrayList();
 		String sql = "SELECT manager_area FROM myway.account where level = 'super' or level = 'manager' group by manager_area;";
@@ -528,14 +527,65 @@ public class OrderDao {
 		}
 		
 	}catch(Exception err){
-		System.out.println("ManagerAddrList" + err);
+		System.out.println("ManagerList" + err);
 	}finally{
 		freeConnection();
 	}
 		return list;
 	}
+	// 회원정보 가져오기 
+	public ArrayList MyAccountList(int account_no){
+		String sql ="select account_name, tel from account where account_no = "+account_no;
+		ArrayList list = new ArrayList();
+		try{
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				OrderDto dto = new OrderDto();
+				dto.setAccount_name(rs.getString("account_name"));
+				dto.setAccount_tel(rs.getString("tel"));
+				list.add(dto);
+			}
+			
+		}catch(Exception err){
+			System.out.println("MyAccountList" + err);
+		}finally{
+			freeConnection();
+		}
+		return list;
+		
+	}
 	
-	
+	public void SideOrderSave(OrderDto dto){
+		String sql="insert into side_order(order_code, side_menu_no, count, price) value(?,?,?,?)";
+		try{
+			for(int i=0; i<dto.getSide_menu_countList().length; i++){
+				con = ds.getConnection();
+				stmt = con.prepareStatement(sql);
+				int[] sideno = dto.getSide_menu_noList();
+				int[] count = dto.getSide_menu_countList();
+				int[] price = dto.getSide_meun_count_priceList();
+				
+				stmt.setString(1, dto.getOrder_code());
+				stmt.setInt(2, sideno[i]);
+				stmt.setInt(3, count[i]);
+				stmt.setInt(4, price[i]);
+				
+				System.out.println(sql);
+				stmt.executeUpdate();
+			}
+			
+			OrderSave(dto);
+			
+			
+		}catch(Exception err){
+			System.out.println("MyAccountList" + err);
+		}finally{
+			freeConnection();
+		}
+	}
 		
 	public void freeConnection(){
 		if(rs!= null){try{rs.close();}catch(Exception err){}}

@@ -62,13 +62,46 @@ public class OrderDto {
 	private int side_menu_price;
 	private String side_menu_detail;
 	
+	private int[] side_menu_noList;
+	private int[] side_menu_countList;
+	private int[] side_meun_count_priceList;
+	
+	
 	private String vegetable_no_List;
 	private String Sauce_no_List;
 	
 	private String order_code;
 	private String favorite;
 	private String order_date;
+	private int order_price;
 	
+	public int[] getSide_menu_noList() {
+		return side_menu_noList;
+	}
+	public void setSide_menu_noList(int[] side_menu_noList) {
+		this.side_menu_noList = side_menu_noList;
+	}
+	
+	
+	public int getOrder_price() {
+		return order_price;
+	}
+	public void setOrder_price(int order_price) {
+		this.order_price = order_price;
+	}
+	
+	public int[] getSide_menu_countList() {
+		return side_menu_countList;
+	}
+	public void setSide_menu_countList(int[] side_menu_countList) {
+		this.side_menu_countList = side_menu_countList;
+	}
+	public int[] getSide_meun_count_priceList() {
+		return side_meun_count_priceList;
+	}
+	public void setSide_meun_count_priceList(int[] side_meun_count_priceList) {
+		this.side_meun_count_priceList = side_meun_count_priceList;
+	}
 	public String getOrder_date() {
 		return order_date;
 	}

@@ -18,6 +18,8 @@
 	<section id="page" class="csstransition cmsms_resp hfeed site">
 		<%@ include file="../include/header.jsp"%>
 		<div class="container">
+		<h3> 나의 주문 내역 </h3>
+		
 		<table class="table table-striped">
 			<tr>
 				<th>No</th>

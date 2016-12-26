@@ -7,10 +7,10 @@
 	String today = formatter.format(new java.util.Date());
 	//int account_no = (Integer)session.getAttribute("account_no");
 	int account_no = 5;
-
+	
 	String order_code = dao.Order_Code(account_no,today);
 	session.setAttribute("order_code", order_code);
-	
+		
 	 
 %>
 
@@ -51,7 +51,22 @@
 				<div class="col-md-10">
 					<div class="col-md-12 padding">
 						<input type="hidden" name="account_no" value="<%=account_no%>"/>
-						<input type="hidden" id="OrderTypes" name="OrderTypes"/>
+						<%
+								try {
+									ArrayList Account = dao.MyAccountList(account_no);
+									for (int i = 0; i < Account.size(); i++) {
+										OrderDto dto = (OrderDto) Account.get(i);
+									%>
+									<input type="hidden" name="account_name" value="<%=dto.getAccount_name()%>"/>
+									<input type="hidden" name="tel" value="<%=dto.getAccount_tel()%>"/>
+								<%
+								}
+	
+								} catch (Exception err) {
+									System.out.println("index.jsp : " + err);
+								}
+								%>
+						<input type="hidden" id="OrderTypes" name="OrderTypes" value="bread"/>
 						<div class="col-md-3">
 							<h3> 매장 선택</h3>
 						</div>
@@ -424,7 +439,7 @@
 										<tr>
 											<td colspan="5" style="text-align:right;">
 											<h4>총 합계 : <span id="HtmlSide_CountPrice" style="padding-left:20px; padding-right:20px;"></span></h4>
-												<input type="hidden" id="SideCountPirce" name="SideCountPirce"/>
+												<input type="hidden" id="SideCountPrice" name="SideCountPrice"/>
 											</td>
 										</tr>
 							
@@ -820,7 +835,7 @@
 		function SelCheckbox(side_no){
 			var checked = $("input:checkbox[id='side_menu_no_"+side_no+"']").is(":checked");
 			if(checked == true){
-				$("#Html_SideAppend").append('<tr id="Html_TrAppeand_'+side_no+'"><td><button class="btn btn-danger" onclick="SideMenuDel('+side_no+')">선택취소</button></td><td id="Html_side_menu_name_'+side_no+'" style="text-align:center;"></td><td id="Html_side_basic_price_'+side_no+'" style="text-align:center;"></td><td style="text-lign:center;"><input type="text" class="form-control" placeholder="수량을 입력해주세요" id="SideMenu_count_'+side_no+'" name="sidemenu_count" onblur="SideMenu_CountPrice('+side_no+')"/></td><td id="SideCountPirce_'+side_no+'"></td><input type="hidden" name="side_countprice" id="hidden_countPrice_'+side_no+'"/></tr>');			
+				$("#Html_SideAppend").append('<tr id="Html_TrAppeand_'+side_no+'"><td><input type="hidden" name="no" value="'+side_no+'"/><button class="btn btn-danger" onclick="SideMenuDel('+side_no+')">선택취소</button></td><td id="Html_side_menu_name_'+side_no+'" style="text-align:center;"></td><td id="Html_side_basic_price_'+side_no+'" style="text-align:center;"></td><td style="text-lign:center;"><input type="text" class="form-control" placeholder="수량을 입력해주세요" id="SideMenu_count_'+side_no+'" name="sidemenu_count" onblur="SideMenu_CountPrice('+side_no+')"/></td><td id="SideCountPrice_'+side_no+'"></td><input type="hidden" name="side_countprice" id="hidden_countPrice_'+side_no+'"/></tr>');			
 			}else{
 				SideMenuDel(side_no);
 			}
@@ -844,27 +859,27 @@
 			
 			var sidecountPrice = sidebasicprice * sidecount;
 			
-			$("#SideCountPirce_"+side_no).html(sidecountPrice);
-			$("#SideCountPirce_"+side_no).val(sidecountPrice);
+			$("#SideCountPrice_"+side_no).html(sidecountPrice);
+			$("#SideCountPrice_"+side_no).val(sidecountPrice);
 			$("#hidden_countPrice_"+side_no).val(sidecountPrice);
 			TotalSidePrice(null,side_no);
 		}
 		var TotalPrice = 0;
 		// 가격들을 Total 적으로 총합계를 낸다.
 		function TotalSidePrice(price,side_no){
-			var SideCountPrices =  $("#SideCountPirce_"+side_no).val();
+			var SideCountPrices =  $("#SideCountPrice_"+side_no).val();
 		//	alert(SideCountPrices);
 			if(price == null){
 				TotalPrice += parseInt(SideCountPrices);
 			}else{
 				TotalPrice -= parseInt(price);	
 			}
-			$("#SideCountPirce").val(TotalPrice);
+			$("#SideCountPrice").val(TotalPrice);
 			$("#HtmlSide_CountPrice").html(TotalPrice);
 		}
 		// 사이드 메뉴 선택 취소 누를시 가격, 테이블행 삭제, 체크 풀기
 		function SideMenuDel(side_no){
-			var price = $("#SideCountPirce_"+side_no).val();
+			var price = $("#SideCountPrice_"+side_no).val();
 			$("input:checkbox[id='side_menu_no_"+side_no+"']").prop("checked",false);
 			TotalSidePrice(price,side_no);
 			$("#Html_TrAppeand_"+side_no).remove();
