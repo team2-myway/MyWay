@@ -1,11 +1,12 @@
-<%@page import="myway.ReviewDto"%>
+<%@page import="review.ReviewDto"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<jsp:useBean id="dto" class="myway.ReviewDto"></jsp:useBean>
-<jsp:useBean id="dao" class="myway.ReviewDao"></jsp:useBean>
+<jsp:useBean id="dto" class="review.ReviewDto"></jsp:useBean>
+<jsp:useBean id="dao" class="review.ReviewDao"></jsp:useBean>
 <%
 	request.setCharacterEncoding("UTF-8");
-	int review_no = Integer.parseInt(request.getParameter("review_no"));
+	String account_no = request.getParameter("account_no");
+	String review_no = request.getParameter("review_no");
 	dto = dao.getReviewRead(review_no);
 	ReviewDto selectdto = dao.selectManagerArea(dto.getManager_name());
 %>
@@ -28,13 +29,13 @@ function validForm(editor) {
 
 //validForm 함수가 true로 return된 후에 동작하는 함수
 function setForm(editor) {
-        var form = editor.getForm();
-        var content = editor.getContent();
-        var textarea = document.createElement('textarea');
-        //textarea를 생성하여 해당태그에 에디터 입력값들을 신규생성 textarea에 담는다
-        textarea.name = 'content';
-        textarea.value = content;
-        form.createField(textarea);
+     var form = editor.getForm();
+     var content = editor.getContent();
+     var textarea = document.createElement('textarea');
+     //textarea를 생성하여 해당태그에 에디터 입력값들을 신규생성 textarea에 담는다
+     textarea.name = 'content';
+     textarea.value = content;
+     form.createField(textarea);
      return true;
 }
 </script>
@@ -100,7 +101,7 @@ function Addrback(){
       <div class="container">
          <div class="col-md-12">
             <div class="col-md-12">
-               <form name="tx_editor_form" id="tx_editor_form" action="review_UpdateProc.jsp?review_no=<%=dto.getReview_no()%>" method="post" accept-charset="utf-8">
+               <form name="tx_editor_form" id="tx_editor_form" action="review_UpdateProc.jsp?account_no=<%=account_no %>&review_no=<%=dto.getReview_no()%>" method="post" accept-charset="utf-8">
                	<textarea id="content2" ><%=dto.getContent() %></textarea> <!-- style="display:none" -->
                   <table width=80% border=0 cellspacing=0 cellpadding=3 align="center">
                      <tr>

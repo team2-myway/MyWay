@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@page import="myway.ReviewDto"%>
+<%@page import="review.ReviewDto"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
@@ -9,19 +9,23 @@
 <script src="../lib/daumeditor/js/editor_loader.js?environment=development" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 <title>후기글</title>
+<jsp:useBean id="dao" class="review.ReviewDao" />
+<jsp:useBean id="dto" class="review.ReviewDto" />
+<%
+	request.setCharacterEncoding("UTF-8");
+    String review_no = request.getParameter("review_no");
+    int account_no = Integer.parseInt(request.getParameter("account_no"));
+    
+    dto = dao.getReviewRead(review_no);
+    List list = dao.getCommentRead(review_no);  
+%>
 <script>
-	function fnDeleteCheck(review_no) {
-		if (confirm("삭제하시겠습니까?")) {
-			location.href = "review_DeleteProc.jsp?review_no=" + review_no;
-		}
-	}
-	function fnUpdateCheck(review_no) {
+	function fnUpdateCheck(account_no, review_no) {
 		var session_id = <%=session.getAttribute("id")%>;
-		if (session_id == null) {
-			alert("회원만 작성할 수 있습니다.");
-			history.back();
-		} else {
-			location.href = "review_Update.jsp?review_no=" + review_no;
+		if(session_id == null) {
+			alert("회원만 수정할 수 있습니다");
+		} else {			
+			location.href="review_Update.jsp?&account_no="+account_no+"&review_no="+review_no;
 		}
 	}
 
@@ -35,15 +39,6 @@
 </script>
 </head>
 <body class="page">
-	<jsp:useBean id="dao" class="myway.ReviewDao" />
-	<jsp:useBean id="dto" class="myway.ReviewDto" />
-<%
-	request.setCharacterEncoding("UTF-8");
-    int review_no = Integer.parseInt(request.getParameter("review_no"));
-    dto = dao.getReviewRead(review_no);
-    List list = dao.getCommentRead(review_no);
-    
-%>
 	<section id="page" class="csstransition cmsms_resp hfeed site">
 		<%@ include file="../include/header.jsp"%>
 		<div class="container">
@@ -74,9 +69,9 @@
 									<input type="button" id="modify" value="목록"
 									onclick="location.href='review_List.jsp'" />&nbsp;&nbsp;&nbsp;&nbsp;
 									<input type="button" id="modify" value="수정"
-									onclick="fnUpdateCheck('<%=dto.getReview_no() %>')" />&nbsp;&nbsp;&nbsp;&nbsp;
+									onclick="fnUpdateCheck(<%=account_no%>, <%=dto.getReview_no()%>)" />&nbsp;&nbsp;&nbsp;&nbsp;
 									<input type="button" id="delete" value="삭제"
-									onclick="fnDeleteCheck('<%=dto.getReview_no()%>')" /></td>
+									onclick="location.href='review_Delete.jsp?account_no=<%=account_no%>&review_no=<%=dto.getReview_no()%>'" /></td>
 							</tr>
 						</table>
 					</form>
@@ -108,7 +103,6 @@
 					</tr>
 <%
 			}
-
 		}
 %>
 					<tr>

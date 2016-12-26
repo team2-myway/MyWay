@@ -2,8 +2,8 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
-<jsp:useBean id="dao" class="myway.ReviewDao" />
-<jsp:useBean id="dto" class="myway.ReviewDto" />
+<jsp:useBean id="dao" class="review.ReviewDao" />
+<jsp:useBean id="dto" class="review.ReviewDto" />
 
 <jsp:setProperty property="account_name" name="dto"/>
 <jsp:setProperty property="manager_name" name="dto"/>

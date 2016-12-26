@@ -1,6 +1,6 @@
-<jsp:useBean id="dao" class="myway.ReviewDao"></jsp:useBean>
+<jsp:useBean id="dao" class="review.ReviewDao"></jsp:useBean>
 
-<%@page import="myway.ReviewDto"%>
+<%@page import="review.ReviewDto"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
@@ -77,7 +77,16 @@ function Addrback(){
                         <td align=left>제 목</td>
                         <td><input type=text name=title size=40 maxlength=20></td>
                         <td>이름</td>
-                        <td><input type=text name=account_name size=40 maxlength=20></td>
+                        <%
+                        	if(session.getAttribute("id") != "") {
+                        		AccountDao adao = new AccountDao();
+                        		AccountDto adto = new AccountDto();
+                        		adto = adao.session(session.getAttribute("id"));
+                        %>
+                        		<td><input type=text name=account_name size=40 maxlength=20 value="<%=adto.getAccount_name()%>"></td>
+                        <%
+                        	}	
+                        %>
                      </tr>
                      <tr>
                         <td>지 점</td>

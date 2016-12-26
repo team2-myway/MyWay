@@ -25,13 +25,15 @@ public class AccountDao {
 		
 		public AccountDto session(Object session_id) {
 			AccountDto dto = new AccountDto();
-			String sql = "select level from account where id=?";
+			String sql = "select account_no, account_name, level from account where id=?";
 			try {
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, session_id.toString());
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
+					dto.setAccount_no(rs.getInt("account_no"));
+					dto.setAccount_name(rs.getString("account_name"));
 					dto.setLevel(rs.getString("level"));
 				}
 			} catch (Exception e) {

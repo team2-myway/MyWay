@@ -1,4 +1,4 @@
-package myway;
+package review;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +15,7 @@ public class ReviewDao {
 	private ResultSet rs;
 	private DataSource ds;
 
-	public ReviewDao() { // 생성자
+	public ReviewDao() { 
 		try {
 			Context ctx = new InitialContext();
 			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/mysqlDB");
@@ -24,7 +24,7 @@ public class ReviewDao {
 		}
 	}
 
-	// 전체글읽기(List.jsp)
+	// ?��체�??���?(List.jsp)
 	public ArrayList getBoardList(String keyField, String keyWord) {
 		ArrayList list = new ArrayList();
 		String sql = null;
@@ -60,7 +60,7 @@ public class ReviewDao {
 		return list;
 	}
 
-	// 글쓰기
+	// �??���?
 	public boolean insertBoard(ReviewDto dto) {
 		boolean result = false;
 		String sql = "insert into review_board(account_no, account_name, manager_name, title, date, grade, content) values(?,?,?,?,now(),?,?)";
@@ -68,7 +68,7 @@ public class ReviewDao {
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, 1); // 임시 account_no
+			pstmt.setInt(1, dto.getAccount_no());
 			pstmt.setString(2, dto.getAccount_name());
 			pstmt.setString(3, dto.getManager_name());
 			pstmt.setString(4, dto.getTitle());
@@ -76,7 +76,7 @@ public class ReviewDao {
 			pstmt.setString(6, dto.getContent());
 
 			// pstmt.executeUpdate();
-			if (pstmt.executeUpdate() == 1) { // �������� ����Ǹ� 1�� ���ϵ�
+			if (pstmt.executeUpdate() == 1) { // �������� ����Ǹ�? 1�� ���ϵ�
 				result = true;
 			}
 		} catch (Exception err) {
@@ -87,8 +87,8 @@ public class ReviewDao {
 		return result;
 	}
 
-	// 글읽기
-	public ReviewDto getReviewRead(int review_no) {
+	// �??���?
+	public ReviewDto getReviewRead(String review_no) {
 		ReviewDto dto = new ReviewDto();
 		String sql = null;
 
@@ -96,7 +96,7 @@ public class ReviewDao {
 			con = ds.getConnection();
 			sql = "select review_no, account_name, manager_name, title, content, date, grade from review_board where review_no=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, review_no);
+			pstmt.setInt(1, Integer.parseInt(review_no));
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -116,7 +116,7 @@ public class ReviewDao {
 		return dto;
 	}
 
-	// 글수정
+	// �??��?��
 	public boolean reviewUpdate(ReviewDto dto) {
 		String sql = null;
 		boolean updateRs = false;
@@ -144,32 +144,45 @@ public class ReviewDao {
 		return updateRs;
 	}
 
-	// 글삭제
-	public boolean reviewDelete(int review_no) {
-		String sql = null;
+	//�? ?��?��(Delete.jsp)
+	public boolean reviewDelete(String account_no, String pw, String review_no) {
 		boolean deleteRs = false;
-		try {
+			
+		String check_pw = pw; //?��?��?�� �?
+		
+		String sql = null;
+		String pass = null; //db 계정?�� pw
+			
+		try{
 			con = ds.getConnection();
-			sql = "delete from review_board where review_no=?";
+			sql = "select pw from account where account_no=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, review_no);
-			pstmt.executeUpdate();
-			if (pstmt.executeUpdate() == 0) {
-				deleteRs = true;
-			} else {
-				deleteRs = false;
+			pstmt.setInt(1, Integer.parseInt(account_no));
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				pass = rs.getString("pw");
+				if(pass.equals(check_pw)) {
+					sql = "delete from review_board where review_no=?";		
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, Integer.parseInt(review_no));
+					pstmt.executeUpdate();
+					deleteRs = true;
+				} else {
+					deleteRs = false;
+				}
 			}
-		} catch (Exception err) {
-			System.out.println("reviewDelete() : " + err);
+		} catch(Exception e) {
+			System.out.println("reviewDelete() : " + e);
 		} finally {
 			freeConnection();
 		}
 		return deleteRs;
 	}
 
-	// 댓글읽기
-	public ArrayList getCommentRead(int review_no){
+	// ?���??���?
+	public ArrayList getCommentRead(String reviewno){
 	  ArrayList list = new ArrayList();
+	  int review_no = Integer.parseInt(reviewno);
 	  String sql = null;
 
 	      try{
@@ -197,7 +210,7 @@ public class ReviewDao {
 	      return list;
    }
 
-	// 댓글쓰기
+	// ?���??���?
 	public boolean insertComment(ReviewDto dto) {
 		boolean result = false;
 		String sql = "insert into review_comment (account_no, account_name, review_no, content, date) values(?,?,?,?,now())";
@@ -205,13 +218,13 @@ public class ReviewDao {
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, 1); // 임시 account_no
-			pstmt.setString(2, "이나혜"); //임시 account_name.. 세션에서 받아올것
+			pstmt.setInt(1, 1); // ?��?�� account_no
+			pstmt.setString(2, "?��?��?��"); //?��?�� account_name.. ?��?��?��?�� 받아?���?
 			pstmt.setInt(3, dto.getReview_no());
 			pstmt.setString(4, dto.getContent());
 
 			//pstmt.executeUpdate();
-			if (pstmt.executeUpdate() == 1) { // �������� ����Ǹ� 1�� ���ϵ�
+			if (pstmt.executeUpdate() == 1) { // �������� ����Ǹ�? 1�� ���ϵ�
 				result = true;
 			}
 		} catch (Exception err) {
@@ -222,7 +235,7 @@ public class ReviewDao {
 		return result;
 	}
 
-	// 지역
+	// �??��
 	public ArrayList getManagerArea() {
 		ArrayList list = new ArrayList();
 		String sql = null;
@@ -272,7 +285,7 @@ public class ReviewDao {
 		return list;
 	}
 	
-	//셀렉트 자동으로 불러오기
+	//???��?�� ?��?��?���? 불러?���?
 	public ReviewDto selectManagerArea(String manager_name) {
 		ArrayList list = new ArrayList();
 		String sql = null;

@@ -1,43 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
-   request.setCharacterEncoding("UTF-8");
+	request.setCharacterEncoding("UTF-8"); 
 %>
-<jsp:useBean id="dao" class="review.ReviewDao" />
-<jsp:useBean id="dto" class="review.ReviewDto" />
-
-<jsp:setProperty property="account_no" name="dto"/>
-<jsp:setProperty property="review_no" name="dto"/>
-<jsp:setProperty property="account_name" name="dto"/>
-<jsp:setProperty property="manager_name" name="dto"/>
-<jsp:setProperty property="title" name="dto"/>
-<jsp:setProperty property="grade" name="dto"/>
-<jsp:setProperty property="date" name="dto"/>
-<jsp:setProperty property="content" name="dto"/>
-<%
-   boolean updateResult = dao.reviewUpdate(dto);
-   if(updateResult == true) {
-%>
-      <script>
-         alert("수정되었습니다");
-         location.href="review_List.jsp";
-      </script>
-<%
-   } else {
-%>
-      <script>
-         alert("다시 작성해주세요");
-         location.href="review_Post.jsp";
-      </script>
-<%      
-   }
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 <title>삭제</title>
+<jsp:useBean id="dao" class="review.ReviewDao" />
+<jsp:useBean id="dto" class="review.ReviewDto" />
 <script>
 	function fnDeleteCheck() {
 		if (document.form.pw.value == "") {
@@ -76,7 +48,6 @@
 	
 	} 
 %>
-
 	<section id="page" class="csstransition cmsms_resp hfeed site">
 		<%@ include file="../include/header.jsp"%>
 		<div class="container">

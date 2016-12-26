@@ -1,9 +1,9 @@
-<%@page import="myway.ReviewDto"%>
+<%@page import="review.ReviewDto"%>
 <%@page import="java.util.List"%>
 
 <%@ page contentType="text/html; charset=UTF-8"%>
-<jsp:useBean id="dto" class="myway.ReviewDto"></jsp:useBean>
-<jsp:useBean id="dao" class="myway.ReviewDao"></jsp:useBean>
+<jsp:useBean id="dto" class="review.ReviewDto"></jsp:useBean>
+<jsp:useBean id="dao" class="review.ReviewDao"></jsp:useBean>
 <option value="" width="200px;">매장선택</option>
 <%
 	String manager_area = request.getParameter("manager_area");

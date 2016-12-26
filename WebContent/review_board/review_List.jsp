@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@page import="myway.ReviewDto"%>
+<%@page import="review.ReviewDto"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
@@ -24,13 +24,14 @@
 </script>
 </head>
 <body class="page">
-   <jsp:useBean id="dao" class="myway.ReviewDao" />
+   <jsp:useBean id="dao" class="review.ReviewDao" />
    <%
       request.setCharacterEncoding("UTF-8");
       String keyField = request.getParameter("keyField");
       String keyWord = request.getParameter("keyWord");
       List list = dao.getBoardList(keyField, keyWord);
-
+	  AccountDao ad = new AccountDao();
+	  AccountDto accountdto = ad.session(session.getAttribute("id"));
       //////////////////////////////////////////////
       // Paging 기법
 
@@ -104,7 +105,7 @@
                            %>
                            <tr align="center">
                               <td><%=dto.getReview_no()%></td>
-                              <td><a href="review_Read.jsp?review_no=<%=dto.getReview_no()%>"><%=dto.getTitle()%></a></td>
+                              <td><a href="review_Read.jsp?account_no=<%=accountdto.getAccount_no() %>&review_no=<%=dto.getReview_no()%>"><%=dto.getTitle()%></a></td>
                               <td><%=dto.getAccount_name()%></td>
                               <td><%=dto.getDate()%></td>
                               <td><%=dto.getGrade()%></td>

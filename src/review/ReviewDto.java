@@ -1,4 +1,4 @@
-package myway;
+package review;
 
 import java.sql.Date;
 

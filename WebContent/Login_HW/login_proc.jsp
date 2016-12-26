@@ -22,7 +22,7 @@
 		} else {
 	%>
 	<script>
-		alert("chk id or pw")
+		alert("ID와 비밀번호를 확인하세요.")
 		location.href = "login.jsp";
 	</script>
 	<%
