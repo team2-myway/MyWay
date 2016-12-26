@@ -55,6 +55,7 @@ function setForm(editor) {
 		<div class="container">
 			<div class="col-md-12">
 				<div class="col-md-12">
+				
 					<form name="post_form" id="tx_editor_form" action="inquiry_PostProc.jsp" method="post" accept-charset="utf-8">
 						<table>
 							<tr>

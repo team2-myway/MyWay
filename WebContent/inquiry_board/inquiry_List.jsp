@@ -61,23 +61,25 @@
 		<div class="container">
 			<div class="col-md-12">
 				<div class="col-md-12">
-					<form action="inquiry_List.jsp" name="search" method="post">
-						<table width=80% align=center cellpadding=4 cellspacing=0>
-							<tr>
-								<td align=right valign=bottom>
+				<form action="inquiry_List.jsp" name="search" method="post">
+
+						<tr>
+							<td align=left valign=bottom>
 								<select name="keyField" size="1">
-										<option value="title">제목
-										<option value="account_name">글쓴이
-										<option value="content">내용
-								</select> 
-									<input type="text" size="16" name="keyWord"> 
-									<input type="button" value="검색" onClick="check()"> 
-									<input type="hidden" name="page" value="0">
-								</td>
-							</tr>
+									<option value="title"> 제목
+									<option value="account_name"> 글쓴이
+									<option value="content"> 내용
+								</select>
+					
+								<input type="text" size="16" name="keyWord" >
+								<input type="button" value="찾기" onClick="check()">
+								<input type="hidden" name="page" value= "0">
+							</td>
+						</tr>
 						</table>
 					</form>
 
+					
 					<table align=center width=80% border=0 cellspacing=0 cellpadding=3>
 						<tr>
 							<td align=center colspan=2>
@@ -162,6 +164,7 @@
 								href="inquiry_List.jsp">[처음으로]</a></td>
 						</tr>
 					</table>
+		
 					<BR>
 				</div>
 			</div>
