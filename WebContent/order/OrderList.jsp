@@ -33,7 +33,8 @@
 					ArrayList OrderList = dao.MyOrderList(account_no,"orderlist");
 					for (int i = 0; i < OrderList.size(); i++) {
 					OrderDto dto = (OrderDto) OrderList.get(i);
-			%>
+					if(dto.getBread_name() != null){
+				%>
 					<tr>
 						<td><%=(i+1)%></td>
 						<td><%=dto.getOrder_date()%></td>
@@ -65,7 +66,23 @@
 						<td><%=dto.getMenu_count() %></td>
 					</tr>
 			<%
-					}
+						}else{
+							%>
+							<tr>
+								<td><%=(i+1)%></td>
+								<td><%=dto.getOrder_date()%></td>
+								<td><%=dto.getSide_menu_name()%></td>
+								<td>
+								<span>갯수 : <%=dto.getSide_menu_count() %></span><br>
+								<span>총 가격 : <%=dto.getSide_menu_countPirce()%>
+								</span><br>
+								</td>
+								<td>X</td>
+							</tr>
+					<%
+						}
+						}
+					
 					} catch (Exception err) {
 						System.out.println("OrderList.jsp : " + err);
 					}

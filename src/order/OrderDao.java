@@ -79,9 +79,10 @@ public class OrderDao {
 			freeConnection();
 		}
 	}
+	//결제완료시 pay_com 주문완료 order_com
 	public void OrderSave(OrderDto dto){
 		String sql = "insert into main_order(order_code,account_no, account_name, account_tel, store_no, total, date, status) "
-				+ "values (?, ?, ?, ?, ?, ?, date_format(now(),'%Y/%m/%d %H:%i:%s'),'�ֹ��Ϸ�')";
+				+ "values (?, ?, ?, ?, ?, ?, date_format(now(),'%Y/%m/%d %H:%i:%s'),'order_com')";
 		try{
 			con = ds.getConnection();
 			stmt = con.prepareStatement(sql);
@@ -136,7 +137,7 @@ public class OrderDao {
 					+ "left join side_menu sm on sm.side_menu_no = side.side_menu_no "
 					+ "left join menu on menu.menu_no = d.menu_no "
 					+ "left join account a on a.account_no = m.store_no "
-					+ "where m.account_no="+account_no;
+					+ "where m.account_no="+account_no+" order by date desc";
 		}else{
 			//즐겨찾기
 			sql="select a.manager_area manager_area, a.manager_name, m.total, d.vegetable_no, substr(m.date,1,16) date, "
@@ -147,7 +148,7 @@ public class OrderDao {
 					+ "left join account a on a.account_no = m.store_no "
 					+ "where m.account_no="+account_no +" and d.favorite ='ok'";
 		}
-		System.out.println(sql);
+		//System.out.println(sql);
 		try{
 			con = ds.getConnection();
 			stmt = con.prepareStatement(sql);

@@ -33,8 +33,8 @@
 %>
 		<div class="col-sm-12">
 			<div class="col-sm-3">
-				<a href="index.html" title="Medicure" class="logo"> <img
-					src="images/logo-jpeg.jpg" alt="Medicure"></a> <a
+				<a href="index.html" title="Medicure" > <img
+					src="../lib/images/logo.PNG" alt="Medicure"></a> <a
 					class="responsive_nav" href="javascript:void(0);"> <span></span></a>
 			</div>
 			<div class="col-sm-9">

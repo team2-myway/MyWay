@@ -33,8 +33,7 @@
 							<th>이미지</th>
 							<th>이름</th>
 							<th>가격</th>
-							<th>수정</th>
-							<th>삭제</th>
+						
 						</tr>
 <%
 							 for(int i=0; i<menulist.size(); i++) {
@@ -42,11 +41,9 @@
 								 
 %>
 							<tr>
-								<td><img src="<%=dto.getM_img()%>">img</td>
+								<td><img src="<%=dto.getM_img()%>"></td>
 								<td><a href="Menu_Detail.jsp?menu_no=<%=dto.getM_no()%>"><%=dto.getM_name() %></a></td>
 								<td><%=dto.getM_price() %></td>
-								<td><input type="button" value="수정" onclick="location.href='Menu_Edit.jsp?menu_no=<%=dto.getM_no()%>'" /></td>
-								<td><input type="button" value="삭제" onclick="location.href='Menu_Del.jsp?menu_no=<%=dto.getM_no()%>'" /></td>
 							</tr>
 							
 <%

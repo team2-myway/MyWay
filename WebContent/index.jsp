@@ -1,14 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
-<!--[if IE 7]>
-<html class="ie ie7" lang="en-US">
-<![endif]-->
-<!--[if IE 8]>
-<html class="ie ie8" lang="en-US">
-<![endif]-->
-<!--[if !(IE 7) | !(IE 8)  ]><!-->
-<html lang="en-US">
-<!--<![endif]-->
+<html >
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -72,17 +64,14 @@
 	</style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<jsp:include page="/include/header.jsp" />
 </head>
 <body class="page">
-
 <!-- _________________________ Start Page _________________________ -->
 <section id="page" class="csstransition cmsms_resp hfeed site">
+<jsp:include page="/include/header.jsp" />
 
 	<!-- _________________________ Start Container _________________________ -->
 	<div class="container">
-
-
 		<!-- _________________________ Start Middle _________________________ -->
 		<section id="middle">
 

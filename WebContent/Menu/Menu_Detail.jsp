@@ -38,11 +38,18 @@
 		<td><%=dto.getM_calorie()%> kcal</span> </td> &nbsp;&nbsp;&nbsp; 
 		<td>가격 </span> </td>
 		<td><%=dto.getM_price() %> won</td> <br>
-		
-	
-				
+		</tr>
+		</center>
 			
-</tr>
-</center>
+			
+			<!-- 공간주기 -->
+		<div style="height: 50px;">&nbsp;</div>
+		<footer>
+			<%@ include file="../include/footer.jsp"%>
+		</footer>
+	</section>
+	<script src="../lib/bootstrap/js/jquery-3.1.1.min.js"></script>
+	<script src="../lib/bootstrap/js/bootstrap.js"></script>
+	
 </body>
 </html>

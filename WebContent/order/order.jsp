@@ -41,10 +41,15 @@
 	<div class="container">
 		<div class="col-md-12">
 			<div class="col-md-2">
-				<ul>
-					<li onclick="ListView('bread')"> »÷µåÀ§Ä¡</li>
-					<li onclick="ListView('side')">»çÀÌµå¸Ş´º</li>
-				</ul>
+				<div class="cmsms_features">
+					<h3>ì£¼ë¬¸</h3>
+					<div class="cmsms_features_item">
+						<span class="cmsms_features_item_title" onclick="ListView('bread')" style="cursor:pointer">ìƒŒë“œìœ„ì¹˜</span>
+					</div>
+					<div class="cmsms_features_item">
+						<span class="cmsms_features_item_title" onclick="ListView('side')" style="cursor:pointer">ì‚¬ì´ë“œë©”ë‰´</span>
+					</div>
+				</div>
 			</div>
 			<form id="OrderSaveForm" class="form-horizontal" onsubmit="return false;">
 				<input type="hidden" name="order_code" value="<%=order_code%>"/>
@@ -68,11 +73,11 @@
 								%>
 						<input type="hidden" id="OrderTypes" name="OrderTypes" value="bread"/>
 						<div class="col-md-3">
-							<h3> ¸ÅÀå ¼±ÅÃ</h3>
+							<h3> ë§¤ì¥ ì„ íƒ</h3>
 						</div>
 						<div class="col-md-4">
 							<select id="manage_addr" onchange="SelManagerAddr()">
-									<option value="" width="200px;"> ¼±ÅÃÇØÁÖ¼¼¿ä</option>
+									<option value="" width="200px;"> ì„ íƒí•´ì£¼ì„¸ìš”</option>
 								<%
 								try {
 									ArrayList manageList = dao.ManagerAddrList();
@@ -96,7 +101,7 @@
 					<div class="col-md-12" id="Sandwich">
 						<div class="col-md-12 padding" id="breadSel">
 							<div class="col-md-3">
-								<h3>»§ ¼±ÅÃ</h3>
+								<h3>ë¹µ ì„ íƒ</h3>
 							</div>
 							<div class="col-md-9">
 								
@@ -120,17 +125,17 @@
 		
 							</div>
 						</div>
-							<!-- ¸Ş´º ¼±ÅÃ ½ÃÀÛ-->
+							<!-- ë©”ë‰´ ì„ íƒ ì‹œì‘-->
 						<div class="col-md-12" id="menuSel">
 							<div class="col-md-12 padding">
 								<div class="col-md-3">
-									<h3>¸Ş´º¼±ÅÃ</h3>
+									<h3>ë©”ë‰´ì„ íƒ</h3>
 								</div>
-								<button id="Favorites" class="btn btn-primary">¡Ú Áñ°ÜÃ£±â</button>
+								<button id="Favorites" class="btn btn-primary">â˜… ì¦ê²¨ì°¾ê¸°</button>
 							</div>
 							<div class="col-md-12 padding" style="padding-top: 20px;">
 								<div class="col-md-3">
-									<h3>»çÀÌÁî¼±ÅÃ</h3>
+									<h3>ì‚¬ì´ì¦ˆì„ íƒ</h3>
 								</div>
 								<input type="radio"	name="menu_size" value="15" checked onclick="SelMenuClass()"/> 15cm &nbsp;&nbsp;&nbsp;
 								<input type="radio" name="menu_size" value="30" onclick="SelMenuClass()"/> 30cm
@@ -138,7 +143,7 @@
 							<div class="col-md-12 padding" style="padding-top: 20px;">
 								<div class="col-md-3">
 									<select id="menu_class" name="menu_class" onchange="SelMenuClass()">
-									<option value="All" selected>ÀüÃ¼º¸±â</option>
+									<option value="All" selected>ì „ì²´ë³´ê¸°</option>
 										<%
 										try {
 											ArrayList menu_classList = dao.MenuClassList();
@@ -147,11 +152,11 @@
 												String menu_class= "";
 												String selected = "";
 												if(dto.getMenu_class().equals("best")){
-													menu_class = "º£½ºÆ®";
+													menu_class = "ë² ìŠ¤íŠ¸";
 												}else if(dto.getMenu_class().equals("classic")){
-													menu_class = "Å¬·¡½Ä";
+													menu_class = "í´ë˜ì‹";
 												}else{
-													menu_class = "ÇÁ¸®¹Ì¾ö";
+													menu_class = "í”„ë¦¬ë¯¸ì—„";
 												}
 										%>
 											<option value="<%=dto.getMenu_class()%>"><%=menu_class%></option>
@@ -165,27 +170,27 @@
 										
 									</select>
 								</div>
-									<!-- ¸Ş´ºµé for¹® µ¹¸± ºÎºĞ  -->
+									<!-- ë©”ë‰´ë“¤ forë¬¸ ëŒë¦´ ë¶€ë¶„  -->
 								<div class="col-md-9">
 									<div class="col-md-12" id="Html_MenuList">
 									
 									</div>
-									<!-- ¸Ş´ºµé for¹® µ¹¸± ºÎºĞ ³¡ -->
+									<!-- ë©”ë‰´ë“¤ forë¬¸ ëŒë¦´ ë¶€ë¶„ ë -->
 								</div>
 							</div>
 						</div>
-							<!-- ¸Ş´º ¼±ÅÃ ³¡-->
-							<!--  Ã¤¼Ò ¼±ÅÃ ½ÃÀÛ -->
+							<!-- ë©”ë‰´ ì„ íƒ ë-->
+							<!--  ì±„ì†Œ ì„ íƒ ì‹œì‘ -->
 						<div class="col-md-12" id="vegetableSel">
 							<div class="col-md-12 padding" style="padding-top: 20px;">
-								<div class="col-md-3"><h3>Ã¤¼Ò¼±ÅÃ</h3></div>
+								<div class="col-md-3"><h3>ì±„ì†Œì„ íƒ</h3></div>
 							</div>
-							<!-- Ã¤¼Ò  -->
+							<!-- ì±„ì†Œ  -->
 							<div class="col-md-12 padding" style="padding-top: 20px;">
 								<div class="col-md-3">
 									<button class="btn btn-primary" id="AllVegetable">All</button>
 								</div>
-								<!-- Ã¤¼Òµé for¹® µ¹¸± ºÎºĞ  -->
+								<!-- ì±„ì†Œë“¤ forë¬¸ ëŒë¦´ ë¶€ë¶„  -->
 								<div class="col-md-9">
 									<div class="col-md-12 padding">
 										<% 
@@ -216,27 +221,27 @@
 										<input type="hidden" id="VegetableList" name="VegetableList"/>
 									</div>
 								</div>
-									<!-- ¸Ş´ºµé for¹® µ¹¸± ºÎºĞ ³¡ -->
+									<!-- ë©”ë‰´ë“¤ forë¬¸ ëŒë¦´ ë¶€ë¶„ ë -->
 							</div>
 						</div>
-							<!--  Ã¤¼Ò ¼±ÅÃ ³¡ -->
-							<!-- °ø°£ -->
+							<!--  ì±„ì†Œ ì„ íƒ ë -->
+							<!-- ê³µê°„ -->
 						<div style="height: 50px; padding-top:20px; padding-bottom:20px;">&nbsp;</div>
-							<!-- °ø°£ -->
+							<!-- ê³µê°„ -->
 							
-							<!-- ¼Ò½º ¼±ÅÃ -->
+							<!-- ì†ŒìŠ¤ ì„ íƒ -->
 						<div class="col-md-12 padding" id="sauceSel">
 							<div class="col-md-3">
-								<h3>¼Ò½º¼±ÅÃ</h3>
+								<h3>ì†ŒìŠ¤ì„ íƒ</h3>
 							</div>
 							<div class="col-md-9 ">
 								<div class="col-md-12 padding" id="bestSauceHtml" style="display:none;"></div>
 								<div class="col-md-12 padding" >
 									<div class="col-md-4 padding " style="height:150px;">
-									<label>´ŞÄŞÇÑ¼Ò½º</label>
+									<label>ë‹¬ì½¤í•œì†ŒìŠ¤</label>
 										<%
 											try {
-												String sauce_class = "´ŞÄŞÇÑ¼Ò½º";
+												String sauce_class = "ë‹¬ì½¤í•œì†ŒìŠ¤";
 												ArrayList sauce = dao.SauceList(sauce_class);
 												for (int i = 0; i < sauce.size(); i++) {
 													OrderDto dto = (OrderDto) sauce.get(i);
@@ -255,11 +260,11 @@
 										
 									</div>
 									<div class="col-md-4 padding" style="height:150px;">
-										<label>¸ÅÄŞÇÑ¼Ò½º</label>
+										<label>ë§¤ì½¤í•œì†ŒìŠ¤</label>
 										
 										<%
 											try {
-												String sauce_class = "¸ÅÄŞÇÑ¼Ò½º";
+												String sauce_class = "ë§¤ì½¤í•œì†ŒìŠ¤";
 												ArrayList sauce = dao.SauceList(sauce_class);
 												for (int i = 0; i < sauce.size(); i++) {
 													OrderDto dto = (OrderDto) sauce.get(i);
@@ -280,11 +285,11 @@
 										
 									</div>
 									<div class="col-md-4 padding" style="height:150px;">
-										<label>°í¼ÒÇÑ¼Ò½º</label>
+										<label>ê³ ì†Œí•œì†ŒìŠ¤</label>
 										
 										<%
 											try {
-												String sauce_class = "°í¼ÒÇÑ¼Ò½º";
+												String sauce_class = "ê³ ì†Œí•œì†ŒìŠ¤";
 												ArrayList sauce = dao.SauceList(sauce_class);
 												for (int i = 0; i < sauce.size(); i++) {
 													OrderDto dto = (OrderDto) sauce.get(i);
@@ -304,11 +309,11 @@
 										%>
 									</div>
 									<div class="col-md-4 padding" style="height:150px;">
-										<label>»õÄŞÇÑ¼Ò½º</label>
+										<label>ìƒˆì½¤í•œì†ŒìŠ¤</label>
 										
 										<%
 											try {
-												String sauce_class = "»õÄŞÇÑ¼Ò½º";
+												String sauce_class = "ìƒˆì½¤í•œì†ŒìŠ¤";
 												ArrayList sauce = dao.SauceList(sauce_class);
 												for (int i = 0; i < sauce.size(); i++) {
 													OrderDto dto = (OrderDto) sauce.get(i);
@@ -328,11 +333,11 @@
 										%>
 									</div>
 									<div class="col-md-4 padding" style="height:150px;">
-										<label>ÀÏ¹İ¼Ò½º</label>
+										<label>ì¼ë°˜ì†ŒìŠ¤</label>
 										
 										<%
 											try {
-												String sauce_class = "ÀÏ¹İ¼Ò½º";
+												String sauce_class = "ì¼ë°˜ì†ŒìŠ¤";
 												ArrayList sauce = dao.SauceList(sauce_class);
 												for (int i = 0; i < sauce.size(); i++) {
 													OrderDto dto = (OrderDto) sauce.get(i);
@@ -356,32 +361,32 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-12 padding">
+						<div class="col-md-12 padding" style="text-align:center;">
 							<div class="checkbox">
 								<label class="btn btn-primary">&nbsp;&nbsp;
-									<input type="checkbox" name="favorite" value="ok" style="padding-left:5px;"/>¡Ú Áñ°ÜÃ£±â Ãß°¡
+									<input type="checkbox" name="favorite" value="ok" style="padding-left:5px;"/>â˜… ì¦ê²¨ì°¾ê¸° ì¶”ê°€
 								</label>
 							</div>
 						</div>
 						
-						<!-- ¼Ò½º³¡ -->
+						<!-- ì†ŒìŠ¤ë -->
 						<div class="col-md-12 padding">
 							<aside class="box success_box">
 								<table >
 									<tbody>
 										<tr>
-											<td style="text-align:center; width:50%;"><h4>¸Ş´º ÀÌ¸§</h4> </td>
-											<td style="text-align:center; width:25%;"><h4>°¡°İ</h4></td>
-											<td style="text-align:center; width:25%;"><h4>¼ö·®</h4></td>
+											<td style="text-align:center; width:50%;"><h4>ë©”ë‰´ ì´ë¦„</h4> </td>
+											<td style="text-align:center; width:25%;"><h4>ê°€ê²©</h4></td>
+											<td style="text-align:center; width:25%;"><h4>ìˆ˜ëŸ‰</h4></td>
 										</tr>
 										<tr>
 											<td id="Html_menu_name" style="text-align:center;"></td>
 											<td id="Html_basic_price" style="text-align:center;"></td>
-											<td style="text-align:center;"><input type="text" class="form-control" placeholder="¼ö·®ÀÔ·Â" id="Menu_count" name="count" onblur="Menu_CountPrice()"/></td>
+											<td style="text-align:center;"><input type="text" class="form-control" placeholder="ìˆ˜ëŸ‰ì…ë ¥" id="Menu_count" name="count" onblur="Menu_CountPrice()"/></td>
 										</tr>
 										<tr>
 											<td colspan="3" style="text-align:right;">
-											<h4>ÇÕ°è : <span id="Html_CountPrice" style="padding-left:20px; padding-right:20px;"></span></h4>
+											<h4>í•©ê³„ : <span id="Html_CountPrice" style="padding-left:20px; padding-right:20px;"></span></h4>
 												<input type="hidden" id="CountPirce" name="CountPirce"/>
 											</td>
 										</tr>
@@ -391,17 +396,17 @@
 						</div>
 						<div class="col-md-12">
 							<div class="col-md-6">
-								<button class="btn btn-primary" id="Order_Save">ÁÖ¹®ÇÏ±â</button>
+								<button class="btn btn-primary" id="Order_Save">ì£¼ë¬¸í•˜ê¸°</button>
 							</div>
 							<div class="col-md-6">
-								<button class="btn btn-primary" id="DetailOrder_Save">´Ù¸¥¸Ş´º ÁÖ¹®ÇÏ±â</button>
+								<button class="btn btn-primary" id="DetailOrder_Save">ë‹¤ë¥¸ë©”ë‰´ ì£¼ë¬¸í•˜ê¸°</button>
 							</div>
 						</div>	
 					</div>
 					<div class="col-md-12 padding" id="side_menu" style="display:none;">
 						<div class="col-md-3">
 							<select id="sidemenu_category" name="sidemenu_category" onchange="SelSideMenuClass()">
-							<option value="All" selected>ÀüÃ¼º¸±â</option>
+							<option value="All" selected>ì „ì²´ë³´ê¸°</option>
 							<%
 								try {
 									ArrayList Sidemenu_classList = dao.SideMenuClassList();
@@ -428,17 +433,17 @@
 							<aside class="box success_box">
 								<table class="table">
 										<tr>
-											<th style="text-align:center; width:15%"><h4>¼±ÅÃ Ãë¼Ò</h4></th>
-											<th style="text-align:center; width:30%"><h4>¸Ş´º ÀÌ¸§</h4> </th>	
-											<th style="text-align:center; width:15%"><h4>°¡°İ</h4></th>
-											<th style="text-align:center; width:20%"><h4>¼ö·®</h4></th>
-											<th style="text-align:center; width:20%"><h4>ÇÕ°è</h4></th>
+											<th style="text-align:center; width:15%"><h4>ì„ íƒ ì·¨ì†Œ</h4></th>
+											<th style="text-align:center; width:30%"><h4>ë©”ë‰´ ì´ë¦„</h4> </th>	
+											<th style="text-align:center; width:15%"><h4>ê°€ê²©</h4></th>
+											<th style="text-align:center; width:20%"><h4>ìˆ˜ëŸ‰</h4></th>
+											<th style="text-align:center; width:20%"><h4>í•©ê³„</h4></th>
 										</tr>
 										<tbody id="Html_SideAppend">
 										</tbody>
 										<tr>
 											<td colspan="5" style="text-align:right;">
-											<h4>ÃÑ ÇÕ°è : <span id="HtmlSide_CountPrice" style="padding-left:20px; padding-right:20px;"></span></h4>
+											<h4>ì´ í•©ê³„ : <span id="HtmlSide_CountPrice" style="padding-left:20px; padding-right:20px;"></span></h4>
 												<input type="hidden" id="SideCountPrice" name="SideCountPrice"/>
 											</td>
 										</tr>
@@ -448,10 +453,10 @@
 						</div>
 						<div class="col-md-12">
 							<div class="col-md-6">
-								<button class="btn btn-primary" id="SideOrder_Save">ÁÖ¹®ÇÏ±â</button>
+								<button class="btn btn-primary" id="SideOrder_Save">ì£¼ë¬¸í•˜ê¸°</button>
 							</div>
 							<div class="col-md-6">
-								<button class="btn btn-primary" id="">´Ù¸¥¸Ş´º ÁÖ¹®ÇÏ±â</button>
+								<button class="btn btn-primary" id="">ë‹¤ë¥¸ë©”ë‰´ ì£¼ë¬¸í•˜ê¸°</button>
 							</div>
 						</div>	
 					</div>
@@ -465,13 +470,13 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h3>Áñ°Ü Ã£±â</h3>
+					<h3>ì¦ê²¨ ì°¾ê¸°</h3>
 				</div>
 				<div class="modal-body">
 					<table class="table">
 						<tr>
-							<th>¸Ş´º</th>
-							<th>¼¼ºÎ³»¿ë</th>
+							<th>ë©”ë‰´</th>
+							<th>ì„¸ë¶€ë‚´ìš©</th>
 						</tr>
 						<%
 				try {
@@ -482,8 +487,8 @@
 					<tr onclick="FavoriteCilck('<%=dto.getMenu_no()%>','<%=dto.getMenu_size()%>','<%=dto.getBread_no()%>','<%=dto.getVegetable_no_List()%>','<%=dto.getSauce_no_List()%>')">
 						<td><%=dto.getMenu_name()%></td>
 						<td>
-						<span>»§ : <%=dto.getBread_name()%></span><br>
-						<span>Ã¤¼Ò :
+						<span>ë¹µ : <%=dto.getBread_name()%></span><br>
+						<span>ì±„ì†Œ :
 						 <%
 							ArrayList VegetableList = dao.VegetableOrderList(dto.getVegetable_no_List());
 							for(int j=0; j<VegetableList.size(); j++){
@@ -493,7 +498,7 @@
 							}
 						%>
 						</span><br>
-						<span>¼Ò½º :
+						<span>ì†ŒìŠ¤ :
 						 <%
 							ArrayList SauceList = dao.SauceOrderList(dto.getSauce_no_List());
 							for(int j=0; j<SauceList.size(); j++){
@@ -515,13 +520,13 @@
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-primary" data-dismiss="modal">´İ±â</button>
+					<button class="btn btn-primary" data-dismiss="modal">ë‹«ê¸°</button>
 				</div>
 			</div>
 		</div>
 	</div>
 	
-		<!-- °ø°£ÁÖ±â -->
+		<!-- ê³µê°„ì£¼ê¸° -->
 		<div style="height: 50px;">&nbsp;</div>
 		<footer>
 			<%@ include file="../include/footer.jsp"%>
@@ -535,15 +540,15 @@
 		SelMenuClass();
 	}
 		$(function() {
-			// Áñ°ÜÃ£±â ¸ñ·Ï 
+			// ì¦ê²¨ì°¾ê¸° ëª©ë¡ 
 			$("#Favorites").click(function() {
 				$("#FavoriteList").modal();
 			});
-			//¾ßÃ¤ ÀüÃ¼¼±ÅÃ
+			//ì•¼ì±„ ì „ì²´ì„ íƒ
 			$("#AllVegetable").click(function(){
 				VegetableCheckAll();
 			});
-			//¼±ÅÃµÈ ¼Ò½º º¸±â
+			//ì„ íƒëœ ì†ŒìŠ¤ ë³´ê¸°
 			$("#selectSauce").click(function(){
 				selectSauRow();
 			});
@@ -560,96 +565,96 @@
 		});
 		
 		var check = false;
-		//Ã¤¼Ò ¸ğµÎ¼±ÅÃ or ¼±ÅÃÇØÁ¦
+		//ì±„ì†Œ ëª¨ë‘ì„ íƒ or ì„ íƒí•´ì œ
 		function VegetableCheckAll(){
 			var chk = document.getElementsByName("vegetable_no[]");
 			if(check == false){
 				check = true;
 				for(var i=0; i<chk.length;i++){                                                                    
-					chk[i].checked = true;     //¸ğµÎ Ã¼Å©
+					chk[i].checked = true;     //ëª¨ë‘ ì²´í¬
 				}
 			}else{
 				check = false;
 				for(var i=0; i<chk.length;i++){                                                                    
-					chk[i].checked = false;     //¸ğµÎ ÇØÁ¦
+					chk[i].checked = false;     //ëª¨ë‘ í•´ì œ
 				}
 			}
 		}
 		
-		//¼±ÅÃµÈ Ã¤¼ÒÀÇ °ª ºÎ¸£±â
+		//ì„ íƒëœ ì±„ì†Œì˜ ê°’ ë¶€ë¥´ê¸°
 		function selectVegRow() {
-			var chk = document.getElementsByName("vegetable_no[]"); // Ã¼Å©¹Ú½º°´Ã¼¸¦ ´ã´Â´Ù
-			var len = chk.length;    //Ã¼Å©¹Ú½ºÀÇ ÀüÃ¼ °³¼ö
-			var checkRow = '';      //Ã¼Å©µÈ Ã¼Å©¹Ú½ºÀÇ value¸¦ ´ã±âÀ§ÇÑ º¯¼ö
-			var checkCnt = 0;        //Ã¼Å©µÈ Ã¼Å©¹Ú½ºÀÇ °³¼ö
-			var checkLast = '';      //Ã¼Å©µÈ Ã¼Å©¹Ú½º Áß ¸¶Áö¸· Ã¼Å©¹Ú½ºÀÇ ÀÎµ¦½º¸¦ ´ã±âÀ§ÇÑ º¯¼ö
-			var rowid = '';             //Ã¼Å©µÈ Ã¼Å©¹Ú½ºÀÇ ¸ğµç value °ªÀ» ´ã´Â´Ù
+			var chk = document.getElementsByName("vegetable_no[]"); // ì²´í¬ë°•ìŠ¤ê°ì²´ë¥¼ ë‹´ëŠ”ë‹¤
+			var len = chk.length;    //ì²´í¬ë°•ìŠ¤ì˜ ì „ì²´ ê°œìˆ˜
+			var checkRow = '';      //ì²´í¬ëœ ì²´í¬ë°•ìŠ¤ì˜ valueë¥¼ ë‹´ê¸°ìœ„í•œ ë³€ìˆ˜
+			var checkCnt = 0;        //ì²´í¬ëœ ì²´í¬ë°•ìŠ¤ì˜ ê°œìˆ˜
+			var checkLast = '';      //ì²´í¬ëœ ì²´í¬ë°•ìŠ¤ ì¤‘ ë§ˆì§€ë§‰ ì²´í¬ë°•ìŠ¤ì˜ ì¸ë±ìŠ¤ë¥¼ ë‹´ê¸°ìœ„í•œ ë³€ìˆ˜
+			var rowid = '';             //ì²´í¬ëœ ì²´í¬ë°•ìŠ¤ì˜ ëª¨ë“  value ê°’ì„ ë‹´ëŠ”ë‹¤
 			var cnt = 0;                 
 			for(var i=0; i<len; i++){
 				if(chk[i].checked == true){
-				checkCnt++;        //Ã¼Å©µÈ Ã¼Å©¹Ú½ºÀÇ °³¼ö
-				checkLast = i;     //Ã¼Å©µÈ Ã¼Å©¹Ú½ºÀÇ ÀÎµ¦½º
+				checkCnt++;        //ì²´í¬ëœ ì²´í¬ë°•ìŠ¤ì˜ ê°œìˆ˜
+				checkLast = i;     //ì²´í¬ëœ ì²´í¬ë°•ìŠ¤ì˜ ì¸ë±ìŠ¤
 				}
 			} 
 			for(var i=0; i<len; i++){
-				if(chk[i].checked == true){  //Ã¼Å©°¡ µÇ¾îÀÖ´Â °ª ±¸ºĞ
+				if(chk[i].checked == true){  //ì²´í¬ê°€ ë˜ì–´ìˆëŠ” ê°’ êµ¬ë¶„
 					checkRow = chk[i].value;
-					if(checkCnt == 1){                            //Ã¼Å©µÈ Ã¼Å©¹Ú½ºÀÇ °³¼ö°¡ ÇÑ °³ ÀÏ¶§,
-						rowid += checkRow;        //'value'ÀÇ ÇüÅÂ (µÚ¿¡ ,(ÄŞ¸¶)°¡ ºÙÁö¾Ê°Ô)
-					}else{                                            //Ã¼Å©µÈ Ã¼Å©¹Ú½ºÀÇ °³¼ö°¡ ¿©·¯ °³ ÀÏ¶§,
-						if(i == checkLast){                     //Ã¼Å©µÈ Ã¼Å©¹Ú½º Áß ¸¶Áö¸· Ã¼Å©¹Ú½ºÀÏ ¶§,
-							rowid += checkRow;  //'value'ÀÇ ÇüÅÂ (µÚ¿¡ ,(ÄŞ¸¶)°¡ ºÙÁö¾Ê°Ô)
+					if(checkCnt == 1){                            //ì²´í¬ëœ ì²´í¬ë°•ìŠ¤ì˜ ê°œìˆ˜ê°€ í•œ ê°œ ì¼ë•Œ,
+						rowid += checkRow;        //'value'ì˜ í˜•íƒœ (ë’¤ì— ,(ì½¤ë§ˆ)ê°€ ë¶™ì§€ì•Šê²Œ)
+					}else{                                            //ì²´í¬ëœ ì²´í¬ë°•ìŠ¤ì˜ ê°œìˆ˜ê°€ ì—¬ëŸ¬ ê°œ ì¼ë•Œ,
+						if(i == checkLast){                     //ì²´í¬ëœ ì²´í¬ë°•ìŠ¤ ì¤‘ ë§ˆì§€ë§‰ ì²´í¬ë°•ìŠ¤ì¼ ë•Œ,
+							rowid += checkRow;  //'value'ì˜ í˜•íƒœ (ë’¤ì— ,(ì½¤ë§ˆ)ê°€ ë¶™ì§€ì•Šê²Œ)
 						}else{
-							rowid += checkRow+"|";	 //'value',ÀÇ ÇüÅÂ (µÚ¿¡ ,(ÄŞ¸¶)°¡ ºÙ°Ô)         			
+							rowid += checkRow+"|";	 //'value',ì˜ í˜•íƒœ (ë’¤ì— ,(ì½¤ë§ˆ)ê°€ ë¶™ê²Œ)         			
 						}
 					}
 					cnt++;
-					checkRow = '';    //checkRowÃÊ±âÈ­.
+					checkRow = '';    //checkRowì´ˆê¸°í™”.
 				}
 				$("#VegetableList").val(rowid);
 			}
 		}
 		
-		//¼Ò½º Ã¼Å©µÈ°Í È®ÀÎ 3°³ÀÌ»óÀÏ°æ¿ì ¸ø³Ñ¾î°¡°Ô 
-		//¾Æ´Ò°æ¿ì¿¡ ¼Ò½º value °ªÀ» SelectSauceValue¿¡´Ù°¡ ³Ö±â |°ªÀ¸·Î ±¸ºĞÇÏ±â
+		//ì†ŒìŠ¤ ì²´í¬ëœê²ƒ í™•ì¸ 3ê°œì´ìƒì¼ê²½ìš° ëª»ë„˜ì–´ê°€ê²Œ 
+		//ì•„ë‹ê²½ìš°ì— ì†ŒìŠ¤ value ê°’ì„ SelectSauceValueì—ë‹¤ê°€ ë„£ê¸° |ê°’ìœ¼ë¡œ êµ¬ë¶„í•˜ê¸°
 		function selectSauRow() {
 			var chk = document.getElementsByName("sauce_no[]");
-			var len = chk.length;    //Ã¼Å©¹Ú½ºÀÇ ÀüÃ¼ °³¼ö
-			var checkRow = '';      //Ã¼Å©µÈ Ã¼Å©¹Ú½ºÀÇ value¸¦ ´ã±âÀ§ÇÑ º¯¼ö
-			var checkCnt = 0;        //Ã¼Å©µÈ Ã¼Å©¹Ú½ºÀÇ °³¼ö
-			var checkLast = '';      //Ã¼Å©µÈ Ã¼Å©¹Ú½º Áß ¸¶Áö¸· Ã¼Å©¹Ú½ºÀÇ ÀÎµ¦½º¸¦ ´ã±âÀ§ÇÑ º¯¼ö
-			var rowid = '';             //Ã¼Å©µÈ Ã¼Å©¹Ú½ºÀÇ ¸ğµç value °ªÀ» ´ã´Â´Ù
+			var len = chk.length;    //ì²´í¬ë°•ìŠ¤ì˜ ì „ì²´ ê°œìˆ˜
+			var checkRow = '';      //ì²´í¬ëœ ì²´í¬ë°•ìŠ¤ì˜ valueë¥¼ ë‹´ê¸°ìœ„í•œ ë³€ìˆ˜
+			var checkCnt = 0;        //ì²´í¬ëœ ì²´í¬ë°•ìŠ¤ì˜ ê°œìˆ˜
+			var checkLast = '';      //ì²´í¬ëœ ì²´í¬ë°•ìŠ¤ ì¤‘ ë§ˆì§€ë§‰ ì²´í¬ë°•ìŠ¤ì˜ ì¸ë±ìŠ¤ë¥¼ ë‹´ê¸°ìœ„í•œ ë³€ìˆ˜
+			var rowid = '';             //ì²´í¬ëœ ì²´í¬ë°•ìŠ¤ì˜ ëª¨ë“  value ê°’ì„ ë‹´ëŠ”ë‹¤
 			var cnt = 0;                 
 			for(var i=0; i<len; i++){
 				if(chk[i].checked == true){
-				checkCnt++;        //Ã¼Å©µÈ Ã¼Å©¹Ú½ºÀÇ °³¼ö
-				checkLast = i;     //Ã¼Å©µÈ Ã¼Å©¹Ú½ºÀÇ ÀÎµ¦½º
+				checkCnt++;        //ì²´í¬ëœ ì²´í¬ë°•ìŠ¤ì˜ ê°œìˆ˜
+				checkLast = i;     //ì²´í¬ëœ ì²´í¬ë°•ìŠ¤ì˜ ì¸ë±ìŠ¤
 				}
 			} 
 			for(var i=0; i<len; i++){
-				if(chk[i].checked == true){  //Ã¼Å©°¡ µÇ¾îÀÖ´Â °ª ±¸ºĞ
+				if(chk[i].checked == true){  //ì²´í¬ê°€ ë˜ì–´ìˆëŠ” ê°’ êµ¬ë¶„
 					checkRow = chk[i].value;
-					if(checkCnt == 1){                            //Ã¼Å©µÈ Ã¼Å©¹Ú½ºÀÇ °³¼ö°¡ ÇÑ °³ ÀÏ¶§,
-						rowid += checkRow;        //'value'ÀÇ ÇüÅÂ (µÚ¿¡ ,(ÄŞ¸¶)°¡ ºÙÁö¾Ê°Ô)
-					}else{                                            //Ã¼Å©µÈ Ã¼Å©¹Ú½ºÀÇ °³¼ö°¡ ¿©·¯ °³ ÀÏ¶§,
-						if(i == checkLast){                     //Ã¼Å©µÈ Ã¼Å©¹Ú½º Áß ¸¶Áö¸· Ã¼Å©¹Ú½ºÀÏ ¶§,
-							rowid += checkRow;  //'value'ÀÇ ÇüÅÂ (µÚ¿¡ ,(ÄŞ¸¶)°¡ ºÙÁö¾Ê°Ô)
+					if(checkCnt == 1){                            //ì²´í¬ëœ ì²´í¬ë°•ìŠ¤ì˜ ê°œìˆ˜ê°€ í•œ ê°œ ì¼ë•Œ,
+						rowid += checkRow;        //'value'ì˜ í˜•íƒœ (ë’¤ì— ,(ì½¤ë§ˆ)ê°€ ë¶™ì§€ì•Šê²Œ)
+					}else{                                            //ì²´í¬ëœ ì²´í¬ë°•ìŠ¤ì˜ ê°œìˆ˜ê°€ ì—¬ëŸ¬ ê°œ ì¼ë•Œ,
+						if(i == checkLast){                     //ì²´í¬ëœ ì²´í¬ë°•ìŠ¤ ì¤‘ ë§ˆì§€ë§‰ ì²´í¬ë°•ìŠ¤ì¼ ë•Œ,
+							rowid += checkRow;  //'value'ì˜ í˜•íƒœ (ë’¤ì— ,(ì½¤ë§ˆ)ê°€ ë¶™ì§€ì•Šê²Œ)
 						}else{
-							rowid += checkRow+"|";	 //'value',ÀÇ ÇüÅÂ (µÚ¿¡ ,(ÄŞ¸¶)°¡ ºÙ°Ô)         			
+							rowid += checkRow+"|";	 //'value',ì˜ í˜•íƒœ (ë’¤ì— ,(ì½¤ë§ˆ)ê°€ ë¶™ê²Œ)         			
 						}
 					}
 					cnt++;
-					checkRow = '';    //checkRowÃÊ±âÈ­.
+					checkRow = '';    //checkRowì´ˆê¸°í™”.
 				}
 			}
 			if(checkCnt > 3){
-				alert("¼Ò½º´Â 3°¡Áö ±îÁö ¼±ÅÃ °¡´ÉÇÕ´Ï´Ù.");
+				alert("ì†ŒìŠ¤ëŠ” 3ê°€ì§€ ê¹Œì§€ ì„ íƒ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 				$("#sauce").focus();
 			}else{
 				$("#SelectSauceValue").val(rowid);
 			}
 		}
-		// ¸Ş´º class ¼±ÅÃ½Ã ³ª¿À´Â °Í
+		// ë©”ë‰´ class ì„ íƒì‹œ ë‚˜ì˜¤ëŠ” ê²ƒ
 		function SelMenuClass(){
 			var menuclass = $("#menu_class").val();
 			var size = $(":radio[name='menu_size']:checked").val();
@@ -658,7 +663,7 @@
 			
 	
 		}
-		// ¸Ş´º html »ı¼º
+		// ë©”ë‰´ html ìƒì„±
 		function MenuClassback(){
 			if(httpRequest.readyState == 4){
 				if(httpRequest.status == 200){
@@ -669,7 +674,7 @@
 				}
 			}
 		}
-		//»çÀÌµå ¸Ş´º ¸®½ºÆ®
+		//ì‚¬ì´ë“œ ë©”ë‰´ ë¦¬ìŠ¤íŠ¸
 		function SelSideMenuClass(){
 			var sidemenu_category = $("#sidemenu_category").val();
 			var param = "category="+sidemenu_category;
@@ -687,13 +692,13 @@
 		}
 		
 		
-		// ¸ÅÀå ÁöÁ¡ 
+		// ë§¤ì¥ ì§€ì  
 		function SelManagerAddr(){
 			var manageraddr = $("#manage_addr").val();
 			var param = "manager_addr=" + manageraddr;
 			sendRequest("POST","managerSelect.jsp", Addrback ,param);
 		}
-		// ¸ÅÀåÀÌ¸§ ³ª¿À°Ô ÇÒ ºÎºĞ
+		// ë§¤ì¥ì´ë¦„ ë‚˜ì˜¤ê²Œ í•  ë¶€ë¶„
 		function Addrback(){
 			if(httpRequest.readyState == 4){
 				if(httpRequest.status == 200){
@@ -705,7 +710,7 @@
 				}
 			}
 		}
-		//¸Ş´º º£½ºÆ® ¼Ò½º ¾Ë±â
+		//ë©”ë‰´ ë² ìŠ¤íŠ¸ ì†ŒìŠ¤ ì•Œê¸°
 		function Menu_Bestsauce(){
 			var menu_no = $(":radio[name='menu_no']:checked").val();
 			var param = "menu_no=" + menu_no;
@@ -754,24 +759,24 @@
 			var bread_no = $(":radio[name='bread_no']:checked").val();
 			var store_no = $("#store_no").val();
 			if(store_no == ""){
-				alert("¸ÅÀåÀ» ¼±ÅÃÇØ ÁÖ¼¼¿ä.");
+				alert("ë§¤ì¥ì„ ì„ íƒí•´ ì£¼ì„¸ìš”.");
 				return;
 			}
 			if(bread_no == null){
-				alert("»§Á¾·ù¸¦ ¼±ÅÃÇØ ÁÖ¼¼¿ä");
+				alert("ë¹µì¢…ë¥˜ë¥¼ ì„ íƒí•´ ì£¼ì„¸ìš”");
 				return;
 			}
 			if(menu_no == null){
-				alert("¸Ş´º¸¦ ¼±ÅÃÇØ ÁÖ¼¼¿ä.");
+				alert("ë©”ë‰´ë¥¼ ì„ íƒí•´ ì£¼ì„¸ìš”.");
 				return;
 			}
 		
 			if($("#VegetableList").val()==""){
-				alert("Ã¤¼Ò¸¦ ¼±ÅÃ ÇØ ÁÖ¼¼¿ä.");
+				alert("ì±„ì†Œë¥¼ ì„ íƒ í•´ ì£¼ì„¸ìš”.");
 				return;
 			}
 			if($("#SelectSauceValue").val()==""){
-				alert("¼Ò½º¸¦ ¼±ÅÃ ÇØ ÁÖ¼¼¿ä.");
+				alert("ì†ŒìŠ¤ë¥¼ ì„ íƒ í•´ ì£¼ì„¸ìš”.");
 				return;
 			}
 			
@@ -786,7 +791,7 @@
 		function DetailOrderSaveBack(){
 			if(httpRequest.readyState == 4){
 				if(httpRequest.status == 200){
-					alert("ÀúÀå ¼º°ø!");
+					alert("ì €ì¥ ì„±ê³µ!");
 					location.href="OrderList.jsp";
 			 		//	alert(httpRequest.responseText);
 			 	}else{
@@ -795,17 +800,17 @@
 			}	
 	
 		}
-		//Áñ°ÜÃ£±â ³»¿ë ´Ã·¶À»¶§
+		//ì¦ê²¨ì°¾ê¸° ë‚´ìš© ëŠ˜ë €ì„ë•Œ
 		function FavoriteCilck(menu, size, bread, vegetable, sauce){
 			//alert("menu = " +menu+ "size= " + size+ "bread =" + bread + "vegetable =" + vegetable + "sauce = " +sauce  );
 			$("input:radio[name='menu_size']:radio[value='"+size+"']").prop("checked",true);
 			$("input:radio[name='bread_no']:radio[value='"+bread+"']").prop("checked",true);
-			//Ã¤¼Ò¸®½ºÆ® ³Ñ¾î¿Â°Í¿¡ split ÇÏ¿© µ¹·Á¼­ value ¸Â´Â°Å¿¡ Ã¼Å©ÇÏ°Ô ÇÏ±â
+			//ì±„ì†Œë¦¬ìŠ¤íŠ¸ ë„˜ì–´ì˜¨ê²ƒì— split í•˜ì—¬ ëŒë ¤ì„œ value ë§ëŠ”ê±°ì— ì²´í¬í•˜ê²Œ í•˜ê¸°
 			var vegetableList = vegetable.split('|');
 			for( var i in vegetableList ){
 				$("input:checkbox[name='vegetable_no[]']:checkbox[value='"+vegetableList[i]+"']").prop("checked",true);		
 			}
-			//¼Ò½º¸®½ºÆ® ³Ñ¾î¿Â°Í¿¡ split ÇÏ¿© for¹®À¸·Î µ¹·Á¼­ value ¸Â´Â°Å¿¡ Ã¼Å©ÇÏ°Ô ÇÏ±â
+			//ì†ŒìŠ¤ë¦¬ìŠ¤íŠ¸ ë„˜ì–´ì˜¨ê²ƒì— split í•˜ì—¬ forë¬¸ìœ¼ë¡œ ëŒë ¤ì„œ value ë§ëŠ”ê±°ì— ì²´í¬í•˜ê²Œ í•˜ê¸°
 			var sauceList = sauce.split('|');
 			for(var i in sauceList){
 				$("input:checkbox[name='sauce_no[]']:checkbox[value='"+sauceList[i]+"']").prop("checked",true);
@@ -818,7 +823,7 @@
 		}
 		
 	
-		// »çÀÌµå ¸Ş´º ¼±ÅÃÀÎ°¡ »÷µåÀ§Ä¡ ¼±ÅÃÀÎ°¡
+		// ì‚¬ì´ë“œ ë©”ë‰´ ì„ íƒì¸ê°€ ìƒŒë“œìœ„ì¹˜ ì„ íƒì¸ê°€
 		function ListView(list){
 			if(list =="side"){
 				$("#Sandwich").css("display","none");
@@ -831,11 +836,11 @@
 				$("#OrderTypes").val("bread");
 			}
 		}
-		// check¹Ú½ºÀÇ checked µÇ¾îÀÖÀ¸¸é Å×ÀÌºí Çà Ãß°¡ ¾Æ´Ò½Ã »èÁ¦ 
+		// checkë°•ìŠ¤ì˜ checked ë˜ì–´ìˆìœ¼ë©´ í…Œì´ë¸” í–‰ ì¶”ê°€ ì•„ë‹ì‹œ ì‚­ì œ 
 		function SelCheckbox(side_no){
 			var checked = $("input:checkbox[id='side_menu_no_"+side_no+"']").is(":checked");
 			if(checked == true){
-				$("#Html_SideAppend").append('<tr id="Html_TrAppeand_'+side_no+'"><td><input type="hidden" name="no" value="'+side_no+'"/><button class="btn btn-danger" onclick="SideMenuDel('+side_no+')">¼±ÅÃÃë¼Ò</button></td><td id="Html_side_menu_name_'+side_no+'" style="text-align:center;"></td><td id="Html_side_basic_price_'+side_no+'" style="text-align:center;"></td><td style="text-lign:center;"><input type="text" class="form-control" placeholder="¼ö·®À» ÀÔ·ÂÇØÁÖ¼¼¿ä" id="SideMenu_count_'+side_no+'" name="sidemenu_count" onblur="SideMenu_CountPrice('+side_no+')"/></td><td id="SideCountPrice_'+side_no+'"></td><input type="hidden" name="side_countprice" id="hidden_countPrice_'+side_no+'"/></tr>');			
+				$("#Html_SideAppend").append('<tr id="Html_TrAppeand_'+side_no+'"><td><input type="hidden" name="no" value="'+side_no+'"/><button class="btn btn-danger" onclick="SideMenuDel('+side_no+')">ì„ íƒì·¨ì†Œ</button></td><td id="Html_side_menu_name_'+side_no+'" style="text-align:center;"></td><td id="Html_side_basic_price_'+side_no+'" style="text-align:center;"></td><td style="text-lign:center;"><input type="text" class="form-control" placeholder="ìˆ˜ëŸ‰ì„ ì…ë ¥í•´ì£¼ì„¸ìš”" id="SideMenu_count_'+side_no+'" name="sidemenu_count" onblur="SideMenu_CountPrice('+side_no+')"/></td><td id="SideCountPrice_'+side_no+'"></td><input type="hidden" name="side_countprice" id="hidden_countPrice_'+side_no+'"/></tr>');			
 			}else{
 				SideMenuDel(side_no);
 			}
@@ -843,7 +848,7 @@
 			HtmlSelectSide(side_no);
 			
 		}
-		// append·Î Å×ÀÌºíÇà »ı¼º µÉ¶§¸¶´Ù »çÀÌµå ¸Ş´ºÀÇ ÀÌ¸§°ú °¡°İµéÀ» ºÒ·¯¿Â´Ù.
+		// appendë¡œ í…Œì´ë¸”í–‰ ìƒì„± ë ë•Œë§ˆë‹¤ ì‚¬ì´ë“œ ë©”ë‰´ì˜ ì´ë¦„ê³¼ ê°€ê²©ë“¤ì„ ë¶ˆëŸ¬ì˜¨ë‹¤.
 		function HtmlSelectSide(side_no){
 			var sidemenu_name = $("#sidemenu_name_"+side_no).val();
 			var sidebasic_price = $("#sidebasic_price_"+side_no).val();
@@ -852,7 +857,7 @@
 			$("#Html_side_menu_name_"+side_no).val(sidemenu_name);
 			$("#Html_side_basic_price_"+side_no).val(sidebasic_price);
 		}
-		// »çÀÌµå ¸Ş´ºÀÇ ¼ö·®µéÀ» ÀÔ·ÂÇÏ¸é, °¡°İ °è»ê 
+		// ì‚¬ì´ë“œ ë©”ë‰´ì˜ ìˆ˜ëŸ‰ë“¤ì„ ì…ë ¥í•˜ë©´, ê°€ê²© ê³„ì‚° 
 		function SideMenu_CountPrice(side_no){
 			var sidebasicprice = $("#Html_side_basic_price_"+side_no).val();
 			var sidecount = $("#SideMenu_count_"+side_no).val();
@@ -865,7 +870,7 @@
 			TotalSidePrice(null,side_no);
 		}
 		var TotalPrice = 0;
-		// °¡°İµéÀ» Total ÀûÀ¸·Î ÃÑÇÕ°è¸¦ ³½´Ù.
+		// ê°€ê²©ë“¤ì„ Total ì ìœ¼ë¡œ ì´í•©ê³„ë¥¼ ë‚¸ë‹¤.
 		function TotalSidePrice(price,side_no){
 			var SideCountPrices =  $("#SideCountPrice_"+side_no).val();
 		//	alert(SideCountPrices);
@@ -877,7 +882,7 @@
 			$("#SideCountPrice").val(TotalPrice);
 			$("#HtmlSide_CountPrice").html(TotalPrice);
 		}
-		// »çÀÌµå ¸Ş´º ¼±ÅÃ Ãë¼Ò ´©¸¦½Ã °¡°İ, Å×ÀÌºíÇà »èÁ¦, Ã¼Å© Ç®±â
+		// ì‚¬ì´ë“œ ë©”ë‰´ ì„ íƒ ì·¨ì†Œ ëˆ„ë¥¼ì‹œ ê°€ê²©, í…Œì´ë¸”í–‰ ì‚­ì œ, ì²´í¬ í’€ê¸°
 		function SideMenuDel(side_no){
 			var price = $("#SideCountPrice_"+side_no).val();
 			$("input:checkbox[id='side_menu_no_"+side_no+"']").prop("checked",false);
