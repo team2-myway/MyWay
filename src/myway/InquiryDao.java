@@ -18,7 +18,7 @@ public class InquiryDao {
 	private ResultSet rs;
 	private DataSource ds;
 	   
-	public InquiryDao() { //생성자
+	public InquiryDao(){ //생성자
 		try {
 			Context ctx = new InitialContext();
 			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/mysqlDB"); //lookup() : 이름만 알고 있으면, jndi로 접근할 수 있다.

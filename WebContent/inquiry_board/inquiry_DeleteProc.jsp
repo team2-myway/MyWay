@@ -2,8 +2,8 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
-<jsp:useBean id="dao" class="myway.InquiryDao" />
 <jsp:useBean id="dto" class="myway.InquiryDto" />
+<jsp:useBean id="dao" class="myway.InquiryDao" />
 <%
 	int board_no = Integer.parseInt(request.getParameter("board_no"));
 	boolean deleteRs = dao.inquiryDelete(board_no);

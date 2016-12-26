@@ -1,7 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
+<%@ page contentType="text/html; charset=UTF-8"%>
+
 <jsp:useBean id="dao" class="myway.InquiryDao" />
 <jsp:useBean id="dto" class="myway.InquiryDto" />
 

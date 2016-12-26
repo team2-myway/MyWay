@@ -1,5 +1,5 @@
-<%@page import="myway.InquiryDto"%>
 <%@page import="java.util.List"%>
+<%@page import="myway.InquiryDto"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>

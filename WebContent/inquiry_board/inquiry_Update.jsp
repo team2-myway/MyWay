@@ -6,7 +6,7 @@
 <script src="../lib/daumeditor/js/editor_loader.js?environment=development" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 <script>
-	function check(){
+	function check() {
 		if(document.tx_editor_form.title.value == ""){
 			alert("제목을 입력하세요.");
 			document.tx_editor_form.title.focus();

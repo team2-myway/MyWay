@@ -21,7 +21,7 @@
 	}
 </script>
 <script>
-function validForm(editor) {
+function validForm(editor){
 	var validator = new Trex.Validator();
 	var content = editor.getContent();
 	if (!validator.exists(content)) {

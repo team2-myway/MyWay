@@ -1,6 +1,6 @@
-<%@page import="myway.InquiryDto"%>
-<%@page import="myway.InquiryDao"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@page import="myway.InquiryDao"%>
+<%@page import="myway.InquiryDto"%>
 
 <% request.setCharacterEncoding("UTF-8");  %>
 <jsp:useBean id="dao" class="myway.InquiryDao" />
