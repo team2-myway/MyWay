@@ -37,9 +37,9 @@
 							<th>삭제</th>
 						</tr>
 <%
-							 for(int i=0; i<menulist.size(); i++) {
-								 dto = (MenuDto)menulist.get(i);
-								 
+
+		for(int i=0; i<menulist.size(); i++){
+			dto = (MenuDto)menulist.get(i);
 %>
 							<tr>
 								<td><img src="<%=dto.getM_img()%>">img</td>
@@ -58,6 +58,8 @@
 				</div>
 			</div>
 		</div>
+		
+		
 	</section>
 		
 		<!-- 공간주기 -->
