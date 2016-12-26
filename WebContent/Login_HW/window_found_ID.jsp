@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="EUC-KR"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -11,10 +11,10 @@
 	<jsp:useBean id="dao" class="account.AccountDao"></jsp:useBean>
 	<jsp:setProperty property="*" name="dto" />
 	<%
-		request.setCharacterEncoding("euc-kr");
+		request.setCharacterEncoding("UTF-8");
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
-		if (dao.findByID(name, email).getId() == null) {
+		if (dao.findID(name, email).getId() == null) {
 	%>
 	<script>
 		alert("name, email not exist");
@@ -24,7 +24,7 @@
 		} else {
 	%>
 		<h3>당신의 아이디는</h3><br/>
-		<strong><%=dao.findByID(name, email).getId() %></strong>
+		<strong><%=dao.findID(name, email).getId() %></strong>
 		<h3>입니다.</h3>
 	<%
 		}

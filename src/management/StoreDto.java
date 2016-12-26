@@ -14,6 +14,7 @@ public class StoreDto {
 	private Date date; //날짜
 	private String status; //주문상태
 	
+	private String menu_name; //메뉴이름
 	
 	public int getAccount_no() {
 		return account_no;
@@ -77,4 +78,13 @@ public class StoreDto {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	
+	public String getMenu_name() {
+		return menu_name;
+	}
+	public void setMenu_name(String menu_name) {
+		this.menu_name = menu_name;
+	}
+	
 }

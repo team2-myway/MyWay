@@ -115,6 +115,39 @@ public class StoreDao {
 		return list;
 	}
 	
+	public ArrayList getNoworder_list(String acc_no) {
+		int account_no = Integer.parseInt(acc_no);
+		String sql = null;
+		ArrayList list = new ArrayList();
+		
+		try{
+			con = ds.getConnection();
+			
+			sql = "select m.order_no, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='주문완료' and m.date>curdate() order by m.order_no";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, account_no);			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				StoreDto dto = new StoreDto();
+				
+				dto.setOrder_no(rs.getInt("order_no"));
+				dto.setDate(rs.getDate("date"));
+				dto.setTotal(rs.getInt("total"));
+				dto.setStatus(rs.getString("status"));
+
+				list.add(dto);
+			}
+		}
+		catch(Exception err){
+			System.out.println("getNoworder_list() : " + err);
+		}
+		finally{
+			freeConnection();
+		}
+		return list;
+	}
+	
 	public StoreDto getStore_total(String acc_no, String detail_date) {
 		int account_no = Integer.parseInt(acc_no);
 		String sql = null;
@@ -157,6 +190,34 @@ public class StoreDao {
 			freeConnection();
 		}
 		return dto;
+	}
+	
+	public boolean updateOrderStatus(String acc_no, String order) {
+		int account_no = Integer.parseInt(acc_no);
+		int order_no = Integer.parseInt(order);
+		boolean updateResult = false;
+		try{
+			con = ds.getConnection();
+			
+			String sql = "update main_order set status='결제완료' where account_no=? and order_no=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, account_no);
+			pstmt.setInt(2, order_no);
+			pstmt.executeUpdate();
+			if(pstmt.executeUpdate() == 1) {
+				updateResult = true;
+			} else {
+				updateResult = false;
+			}
+
+		}
+		catch(Exception err){
+			System.out.println("updateOrderStatus() : " + err);
+		}
+		finally{
+			freeConnection();
+		}
+		return updateResult;
 	}
 	
 	public void freeConnection() {

@@ -1,9 +1,9 @@
 <%@page import="java.util.List"%>
-<%@ page contentType="text/html; charset=EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
 		.contact_widget_phone > span,
@@ -38,7 +38,6 @@
 
 		.textwidget #pb_35 {padding-bottom:35px;}
 	</style>
-
 </head>
 <body class="page">
 	<section id="page" class="csstransition cmsms_resp hfeed site">
@@ -47,13 +46,13 @@
 			
 
 
-		<!-- 공간주기 -->
+		<!-- 怨듦컙二쇨린 -->
 		<div style="height: 50px;">&nbsp;</div>
 		<footer>
 			<%@ include file="../include/footer.jsp"%>
 		</footer>
 	</section>
-	
+
 	<script src="../js/respond.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="../revolution/js/jquery.themepunch.revolution.js"></script>
 	<script type="text/javascript" src="../revolution/js/jquery.themepunch.revolution.min.js"></script>	
@@ -66,7 +65,6 @@
 	<script src="../js/jquery.tweet.min.js" type="text/javascript"></script>
 	<script src="../js/jquery.validationEngine-lang.js" type="text/javascript"></script>
 	<script src="../js/jquery.validationEngine.min.js" type="text/javascript"></script>
-	
 	<script src="../lib/bootstrap/js/jquery-3.1.1.min.js"></script>
 	<script src="../lib/bootstrap/js/bootstrap.js"></script>
 </body>

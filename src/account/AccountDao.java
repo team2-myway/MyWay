@@ -1,14 +1,11 @@
 package account;
 
-
-
-	import java.sql.*;
-	import java.util.ArrayList;
-
-	import javax.naming.Context;
-	import javax.naming.InitialContext;
-	import javax.sql.DataSource;
-	public class AccountDao {
+import java.sql.*;
+import java.util.ArrayList;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+public class AccountDao {
 
 		private Connection con;
 		private PreparedStatement pstmt;
@@ -20,10 +17,29 @@ package account;
 		public AccountDao() {
 			try {
 				Context ctx = new InitialContext();
-				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/MysqlDB");
+				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/mysqlDB");
 			} catch (Exception e) {
 				System.out.println("DB 연결실패 : " + e);
 			}
+		}
+		
+		public AccountDto session(Object session_id) {
+			AccountDto dto = new AccountDto();
+			String sql = "select account_no, account_name, level from account where id=?";
+			try {
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, session_id.toString());
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					dto.setAccount_no(rs.getInt("account_no"));
+					dto.setAccount_name(rs.getString("account_name"));
+					dto.setLevel(rs.getString("level"));
+				}
+			} catch (Exception e) {
+				System.out.println("session() : " + e);
+			}
+			return dto;
 		}
 
 		/* 
@@ -97,6 +113,7 @@ package account;
 			}
 			return adto;
 		}
+		
 		public AccountDto findID(String name,String email) {
 			AccountDto adto = new AccountDto();
 			String sql = "select id from account where account_name=? and email=?";
