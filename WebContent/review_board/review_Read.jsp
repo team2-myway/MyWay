@@ -91,6 +91,7 @@
 				<tr align="center">
 					<td>내용</td>
 					<td><%=commentdto.getContent() %></td>
+					
 					</tr>
 <%
 			}

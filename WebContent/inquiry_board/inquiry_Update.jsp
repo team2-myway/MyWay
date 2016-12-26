@@ -6,6 +6,10 @@
 <script src="../lib/daumeditor/js/editor_loader.js?environment=development" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 <script>
+	window.onload = function() { 
+		$(document).ready(loadContent());
+	}
+	
 	function check() {
 		if(document.tx_editor_form.title.value == ""){
 			alert("제목을 입력하세요.");
@@ -14,8 +18,7 @@
 		}
 		document.tx_editor_form.submit();
 	}
-</script>
-<script>
+
 function validForm(editor) {
 	var validator = new Trex.Validator();
 	var content = editor.getContent();
@@ -34,10 +37,27 @@ function setForm(editor) {
         //textarea를 생성하여 해당태그에 에디터 입력값들을 신규생성 textarea에 담는다
         textarea.name = 'content';
         textarea.value = content;
+        textarea.style="display:none";
         form.createField(textarea);
      return true;
 }
 </script>
+	<script type="text/javascript">
+	 function loadContent() {
+		var attachments = {};
+		/* 저장된 컨텐츠를 불러오기 위한 함수 호출 */
+		Editor.modify({
+			"attachments": function () { /* 저장된 첨부가 있을 경우 배열로 넘김, 위의 부분을 수정하고 아래 부분은 수정없이 사용 */
+				var allattachments = [];
+				for (var i in attachments) {
+					allattachments = allattachments.concat(attachments[i]);
+				}
+				return allattachments;
+			}(),
+			"content": document.getElementById("content2") /* 내용 문자열, 주어진 필드(textarea) 엘리먼트 */
+		});
+	 }
+	</script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
@@ -55,6 +75,7 @@ function setForm(editor) {
 			<div class="col-md-12">
 				<div class="col-md-12">
 					<form name="tx_editor_form" id="tx_editor_form" action="inquiry_UpdateProc.jsp?board_no=<%=dto.getBoard_no()%>" method="post" accept-charset="utf-8">
+						<textarea id="content2" name="content2" style="display:none"><%=dto.getContent() %></textarea>
 						<table>
 							<tr>
 								<td align=left>제 목</td>

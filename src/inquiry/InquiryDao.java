@@ -230,30 +230,6 @@ public class InquiryDao {
 		return deleteRs;
 	}
 	
-	//�ۻ���
-	public boolean inquiryDelete(int board_no){
-		String sql = null;
-		boolean deleteRs = false;
-		try{
-			con = ds.getConnection();
-			sql = "delete from inquiry_board where board_no=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, board_no);
-			pstmt.executeUpdate();
-			if(pstmt.executeUpdate() == 0) {
-				deleteRs = true;
-			} else {
-				deleteRs = false;
-			}
-		}
-		catch(Exception err){
-			System.out.println("inquiryDelete() : " + err);
-		}
-		finally{
-			freeConnection();
-		}
-		return deleteRs;
-	}
 	
 	//�亯�ޱ��� �θ���� pos����ū pos�� 1 ������
 	public void replyUpdatePos(InquiryDto dto){

@@ -34,7 +34,7 @@
 %>
 			<script>
 				alert("비밀번호 불일치");
-				location.href="review_Delete.jsp?review_no=<%=review_no%>";
+				location.href="review_Delete.jsp?account_no=<%=account_no%>&review_no=<%=review_no%>";
 			</script>
 <%
 		} else if(deleteret == true) {

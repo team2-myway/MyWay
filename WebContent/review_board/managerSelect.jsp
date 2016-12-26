@@ -13,7 +13,7 @@
    		for (int i = 0; i < nameList.size(); i++) {
    			dto = (ReviewDto)nameList.get(i);
 %>
-<option value="<%=dto.getManager_name()%>" <%=dto.getManager_name().equals(manager_name)?"selected":"" %>><%=dto.getManager_name()%></option>
+	<option value="<%=dto.getManager_name()%>" selected="selected"><%=dto.getManager_name()%></option>
 <%
 	}
 	

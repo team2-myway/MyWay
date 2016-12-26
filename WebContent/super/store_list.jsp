@@ -10,32 +10,36 @@
 <body class="page">
 	<jsp:useBean id="dao" class="management.StoreDao"></jsp:useBean>
 	<jsp:useBean id="dto" class="management.StoreDto"></jsp:useBean>
-	<%
-		List list = dao.getStore_list("accountno");
+<%
+	AccountDao ad = new AccountDao();
+	AccountDto accountDto = ad.session(session.getAttribute("id"));
 
-		///////////////////////////paging 기법///////////////////////////
-		int totalRecord = 0; //전체 글의 갯수
-		int numPerPage = 5; //한페이지당 글의 개수
-		int pagePerBlock = 3; //한 블럭 당 페이지 수
-		int totalPage = 0; //전체 페이지 수
-		int totalBlock = 0; //전체 블록의 수
-		int nowPage = 0; //현재 페이지 번호
-		int nowBlock = 0; //현재 블럭 번호
-		int beginPerPage = 0; //페이지당 시작번호
+	int account_no = accountDto.getAccount_no();
+	List list = dao.getStore_list(account_no);
 
-		totalRecord = list.size();
-		totalPage = (int) Math.ceil(((double) totalRecord / numPerPage));
-		totalBlock = (int) Math.ceil(((double) totalPage / pagePerBlock));
+	///////////////////////////paging 기법///////////////////////////
+	int totalRecord = 0; //전체 글의 갯수
+	int numPerPage = 5; //한페이지당 글의 개수
+	int pagePerBlock = 3; //한 블럭 당 페이지 수
+	int totalPage = 0; //전체 페이지 수
+	int totalBlock = 0; //전체 블록의 수
+	int nowPage = 0; //현재 페이지 번호
+	int nowBlock = 0; //현재 블럭 번호
+	int beginPerPage = 0; //페이지당 시작번호
 
-		if (request.getParameter("nowPage") != null) {
-			nowPage = Integer.parseInt(request.getParameter("nowPage"));
-		}
+	totalRecord = list.size();
+	totalPage = (int) Math.ceil(((double) totalRecord / numPerPage));
+	totalBlock = (int) Math.ceil(((double) totalPage / pagePerBlock));
 
-		if (request.getParameter("nowBlock") != null) {
-			nowBlock = Integer.parseInt(request.getParameter("nowBlock"));
-		}
+	if (request.getParameter("nowPage") != null) {
+		nowPage = Integer.parseInt(request.getParameter("nowPage"));
+	}
 
-		beginPerPage = nowPage * numPerPage;
+	if (request.getParameter("nowBlock") != null) {
+		nowBlock = Integer.parseInt(request.getParameter("nowBlock"));
+	}
+
+	beginPerPage = nowPage * numPerPage;
 	%>
 
 	<section id="page" class="csstransition cmsms_resp hfeed site">

@@ -14,7 +14,7 @@
 <jsp:useBean id="dao" class="management.StoreDao"></jsp:useBean>
 <jsp:useBean id="dto" class="management.StoreDto"></jsp:useBean>
 <%
-	String account_no = request.getParameter("account_no");
+	int account_no = Integer.parseInt(request.getParameter("account_no"));
 	String detail_date = request.getParameter("date");
 	
 	if(request.getParameter("date1") != null && request.getParameter("date2") != null && !request.getParameter("date1").isEmpty() && !request.getParameter("date2").isEmpty()) {
@@ -33,28 +33,28 @@
 	StoreDto totdto = dao.getStore_total(account_no, detail_date);
 	
 	///////////////////////////paging 기법///////////////////////////
-		int totalRecord = 0; //전체 글의 갯수
-		int numPerPage = 5; //한페이지당 글의 개수
-		int pagePerBlock = 3; //한 블럭 당 페이지 수
-		int totalPage = 0; //전체 페이지 수
-		int totalBlock = 0; //전체 블록의 수
-		int nowPage = 0; //현재 페이지 번호
-		int nowBlock = 0; //현재 블럭 번호
-		int beginPerPage = 0; //페이지당 시작번호
+	int totalRecord = 0; //전체 글의 갯수
+	int numPerPage = 5; //한페이지당 글의 개수
+	int pagePerBlock = 3; //한 블럭 당 페이지 수
+	int totalPage = 0; //전체 페이지 수
+	int totalBlock = 0; //전체 블록의 수
+	int nowPage = 0; //현재 페이지 번호
+	int nowBlock = 0; //현재 블럭 번호
+	int beginPerPage = 0; //페이지당 시작번호
 
-		totalRecord = list.size();
-		totalPage = (int) Math.ceil(((double) totalRecord / numPerPage));
-		totalBlock = (int) Math.ceil(((double) totalPage / pagePerBlock));
+	totalRecord = list.size();
+	totalPage = (int) Math.ceil(((double) totalRecord / numPerPage));
+	totalBlock = (int) Math.ceil(((double) totalPage / pagePerBlock));
 
-		if (request.getParameter("nowPage") != null) {
-			nowPage = Integer.parseInt(request.getParameter("nowPage"));
-		}
+	if (request.getParameter("nowPage") != null) {
+		nowPage = Integer.parseInt(request.getParameter("nowPage"));
+	}
 
-		if (request.getParameter("nowBlock") != null) {
+	if (request.getParameter("nowBlock") != null) {
 			nowBlock = Integer.parseInt(request.getParameter("nowBlock"));
-		}
+	}
 
-		beginPerPage = nowPage * numPerPage;
+	beginPerPage = nowPage * numPerPage;
 
 %>
 	<section id="page" class="csstransition cmsms_resp hfeed site">
