@@ -21,9 +21,8 @@
 		<%@ include file="../include/header.jsp"%>
 		<div class="container">
 			<div class="col-md-12">
-			  	<p>
-			<b style="color: green"> Myway 메뉴 수정</b>
-		</p>
+		 <marquee behavior="alternate" scrollAmount="5"><font color="#009900"size="3">Myway 메뉴 수정</font></marquee>
+			<br><br>
 		<form id="Menu_Saves" onsubmit="return false;" method="post" action="Menu_Edit_Proc.jsp?menu_no=<%=menu_no%>" enctype="multipart/form-data">
 		<table border="1" cellspacing="0" cellpadding="10">
 			<tr>
@@ -63,7 +62,7 @@
 			<tr>
 				<td class="heading" valign="top" align="right" nowrap>가격</td>
 				<td valign="top" align=left>
-					<input type="text" name="price" id="price" value="<%=mdto.getM_calorie()%>"/>
+					<input type="text" name="price" id="price" value="<%=mdto.getM_price()%>"/>
 				</td>
 			</tr>
 			<tr>
@@ -292,10 +291,7 @@
 			document.getElementById("Menu_Saves").submit();
 		}
 
-		
 	</script>
 	
-
-
 </body>
 </html>
