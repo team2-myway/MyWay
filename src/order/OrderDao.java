@@ -11,6 +11,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 
+
 public class OrderDao {
 	private Connection con;
 	private PreparedStatement stmt;
@@ -20,13 +21,248 @@ public class OrderDao {
 	public OrderDao(){
 		try{
 			Context ctx = new InitialContext();
-			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/MysqlDB");
+			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/mysqlDB");
 			
 		}catch(Exception err){
-			System.out.println("¿¬°á ½ÇÆĞ" + err);
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½" + err);
 		}
 	}
-	//¸Ş´º »çÀÌÁî º°·Î ³ª¿À°Ô ÇÏ´Â °Íµé Å¬·¡½ºµµ ÁöÁ¤
+	public void StampAdd(int account_no, int count){
+		String sql = "";
+		try{
+		sql = "select stamp from account where account_no = ?";
+		con = ds.getConnection();
+		stmt = con.prepareStatement(sql);
+		stmt.setInt(1, account_no);
+		rs = stmt.executeQuery();
+		rs.next();
+		int stamp = rs.getInt("stamp");
+		int countstamp = stamp+count;
+		// È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½
+		sql ="update account set stamp=? where account_no = ?";
+		con = ds.getConnection();
+		stmt = con.prepareStatement(sql);
+		stmt.setInt(1, countstamp);
+		stmt.setInt(2, account_no);
+		stmt.executeUpdate();
+		}catch(Exception err){
+			System.out.println("StampAdd"+err);
+		}finally{
+			freeConnection();
+		}
+	}
+	public void DetailOrderSave(OrderDto dto){
+		String sql = "";
+		
+		try{
+			sql = "insert into detail_order(order_code, bread_no, menu_no, vegetable_no, sauce_no, count, price, favorite)"
+					+ " values (?, ?, ?, ?, ?, ?,?,?);";
+			
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, dto.getOrder_code());
+			stmt.setInt(2, dto.getBread_no());
+			stmt.setInt(3, dto.getMenu_no());
+			stmt.setString(4, dto.getVegetable_no_List());
+			stmt.setString(5, dto.getSauce_no_List());
+			stmt.setInt(6, dto.getMenu_count());
+			stmt.setInt(7, dto.getMenu_price());
+			stmt.setString(8, dto.getFavorite());
+			stmt.executeUpdate();
+		//	System.out.println(sql);
+			//È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë±ï¿½ï¿½ï¿½ï¿½ï¿½
+			StampAdd(dto.getAccount_no(), dto.getMenu_count());
+			OrderSave(dto);
+		}catch(Exception err){
+			System.out.println("DetailOrderSave"+err);
+		}finally{
+			freeConnection();
+		}
+	}
+	//ê²°ì œì™„ë£Œì‹œ pay_com ì£¼ë¬¸ì™„ë£Œ order_com
+	public void OrderSave(OrderDto dto){
+		String sql = "insert into main_order(order_code,account_no, account_name, account_tel, store_no, total, date, status) "
+				+ "values (?, ?, ?, ?, ?, ?, date_format(now(),'%Y/%m/%d %H:%i:%s'),'order_com')";
+		try{
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, dto.getOrder_code());
+			stmt.setInt(2, dto.getAccount_no());
+			stmt.setString(3, dto.getAccount_name());
+			stmt.setString(4, dto.getAccount_tel());
+			stmt.setInt(5, dto.getManage_no());
+			stmt.setInt(6, dto.getOrder_price());
+			
+			stmt.executeUpdate();
+			//System.out.println(sql);
+		}catch(Exception err){
+			System.out.println("OrderSave"+err);
+		}finally{
+			freeConnection();
+		}
+	
+	}
+	
+	public String Order_Code(int account_no, String date){
+		String ordermax_no = "";
+		String sql = "select id from account where account_no = "+account_no;
+		try{
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			rs.next();
+			String dates = date.substring(1,6);
+			String id = rs.getString("id").substring(2);
+			ordermax_no = "ORD"+id+"NO"+dates;
+			//System.out.println(ordermax_no);
+			
+		}catch(Exception err){
+			System.out.println("Order_Code" + err);
+		}finally{
+			freeConnection();
+		}
+		return ordermax_no;
+	}
+	// ë‚˜ì˜ ì¦ê²¨ì°¾ê¸°ì™€ ì£¼ë¬¸ë‚´ì—­ ë³´ê¸° 
+	public ArrayList MyOrderList(int account_no, String map){
+		ArrayList list = new ArrayList();
+		String sql = "";
+		if(map.equals("orderlist")){
+			sql="select a.manager_area manager_area, a.manager_name, m.total, d.vegetable_no, substr(m.date,1,16) date, "
+					+ "d.sauce_no, d.count, menu.menu_name, side.count, sm.side_menu_name, side.price, b.name bread_name from main_order m "
+					+ "left join detail_order d on m.order_code = d.order_code "
+					+ "left join bread b on b.bread_no = d.bread_no "
+					+ "left join side_order side on side.order_code = m.order_code "
+					+ "left join side_menu sm on sm.side_menu_no = side.side_menu_no "
+					+ "left join menu on menu.menu_no = d.menu_no "
+					+ "left join account a on a.account_no = m.store_no "
+					+ "where m.account_no="+account_no+" order by date desc";
+		}else{
+			//ì¦ê²¨ì°¾ê¸°
+			sql="select a.manager_area manager_area, a.manager_name, m.total, d.vegetable_no, substr(m.date,1,16) date, "
+					+ "d.sauce_no, d.count, menu.menu_name, menu.menu_size, d.menu_no, d.bread_no, b.name bread_name from main_order m "
+					+ "left join detail_order d on m.order_code = d.order_code "
+					+ "left join bread b on b.bread_no = d.bread_no "
+					+ "left join menu on menu.menu_no = d.menu_no "
+					+ "left join account a on a.account_no = m.store_no "
+					+ "where m.account_no="+account_no +" and d.favorite ='ok'";
+		}
+		//System.out.println(sql);
+		try{
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			if(map.equals("orderlist")){
+				while(rs.next()){
+					OrderDto dto = new OrderDto();
+					dto.setManage_addr(rs.getString("manager_area"));
+					dto.setManage_name(rs.getString("a.manager_name"));
+					dto.setMenu_price(rs.getInt("m.total"));
+					dto.setMenu_count(rs.getInt("d.count"));
+					dto.setMenu_name(rs.getString("menu.menu_name"));
+					dto.setBread_name(rs.getString("bread_name"));
+					dto.setOrder_date(rs.getString("date"));
+					dto.setVegetable_no_List(rs.getString("d.vegetable_no"));
+					dto.setSauce_no_List(rs.getString("d.sauce_no"));
+					dto.setSide_menu_name(rs.getString("sm.side_menu_name"));
+					dto.setSide_menu_count(rs.getInt("side.count"));
+					dto.setSide_menu_countPirce(rs.getInt("side.price"));
+					list.add(dto);
+				}
+			}else{
+				while(rs.next()){
+					OrderDto dto = new OrderDto();
+					dto.setMenu_name(rs.getString("menu.menu_name"));
+					dto.setBread_name(rs.getString("bread_name"));
+					dto.setVegetable_no_List(rs.getString("d.vegetable_no"));
+					dto.setSauce_no_List(rs.getString("d.sauce_no"));
+					dto.setMenu_no(rs.getInt("d.menu_no"));
+					dto.setBread_no(rs.getInt("d.bread_no"));
+					dto.setMenu_size(rs.getString("menu.menu_size"));
+					list.add(dto);
+				}
+				
+			}
+			
+		}catch(Exception err){
+			System.out.println("MyOrderList" + err);
+		}finally{
+			freeConnection();
+		}
+		
+		return list;
+	}
+	
+	public ArrayList VegetableOrderList(String vegetable_no){
+		ArrayList list = new ArrayList();
+		try{
+			String[] vegetalbe = vegetable_no.split("\\|");
+			String ordervegetable = "";
+			String sql1="select name from vegetable where ";
+				
+				for(int i=0; i<vegetalbe.length; i++){
+					ordervegetable = vegetalbe[i];
+					// ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ or ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ±ï¿½ ï¿½ï¿½ï¿½ï¿½
+					if(vegetalbe[i]==vegetalbe[vegetalbe.length-1]){
+						sql1 += "vegetable_no = '"+ ordervegetable +"'";
+					}else{
+						sql1 += "vegetable_no = '"+ ordervegetable +"' or ";
+					}
+				}
+				//System.out.println(sql1);
+				con = ds.getConnection();
+				stmt = con.prepareStatement(sql1);
+				rs = stmt.executeQuery();
+				
+				for(int i=0; i<vegetalbe.length; i++){
+					rs.next();
+					list.add(rs.getString("name"));
+				}
+				
+		}catch(Exception err){
+			System.out.println("VegetableOrderList" + err);
+		}finally{
+			freeConnection();
+		}
+		return list;
+	}
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ë±ï¿½ï¿½ï¿½ï¿½ï¿½
+	public ArrayList SauceOrderList(String sauce_no){
+		ArrayList list = new ArrayList();
+		try{
+			String[] sauce = sauce_no.split("\\|");
+			String ordersauce = "";
+			String sql2="select name from sauce where ";
+			//System.out.println(sql1);
+			for(int i=0; i<sauce.length; i++){
+				ordersauce = sauce[i];
+				// ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ or ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ±ï¿½ ï¿½ï¿½ï¿½ï¿½
+				if(sauce[i]==sauce[sauce.length-1]){
+					sql2 += "sauce_no = '"+ ordersauce +"'";
+				}else{
+					sql2 += "sauce_no = '"+ ordersauce +"' or ";
+				}
+			}
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql2);
+			rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				list.add(rs.getString("name"));
+				
+			}
+		}catch(Exception err){
+			System.out.println("SauceOrderList" + err);
+		}finally{
+			freeConnection();
+		}
+		
+		return list;
+	}
+
+	//ï¿½Ş´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½Íµï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public ArrayList MenuSizeList(String menusize, String menuclass){
 		ArrayList list = new ArrayList();
 		String sql="";
@@ -54,7 +290,7 @@ public class OrderDao {
 			}
 			
 		}catch(Exception err){
-			System.out.println("SouceList" + err);
+			System.out.println("MenuSizeList" + err);
 		}finally{
 			freeConnection();
 		}
@@ -62,7 +298,7 @@ public class OrderDao {
 		return list;
 	}
 	
-	// ¸Ş´ºÀÇ ÃßÃµ¼Ò½º¸¦ »Ì¾Æ¿À±â 
+	// ï¿½Ş´ï¿½ï¿½ï¿½ ï¿½ï¿½Ãµï¿½Ò½ï¿½ï¿½ï¿½ ï¿½Ì¾Æ¿ï¿½ï¿½ï¿½ 
 	public ArrayList BestSauce(String menu_no){
 		ArrayList list = new ArrayList();
 		OrderDto dto = new OrderDto();
@@ -83,7 +319,7 @@ public class OrderDao {
 					
 					for(int i=0; i<sauce.length; i++){
 						bestsauce = sauce[i];
-						// ¹è¿­ÀÇ ¸¶Áö¸·À» È®ÀÎ ¸¶Áö¸·¶§´Â or À» ³ÖÀ¸¸é ¾ÈµÇ±â ¶§¹®
+						// ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ or ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ±ï¿½ ï¿½ï¿½ï¿½ï¿½
 						if(sauce[i]==sauce[sauce.length-1]){
 							sql1 += "sauce_no = '"+ bestsauce +"'";
 						}else{
@@ -110,7 +346,7 @@ public class OrderDao {
 	}
 	
 	
-	// ¸Ş´º Å¬·¡½º ¿¡ ´ëÇÑ ¸®½ºÆ®
+	// ï¿½Ş´ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 	public ArrayList MenuClassList(){
 		ArrayList list = new ArrayList();
 		String sql = "select class from menu group by class";
@@ -125,14 +361,65 @@ public class OrderDao {
 				list.add(dto);
 			}
 		}catch(Exception err){
-			System.out.println("SouceList" + err);
+			System.out.println("MenuClassList" + err);
 		}finally{
 			freeConnection();
 		}
 		
 		return list;
 	}
-	//»§ ¸®½ºÆ® »Ì±â
+	public ArrayList SideMenuClassList(){
+		ArrayList list = new ArrayList();
+		String sql = "select category from side_menu group by category";
+		try{
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				OrderDto dto = new OrderDto();
+				dto.setSide_category(rs.getString("category"));;
+				list.add(dto);
+			}
+		}catch(Exception err){
+			System.out.println("SideMenuClassList" + err);
+		}finally{
+			freeConnection();
+		}
+		
+		return list;
+	}
+	public ArrayList SideMenuList(String category){
+		ArrayList list = new ArrayList();
+		String sql="";
+		if(category.equals("All")){
+			sql = "select * from side_menu";
+		}else{
+			sql = "select * from side_menu where category = '"+category+"'";
+		}
+		try{
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				OrderDto dto = new OrderDto();
+				dto.setSide_menu_no(rs.getInt("side_menu_no"));
+				dto.setSide_menu_name(rs.getString("side_menu_name"));
+				dto.setSide_menu_img(rs.getString("image"));
+				dto.setSide_menu_price(rs.getInt("price"));
+				list.add(dto);
+			}
+			
+		}catch(Exception err){
+			System.out.println("SideMenuList" + err);
+		}finally{
+			freeConnection();
+		}
+		
+		return list;
+	}
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ì±ï¿½
 	public ArrayList BreadList(){
 		ArrayList list = new ArrayList();
 		String sql = "select * from bread";
@@ -149,7 +436,7 @@ public class OrderDao {
 				list.add(dto);
 			}
 		}catch(Exception err){
-			System.out.println("SouceList" + err);
+			System.out.println("BreadList" + err);
 		}finally{
 			freeConnection();
 		}
@@ -158,7 +445,7 @@ public class OrderDao {
 	}
 	
 	
-	//¼Ò½º ¸®½ºÆ® 
+	//ï¿½Ò½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® 
 	public ArrayList SauceList(String sauce){
 		ArrayList list = new ArrayList();
 			String sql = "select * from sauce where class='"+sauce+"'";
@@ -182,7 +469,7 @@ public class OrderDao {
 		}
 		return list;
 	}
-	// Ã¤¼Ò ¸®½ºÆ®
+	// Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 	public ArrayList VegetableList(){
 		ArrayList list = new ArrayList();
 		String sql = "select * from vegetable";
@@ -200,13 +487,13 @@ public class OrderDao {
 		}
 		
 	}catch(Exception err){
-		System.out.println("VegetableList" + err);
+		System.out.println("SauceList" + err);
 	}finally{
 		freeConnection();
 	}
 		return list;
 	}
-	
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	public ArrayList ManagerAddrList(){
 		ArrayList list = new ArrayList();
 		String sql = "SELECT manager_area FROM myway.account where level = 'super' or level = 'manager' group by manager_area;";
@@ -247,14 +534,65 @@ public class OrderDao {
 		}
 		
 	}catch(Exception err){
-		System.out.println("ManagerAddrList" + err);
+		System.out.println("ManagerList" + err);
 	}finally{
 		freeConnection();
 	}
 		return list;
 	}
+	// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	public ArrayList MyAccountList(int account_no){
+		String sql ="select account_name, tel from account where account_no = "+account_no;
+		ArrayList list = new ArrayList();
+		try{
+			con = ds.getConnection();
+			stmt = con.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				OrderDto dto = new OrderDto();
+				dto.setAccount_name(rs.getString("account_name"));
+				dto.setAccount_tel(rs.getString("tel"));
+				list.add(dto);
+			}
+			
+		}catch(Exception err){
+			System.out.println("MyAccountList" + err);
+		}finally{
+			freeConnection();
+		}
+		return list;
+		
+	}
 	
-	
+	public void SideOrderSave(OrderDto dto){
+		String sql="insert into side_order(order_code, side_menu_no, count, price) value(?,?,?,?)";
+		try{
+			for(int i=0; i<dto.getSide_menu_countList().length; i++){
+				con = ds.getConnection();
+				stmt = con.prepareStatement(sql);
+				int[] sideno = dto.getSide_menu_noList();
+				int[] count = dto.getSide_menu_countList();
+				int[] price = dto.getSide_meun_count_priceList();
+				
+				stmt.setString(1, dto.getOrder_code());
+				stmt.setInt(2, sideno[i]);
+				stmt.setInt(3, count[i]);
+				stmt.setInt(4, price[i]);
+				
+				System.out.println(sql);
+				stmt.executeUpdate();
+			}
+			
+			OrderSave(dto);
+			
+			
+		}catch(Exception err){
+			System.out.println("MyAccountList" + err);
+		}finally{
+			freeConnection();
+		}
+	}
 		
 	public void freeConnection(){
 		if(rs!= null){try{rs.close();}catch(Exception err){}}

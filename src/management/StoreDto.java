@@ -4,16 +4,17 @@ import java.sql.Date;
 
 public class StoreDto {
 	private int account_no; //sotre_no 
-	private String account_name; //°ü¸®ÀÚ¸í
-	private String manager_name; //¸ÅÀå¸í
-	private String manager_area; //¸ÅÀåÁö¿ª
-	private String tel; //ÀüÈ­¹øÈ£
+	private String account_name; //ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½
+	private String manager_name; //ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String manager_area; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String tel; //ï¿½ï¿½È­ï¿½ï¿½È£
 	
-	private int order_no; 
-	private int total; //ÃÑÇÕ°è
-	private Date date; //³¯Â¥
-	private String status; //ÁÖ¹®»óÅÂ
+	private String order_code; 
+	private int total; //ï¿½ï¿½ï¿½Õ°ï¿½
+	private Date date; //ï¿½ï¿½Â¥
+	private String status; //ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	
+	private String menu_name; //ï¿½Þ´ï¿½ï¿½Ì¸ï¿½
 	
 	public int getAccount_no() {
 		return account_no;
@@ -50,11 +51,11 @@ public class StoreDto {
 	}
 	
 	
-	public int getOrder_no() {
-		return order_no;
+	public String getOrder_code() {
+		return order_code;
 	}
-	public void setOrder_no(int order_no) {
-		this.order_no = order_no;
+	public void setOrder_code(String order_code) {
+		this.order_code = order_code;
 	}
 	
 	public int getTotal() {
@@ -77,4 +78,13 @@ public class StoreDto {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	
+	public String getMenu_name() {
+		return menu_name;
+	}
+	public void setMenu_name(String menu_name) {
+		this.menu_name = menu_name;
+	}
+	
 }

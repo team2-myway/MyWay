@@ -41,7 +41,7 @@
 								 
 %>
 							<tr>
-								<td><img src="<%=dto.getM_img()%>">img</td>
+								<td><img src="<%=dto.getM_img()%>"></td>
 								<td><a href="Menu_Detail.jsp?menu_no=<%=dto.getM_no()%>"><%=dto.getM_name() %></a></td>
 								<td><%=dto.getM_price() %></td>
 							</tr>

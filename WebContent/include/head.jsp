@@ -1,4 +1,9 @@
-	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<%@ page contentType="text/html; charset=UTF-8"%>
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<%@ page contentType="text/html; charset=UTF-8"%>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 	
 <%@ page contentType="text/html; charset=UTF-8"%>
 	<link rel="stylesheet" href="../lib/css/style.css" type="text/css" media="screen" />
@@ -14,9 +19,7 @@
 	<link rel="stylesheet" type="text/css" href="../lib/revolution/css/settings.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.css" media="screen" />
 	
-	<script src="../lib/js/jquery.min.js" type="text/javascript"></script>
-	<script src="../lib/js/modernizr.custom.all.js" type="text/javascript"></script>
-	
+<!-- 	
 	<script src="../lib/js/respond.min.js" type="text/javascript"></script>
 	<script type="text/javascript"	src="../lib/revolution/js/jquery.themepunch.revolution.js"></script>
 	<script type="text/javascript"	src="../lib/revolution/js/jquery.themepunch.revolution.min.js"></script>
@@ -29,5 +32,5 @@
 	<script src="../lib/js/jquery.tweet.min.js" type="text/javascript"></script>
 	<script src="../lib/js/jquery.validationEngine-lang.js"	type="text/javascript"></script>
 	<script src="../lib/js/jquery.validationEngine.min.js"	type="text/javascript"></script>
-
+ -->
 	

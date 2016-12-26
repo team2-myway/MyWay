@@ -1,12 +1,22 @@
 package order;
 
+import java.util.ArrayList;
+
 public class OrderDto {
-	//¸ÅÀå
+	private ArrayList vegetableOrderNo;
+	private ArrayList sauceOrderNo;
+	
+	
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private int account_no;
+	private String account_name;
+	private String account_tel;
+	//ï¿½ï¿½ï¿½ï¿½
 	private String manage_addr;
 	private String manage_name;
 	private int manage_no;
 	
-	//¸Þ´º
+	//ï¿½Þ´ï¿½
 	private String menu_size;
 	private String menu_class;
 	private int menu_no;
@@ -16,22 +26,23 @@ public class OrderDto {
 	private int menu_calorie;
 	private String menu_bestSouce;
 	private String menu_detail;
-	//Ã¤¼Ò
+	private int menu_count;
+	//Ã¤ï¿½ï¿½
 	private int vegetable_no;
 	private String vegetable_name;
 	private String vegetable_img;
 	
-	//»§ Á¾·ù
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	private int bread_no;
 	private String bread_name;
 	private String bread_detail;
 	
-	//¼Ò½º
+	//ï¿½Ò½ï¿½
 	private int sauce_no;
 	private String sauce_name;
 	private String sauce_class;
 	
-	//»çÀÌµå ¸Þ´º
+	//ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Þ´ï¿½
 	private int side_menu_no ;
 	private String side_category;
 	private String side_menu_name;
@@ -39,11 +50,116 @@ public class OrderDto {
 	private int side_menu_calorie;
 	private int side_menu_price;
 	private String side_menu_detail;
+	private int side_menu_countPirce;
+	private int side_menu_count;
+	
+	private int[] side_menu_noList;
+	private int[] side_menu_countList;
+	private int[] side_meun_count_priceList;
+	
 	
 	private String vegetable_no_List;
 	private String Sauce_no_List;
 	
+	private String order_code;
+	private String favorite;
+	private String order_date;
+	private int order_price;
 	
+	public int getSide_menu_countPirce() {
+		return side_menu_countPirce;
+	}
+	public void setSide_menu_countPirce(int side_menu_countPirce) {
+		this.side_menu_countPirce = side_menu_countPirce;
+	}
+	public int getSide_menu_count() {
+		return side_menu_count;
+	}
+	public void setSide_menu_count(int side_menu_count) {
+		this.side_menu_count = side_menu_count;
+	}
+	public ArrayList getVegetableOrderNo() {
+		return vegetableOrderNo;
+	}
+	public void setVegetableOrderNo(ArrayList vegetableOrderNo) {
+		this.vegetableOrderNo = vegetableOrderNo;
+	}
+	public ArrayList getSauceOrderNo() {
+		return sauceOrderNo;
+	}
+	public void setSauceOrderNo(ArrayList sauceOrderNo) {
+		this.sauceOrderNo = sauceOrderNo;
+	}
+	
+	public int[] getSide_menu_noList() {
+		return side_menu_noList;
+	}
+	public void setSide_menu_noList(int[] side_menu_noList) {
+		this.side_menu_noList = side_menu_noList;
+	}
+	
+	
+	public int getOrder_price() {
+		return order_price;
+	}
+	public void setOrder_price(int order_price) {
+		this.order_price = order_price;
+	}
+	
+	public int[] getSide_menu_countList() {
+		return side_menu_countList;
+	}
+	public void setSide_menu_countList(int[] side_menu_countList) {
+		this.side_menu_countList = side_menu_countList;
+	}
+	public int[] getSide_meun_count_priceList() {
+		return side_meun_count_priceList;
+	}
+	public void setSide_meun_count_priceList(int[] side_meun_count_priceList) {
+		this.side_meun_count_priceList = side_meun_count_priceList;
+	}
+	public String getOrder_date() {
+		return order_date;
+	}
+	public void setOrder_date(String order_date) {
+		this.order_date = order_date;
+	}
+	public String getFavorite() {
+		return favorite;
+	}
+	public void setFavorite(String favorite) {
+		this.favorite = favorite;
+	}
+	public String getOrder_code() {
+		return order_code;
+	}
+	public void setOrder_code(String order_code) {
+		this.order_code = order_code;
+	}
+	public int getMenu_count() {
+		return menu_count;
+	}
+	public void setMenu_count(int menu_count) {
+		this.menu_count = menu_count;
+	}
+	public int getAccount_no() {
+		return account_no;
+	}
+	public void setAccount_no(int account_no) {
+		this.account_no = account_no;
+	}
+	public String getAccount_name() {
+		return account_name;
+	}
+	public void setAccount_name(String account_name) {
+		this.account_name = account_name;
+	}
+	public String getAccount_tel() {
+		return account_tel;
+	}
+	public void setAccount_tel(String account_tel) {
+		this.account_tel = account_tel;
+	}
 	public int getManage_no() {
 		return manage_no;
 	}

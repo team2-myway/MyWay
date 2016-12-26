@@ -22,7 +22,7 @@ public class SideMenuDao {
 	public SideMenuDao(){
 		try{
 			Context ctx = new InitialContext();
-			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/MysqlDB");
+			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/mysqlDB");
 			
 		}catch(Exception err){
 			System.out.println("DBConnect error : " + err);

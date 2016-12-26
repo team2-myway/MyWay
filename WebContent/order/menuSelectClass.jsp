@@ -1,6 +1,6 @@
 <%@page import="order.OrderDto"%>
 <%@page import="java.util.ArrayList"%>
-<%@page contentType="text/html; charset=EUC-KR"%>
+<%@page contentType="text/html; charset=UTF-8"%>
 <%@ include file="../include/head.jsp"%>
 <jsp:useBean id="dao" class="order.OrderDao"></jsp:useBean>
 <%
@@ -12,7 +12,7 @@ try {
 		OrderDto dto = (OrderDto) menuList.get(i);
 %>
 	<div class="col-md-4" style=" height:300px; text-align:center; ">
-		<input type="radio" value="<%=dto.getMenu_no()%>" name="menu_no" onclick="Menu_Bestsauce()"><br>
+		<input type="radio" value="<%=dto.getMenu_no()%>" id="menu_no_<%=dto.getMenu_no()%>" name="menu_no" onclick="Menu_Bestsauce()"><br>
 		<article class="service type-service hentry one_fourth format-slider col-md-12">
 			<figure>
 				<span class="image_container_img">
@@ -31,8 +31,8 @@ try {
 					</h5>
 				</header>
 				<footer class="entry-meta">
-					<span class="post_category">∞°∞› : <b><%=dto.getMenu_price()%></b>ø¯,
-					 calorie :<b><%=dto.getMenu_calorie() %></b> calorie
+					<span class="post_category">Í∞ÄÍ≤© : <b><%=dto.getMenu_price()%></b>Ïõê<br>
+					 calorie :<b><%=dto.getMenu_calorie() %></b>
 					</span>
 				<div style="text-align:center">
 					<p><%=dto.getMenu_detail() %></p>
