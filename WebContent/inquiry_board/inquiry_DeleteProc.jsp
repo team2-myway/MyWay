@@ -8,10 +8,10 @@
 	int board_no = Integer.parseInt(request.getParameter("board_no"));
 	boolean deleteRs = dao.inquiryDelete(board_no);
 	
-	if(deleteRs == true) {
+	if(deleteRs==true) {
 %>
 	<script>
-		alert("삭제완료");
+		alert("삭제 완료");
 		location.href="inquiry_List.jsp";
 	</script>
 <%
