@@ -124,11 +124,11 @@
 						dto = (StoreDto)listnow.get(i);
 %>
 						<tr align="center">
-							<td><%=dto.getOrder_no() %></td>
+							<td><%=dto.getOrder_code() %></td>
 							<td><%=dto.getDate() %></td>
 							<td>주문내역</td>
 							<td><%=dto.getTotal() %></td>
-							<td><input type="button" id="status" value="<%=dto.getStatus() %>" onclick="fnOrderStatus('<%=account_no%>', '<%=dto.getOrder_no()%>')"/></td>
+							<td><input type="button" id="status" value="<%=dto.getStatus() %>" onclick="fnOrderStatus('<%=account_no%>', '<%=dto.getOrder_code()%>')"/></td>
 						</tr>
 <%
 					}
@@ -178,7 +178,7 @@
 						dto = (StoreDto)listdetail.get(i);
 %>
 						<tr align="center">
-							<td><%=dto.getOrder_no() %></td>
+							<td><%=dto.getOrder_code() %></td>
 							<td><%=dto.getDate() %></td>
 							<td>주문내역</td>
 							<td><%=dto.getTotal() %></td>

@@ -13,9 +13,9 @@
 <jsp:useBean id="dto" class="management.StoreDto"></jsp:useBean>
 <%
 	String account_no = request.getParameter("account_no");
-	String order_no = request.getParameter("order_no");
+	String order_code = request.getParameter("order_code");
 
-	boolean update = dao.updateOrderStatus(account_no, order_no);
+	boolean update = dao.updateOrderStatus(account_no, order_code);
 	if(update == true) {
 %>
 		<script>

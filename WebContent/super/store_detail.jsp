@@ -132,7 +132,7 @@
 						dto = (StoreDto)listdetail.get(i);
 %>
 						<tr align="center">
-							<td><%=dto.getOrder_no() %></td>
+							<td><%=dto.getOrder_code() %></td>
 							<td><%=dto.getDate() %></td>
 							<td>주문내역</td>
 							<td><%=dto.getTotal() %></td>
