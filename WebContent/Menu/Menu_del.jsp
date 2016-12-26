@@ -12,6 +12,7 @@
 	int menu_no = Integer.parseInt(request.getParameter("menu_no"));
 	dao.MenuDelete(menu_no);
 %>
+
 <script>
 	alert("삭제완료");
 	location.href="MenuIndex.jsp";

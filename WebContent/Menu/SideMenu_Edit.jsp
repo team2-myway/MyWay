@@ -54,7 +54,7 @@
 			<tr>
 				<td class="heading" valign="top" align="right" nowrap>가격</td>
 				<td valign="top" align=left>
-					<input type="text" name="price" id="price" value="<%=mdto.getM_calorie()%>"/>
+					<input type="text" name="price" id="price" value="<%=mdto.getM_price()%>"/>
 				</td>
 			</tr>
 			<tr>

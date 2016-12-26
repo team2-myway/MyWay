@@ -14,9 +14,9 @@
 		<%@ include file="../include/header.jsp"%>
 		<div class="container">
 			<div class="col-md-12">
-			  	<p>
-			<b style="color: green"> Myway 메뉴 등록</b>
-		</p>
+			 <marquee behavior="alternate" scrollAmount="5"><font color="#009900"size="3">Myway 메뉴 등록</font></marquee>
+			<br><br>
+		
 		<form id="Menu_Saves" onsubmit="return false;" method="post" action="Menu_Add_Proc.jsp" enctype="multipart/form-data">
 		<table border="1" cellspacing="0" cellpadding="10">
 			<tr>
