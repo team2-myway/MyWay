@@ -9,29 +9,35 @@
 <title>Insert title here</title>
 </head>
 <jsp:useBean id="dao" class="Menu.dao.MenuDao"></jsp:useBean>
+<jsp:useBean id="mdto" class="Menu.dto.MenuDto"></jsp:useBean>
+<%
+	int menu_no = Integer.parseInt(request.getParameter("menu_no"));
+	mdto = dao.MenuDetailList(menu_no);
+	String[] sauceListview = mdto.getM_recomsauce().split("\\|");
+	
+%>
 <body class="page">
 	<section id="page" class="csstransition cmsms_resp hfeed site">
 		<%@ include file="../include/header.jsp"%>
 		<div class="container">
 			<div class="col-md-12">
 			  	<p>
-			<b style="color: green"> Myway 메뉴 등록</b>
+			<b style="color: green"> Myway 메뉴 수정</b>
 		</p>
-		<form id="Menu_Saves" onsubmit="return false;" method="post" action="Menu_Add_Proc.jsp" enctype="multipart/form-data">
+		<form id="Menu_Saves" onsubmit="return false;" method="post" action="Menu_Edit_Proc.jsp?menu_no=<%=menu_no%>" enctype="multipart/form-data">
 		<table border="1" cellspacing="0" cellpadding="10">
 			<tr>
-				<td class="heading" valign="top" align="right" nowrap>메뉴 이름</td>
-				<td valign="top" align=left><input type="text" id="menu_name" name="menu_name"
-					size="80" /></td>
+				<td class="heading" valign="top" align="right" nowrap >메뉴 이름</td>
+				<td valign="top" align=left>
+				<input type="text"  id="menu_name" name="menu_name" value="<%=mdto.getM_name()%>" namesize="80"  /></td>
 			</tr>
 			<tr>
 				<td>메뉴 카테고리</td>
-			
 				<td>
 					<select name="class" id="menu_class">
-						<option value="premium" selected>premium</option>a
-						<option value="best">best</option>
-						<option value="classic">classic</option>
+						<option value="premium" <%if(mdto.getM_class().equals("premium")){ %>selected="selected"<%} %>>premium</option>
+						<option value="best" <%if(mdto.getM_class().equals("best")){ %>selected="selected"<%} %>>best</option>
+						<option value="classic" <%if(mdto.getM_class().equals("classic")){ %>selected="selected"<%} %>>classic</option>
 					</select>
 				</td>
 			</tr>
@@ -51,19 +57,19 @@
 			<tr>
 				<td class="heading" valign="top" align="right" nowrap>칼로리</td>
 				<td valign="top" align=left>
-					<input type="text" name="calorie" id="calorie"/>
+					<input type="text" name="calorie" id="calorie" value="<%=mdto.getM_calorie()%>"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="heading" valign="top" align="right" nowrap>가격</td>
 				<td valign="top" align=left>
-					<input type="text" name="price" id="price"/>
+					<input type="text" name="price" id="price" value="<%=mdto.getM_calorie()%>"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="heading" valign="top" align="right" nowrap>상세내용</td>
 				<td valign="top" align=left>
-					<textarea name="detail"></textarea>
+					<textarea name="detail"><%=mdto.getM_detail() %></textarea>
 				</td>
 			</tr>
 			<tr>
@@ -78,9 +84,22 @@
 									ArrayList sauceList = dao.SauceList(sauce);
 									for (int i = 0; i < sauceList.size(); i++) {
 										OrderDto dto = (OrderDto) sauceList.get(i);
+											
 								%>
 								<div class="checkbox">
-									<input type="checkbox" name="sauce_no[]" value="<%=dto.getSauce_no()%>"/> 
+									<input type="checkbox" name="sauce_no[]" value="<%=dto.getSauce_no()%>" 
+									<%
+										
+									System.out.print(sauceListview[i]+"slv");
+									System.out.println();
+									System.out.print(dto.getSauce_no()+"gsn");
+									
+									for(int j=0; j<sauceListview.length; j++){
+										if(sauceListview[i].equals(dto.getSauce_no())){
+										%>checked="checked"<%
+										}
+									}%> /> 
+								
 									<span style="padding-left:10px;"><%=dto.getSauce_name()%></span>
 								</div>
 								<%
@@ -98,10 +117,11 @@
 									String sauce = "매콤한소스";
 									ArrayList sauceList = dao.SauceList(sauce);
 									for (int i = 0; i < sauceList.size(); i++) {
-										OrderDto dto = (OrderDto) sauceList.get(i);
+										OrderDto dto = (OrderDto)sauceList.get(i);
 								%>
+						
 								<div class="checkbox">
-									<input type="checkbox" name="sauce_no[]" value="<%=dto.getSauce_no()%>"/> 
+									<input type="checkbox" name="sauce_no[]" value=""/>
 									<span style="padding-left:10px;"><%=dto.getSauce_name()%></span>
 								</div>
 								<%
@@ -243,7 +263,7 @@
 			var menu_class = $("#menu_class").val();
 			var calorie = $("#calorie").val();
 			var price = $("#price").val();
-			var recomsauce = $("#SelectSauceValue").val();
+			var recomsrc = $("#SelectSauceValue").val();
 			
 			if(menu_name == ""){
 				alert("메뉴이름을 써주세요");
@@ -261,7 +281,7 @@
 				alert("메뉴가격을 입력해주세요");
 				return;
 			}
-			if(recomsauce == ""){
+			if(recomsrc == ""){
 				alert("소스를 선택해주세요");
 				return;
 			}

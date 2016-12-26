@@ -1,34 +1,24 @@
 package Menu.dto;
 
-public class MenuDto {
+public class SideMenuDto {
 	private int m_no;
-	private String m_class;
-	private String m_size;
+	private String m_category;
 	private String m_name;
 	private String m_img;
 	private int m_calorie;
 	private int m_price;
 	private String m_detail;
-	private String m_recomsauce;
-
-
 	public int getM_no() {
 		return m_no;
 	}
 	public void setM_no(int m_no) {
 		this.m_no = m_no;
 	}
-	public String getM_class() {
-		return m_class;
+	public String getM_category() {
+		return m_category;
 	}
-	public void setM_class(String m_class) {
-		this.m_class = m_class;
-	}
-	public String getM_size() {
-		return m_size;
-	}
-	public void setM_size(String m_size) {
-		this.m_size = m_size;
+	public void setM_category(String m_category) {
+		this.m_category = m_category;
 	}
 	public String getM_name() {
 		return m_name;
@@ -60,12 +50,8 @@ public class MenuDto {
 	public void setM_detail(String m_detail) {
 		this.m_detail = m_detail;
 	}
-	public String getM_recomsauce() {
-		return m_recomsauce;
-	}
-	public void setM_recomsauce(String m_recomsauce) {
-		this.m_recomsauce = m_recomsauce;
-	}
+	
+	
 }
 
 	
