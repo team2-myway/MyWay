@@ -18,7 +18,7 @@
 	<meta name="description" content="cmsmasters responsive html5 website template" />
 	<meta name="keywords" content="html5, css3, template, responsive, adaptive" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-	<title>Medicure</title>
+	<title>MYWAY</title>
 	<link rel="shortcut icon" href="lib/images/favicon.ico" type="image/x-icon" />
 	<link rel="stylesheet" href="lib/css/style.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="lib/css/styles/fonts.css" type="text/css" media="screen" />

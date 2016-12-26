@@ -19,8 +19,10 @@
 <jsp:useBean id="dao" class="management.StoreDao"></jsp:useBean>
 <jsp:useBean id="dto" class="management.StoreDto"></jsp:useBean>
 <%
-	String account_no = "1";
-	//String account_no = request.getParameter("account_no");
+	AccountDao ad = new AccountDao();
+	AccountDto accountDto = ad.session(session.getAttribute("id"));
+
+	int account_no = accountDto.getAccount_no();
 	String detail_date = request.getParameter("date");
 	
 	if(request.getParameter("date1") != null && request.getParameter("date2") != null && !request.getParameter("date1").isEmpty() && !request.getParameter("date2").isEmpty()) {
@@ -33,7 +35,6 @@
 			detail_date = "total";
 		}
 	}
-	
 	List list = dao.getStore_list(account_no);
 	List listdetail = dao.getStore_detail(account_no, detail_date);
 	StoreDto totdto = dao.getStore_total(account_no, detail_date);

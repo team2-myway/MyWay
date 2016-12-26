@@ -25,14 +25,13 @@ public class StoreDao {
 		} 
 	}
 	
-	public ArrayList getStore_list(String acc_no) {
+	public ArrayList getStore_list(int account_no) {
 		ArrayList list = new ArrayList();
 		String sql = null;
 		
-		if(acc_no.equals("accountno")) {
+		if(account_no == 1) { //super
 			sql = "select * from account where level='super' or level='manager' order by account_no asc";
-		} else {
-			int account_no = Integer.parseInt(acc_no);
+		} else { //manager
 			sql = "select * from account where (level='super' or level='manager') and account_no=" + account_no;
 		}
 		
@@ -62,8 +61,7 @@ public class StoreDao {
 		return list;
 	}
 	
-	public ArrayList getStore_detail(String acc_no, String detail_date) {
-		int account_no = Integer.parseInt(acc_no);
+	public ArrayList getStore_detail(int account_no, String detail_date) {
 		String sql = null;
 		ArrayList list = new ArrayList();
 		
@@ -71,22 +69,22 @@ public class StoreDao {
 			con = ds.getConnection();
 			
 			if(detail_date == null || detail_date.isEmpty() || detail_date.equals("total")) {
-				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='결제완료' order by m.date desc";
+				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='pay_com' order by m.date desc";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 			} else if(detail_date.equals("today")) {
-				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='결제완료' and m.date>curdate() order by m.date desc";
+				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='pay_com' and m.date>curdate() order by m.date desc";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 			} else if(detail_date.equals("month")) {
-				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='결제완료' and date(m.date)>=date_format(now(), '%Y-%m-01') and date(m.date) <= last_day(now()) order by m.date desc";
+				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='pay_com' and date(m.date)>=date_format(now(), '%Y-%m-01') and date(m.date) <= last_day(now()) order by m.date desc";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 			} else {
 				String[] date = detail_date.split("-");
 				String date1 = date[0]+"-"+date[1]+"-"+date[2];
 				String date2 = date[3]+"-"+date[4]+"-"+date[5];
-				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='결제완료' and date(m.date)>=? and date(m.date)<=? order by m.date desc";
+				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='pay_com' and date(m.date)>=? and date(m.date)<=? order by m.date desc";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 				pstmt.setDate(2, java.sql.Date.valueOf(date1));
@@ -115,15 +113,14 @@ public class StoreDao {
 		return list;
 	}
 	
-	public ArrayList getNoworder_list(String acc_no) {
-		int account_no = Integer.parseInt(acc_no);
+	public ArrayList getNoworder_list(int account_no) {
 		String sql = null;
 		ArrayList list = new ArrayList();
 		
 		try{
 			con = ds.getConnection();
 			
-			sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='�ֹ��Ϸ�' and m.date>curdate() order by m.order_no";
+			sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='order_com' and m.date>curdate() order by m.date";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, account_no);			
 			rs = pstmt.executeQuery();
@@ -148,8 +145,7 @@ public class StoreDao {
 		return list;
 	}
 	
-	public StoreDto getStore_total(String acc_no, String detail_date) {
-		int account_no = Integer.parseInt(acc_no);
+	public StoreDto getStore_total(int account_no, String detail_date) {
 		String sql = null;
 		StoreDto dto = new StoreDto();
 
@@ -192,13 +188,12 @@ public class StoreDao {
 		return dto;
 	}
 	
-	public boolean updateOrderStatus(String acc_no, String order_code) {
-		int account_no = Integer.parseInt(acc_no);
+	public boolean updateOrderStatus(int account_no, String order_code) {
 		boolean updateResult = false;
 		try{
 			con = ds.getConnection();
 			
-			String sql = "update main_order set status='주문완료' where account_no=? and order_code=?";
+			String sql = "update main_order set status='order_com' where account_no=? and order_code=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, account_no);
 			pstmt.setString(2, order_code);
@@ -208,7 +203,6 @@ public class StoreDao {
 			} else {
 				updateResult = false;
 			}
-
 		}
 		catch(Exception err){
 			System.out.println("updateOrderStatus() : " + err);

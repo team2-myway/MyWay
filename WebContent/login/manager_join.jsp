@@ -27,20 +27,28 @@
 <body>
 	<jsp:include page="../include/head.jsp"></jsp:include>
 	<jsp:include page="../include/header.jsp"></jsp:include>
-	<form action="join_proc.jsp" name="joinform" method="post" onsubmit="fncCheck();return false">
+	<form action="manager_join_proc.jsp" name="joinform" method="post" onsubmit="fncCheck();return false">
 		<center>
 			<table>
 				<tr>
 					<th><label>ID</label></th>
-					<td><input type="text" id="id" name="id" value="id" /></td>
+					<td><input type="text" id="id" name="id" /></td>
 				</tr>
 				<tr>
 					<th><label>PW</label></th>
-					<td><input type="password" id="pw" name="pw" value="pw" /></td>
+					<td><input type="password" id="pw" name="pw" /></td>
 				</tr>
 				<tr>
-					<th><label>NAME</label></th>
-					<td><input type="text" id="account_name" name="account_name" value="name" /></td>
+					<th><label>이름</label></th>
+					<td><input type="text" id="account_name" name="account_name" /></td>
+				</tr>
+				<tr>
+					<th><label>매장지역</label></th>
+					<td><input type="text" id="manager_area" name="manager_area" /></td>
+				</tr>
+				<tr>
+					<th><label>매장명</label></th>
+					<td><input type="text" id="manager_name" name="manager_name" /></td>
 				</tr>
 				<tr>
 					<th><label>TEL</label></th>
@@ -73,7 +81,7 @@
 				</tr>
 				<tr align="center">
 					<td><input type="submit" value="확인" /></td>
-					<td><input type="button" value="GotoMain"
+					<td><input type="button" value="메인으로"
 						onclick="javascript:location.href='../main/index.jsp';" /></td>
 				</tr>
 			</table>
