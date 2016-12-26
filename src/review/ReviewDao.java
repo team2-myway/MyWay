@@ -116,13 +116,42 @@ public class ReviewDao {
 		return dto;
 	}
 
+	public boolean reviewUpdateChk(String account_no, String pw) {
+		boolean updateRs = false;
+			
+		String check_pw = pw; //?��?��?�� �?
+		String sql = null;
+		String pass = null; //db 계정?�� pw
+			
+		try{
+			con = ds.getConnection();
+			sql = "select pw from account where account_no=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(account_no));
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				pass = rs.getString("pw");
+				if(pass.equals(check_pw)) {
+					updateRs = true;
+				} else {
+					updateRs = false;
+				}
+			}
+		} catch(Exception e) {
+			System.out.println("reviewUpdateChk() : " + e);
+		} finally {
+			freeConnection();
+		}
+		return updateRs;
+	}
+	
 	// �??��?��
 	public boolean reviewUpdate(ReviewDto dto) {
 		String sql = null;
 		boolean updateRs = false;
 		try {
 			con = ds.getConnection();
-			sql = "update review_board set manager_name=?, title=?, content=?, date=now(), grade=? where review_no=?";
+			sql = "update review_board set manager_name=?, title=?, content=?, grade=? where review_no=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getManager_name());
 			pstmt.setString(2, dto.getTitle());
@@ -149,10 +178,9 @@ public class ReviewDao {
 		boolean deleteRs = false;
 			
 		String check_pw = pw; //?��?��?�� �?
-		
 		String sql = null;
 		String pass = null; //db 계정?�� pw
-			
+				
 		try{
 			con = ds.getConnection();
 			sql = "select pw from account where account_no=?";
@@ -178,7 +206,7 @@ public class ReviewDao {
 		}
 		return deleteRs;
 	}
-
+		
 	// ?���??���?
 	public ArrayList getCommentRead(String reviewno){
 	  ArrayList list = new ArrayList();

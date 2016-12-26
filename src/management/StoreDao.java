@@ -15,24 +15,23 @@ public class StoreDao {
 	private ResultSet rs;
 	private DataSource ds;
 	
-	public StoreDao() { //»ı¼ºÀÚ
+	public StoreDao() { //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/mysqlDB"); //lookup() : ÀÌ¸§¸¸ ¾Ë°í ÀÖÀ¸¸é, jndi·Î Á¢±ÙÇÒ ¼ö ÀÖ´Ù.
+			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/mysqlDB"); //lookup() : ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ë°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, jndiï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
 	
 		} catch(Exception e) {
-			System.out.println("DB¿¬°á ½ÇÆĞ : " + e);
+			System.out.println("DBï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : " + e);
 		} 
 	}
 	
-	public ArrayList getStore_list(String acc_no) {
+	public ArrayList getStore_list(int account_no) {
 		ArrayList list = new ArrayList();
 		String sql = null;
 		
-		if(acc_no.equals("accountno")) {
+		if(account_no == 1) { //super
 			sql = "select * from account where level='super' or level='manager' order by account_no asc";
-		} else {
-			int account_no = Integer.parseInt(acc_no);
+		} else { //manager
 			sql = "select * from account where (level='super' or level='manager') and account_no=" + account_no;
 		}
 		
@@ -62,8 +61,7 @@ public class StoreDao {
 		return list;
 	}
 	
-	public ArrayList getStore_detail(String acc_no, String detail_date) {
-		int account_no = Integer.parseInt(acc_no);
+	public ArrayList getStore_detail(int account_no, String detail_date) {
 		String sql = null;
 		ArrayList list = new ArrayList();
 		
@@ -71,22 +69,22 @@ public class StoreDao {
 			con = ds.getConnection();
 			
 			if(detail_date == null || detail_date.isEmpty() || detail_date.equals("total")) {
-				sql = "select m.order_no, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='°áÁ¦¿Ï·á' order by m.order_no desc";
+				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='pay_com' order by m.date desc";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 			} else if(detail_date.equals("today")) {
-				sql = "select m.order_no, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='°áÁ¦¿Ï·á' and m.date>curdate() order by m.order_no desc";
+				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='pay_com' and m.date>curdate() order by m.date desc";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 			} else if(detail_date.equals("month")) {
-				sql = "select m.order_no, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='°áÁ¦¿Ï·á' and date(m.date)>=date_format(now(), '%Y-%m-01') and date(m.date) <= last_day(now()) order by m.order_no desc";
+				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='pay_com' and date(m.date)>=date_format(now(), '%Y-%m-01') and date(m.date) <= last_day(now()) order by m.date desc";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 			} else {
 				String[] date = detail_date.split("-");
 				String date1 = date[0]+"-"+date[1]+"-"+date[2];
 				String date2 = date[3]+"-"+date[4]+"-"+date[5];
-				sql = "select m.order_no, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='°áÁ¦¿Ï·á' and date(m.date)>=? and date(m.date)<=? order by m.order_no desc";
+				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='pay_com' and date(m.date)>=? and date(m.date)<=? order by m.date desc";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 				pstmt.setDate(2, java.sql.Date.valueOf(date1));
@@ -98,7 +96,7 @@ public class StoreDao {
 			while(rs.next()){
 				StoreDto dto = new StoreDto();
 				
-				dto.setOrder_no(rs.getInt("order_no"));
+				dto.setOrder_code(rs.getString("order_code"));
 				dto.setDate(rs.getDate("date"));
 				dto.setTotal(rs.getInt("total"));
 				dto.setStatus(rs.getString("status"));
@@ -115,15 +113,14 @@ public class StoreDao {
 		return list;
 	}
 	
-	public ArrayList getNoworder_list(String acc_no) {
-		int account_no = Integer.parseInt(acc_no);
+	public ArrayList getNoworder_list(int account_no) {
 		String sql = null;
 		ArrayList list = new ArrayList();
 		
 		try{
 			con = ds.getConnection();
 			
-			sql = "select m.order_no, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='ÁÖ¹®¿Ï·á' and m.date>curdate() order by m.order_no";
+			sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='order_com' and m.date>curdate() order by m.date";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, account_no);			
 			rs = pstmt.executeQuery();
@@ -131,7 +128,7 @@ public class StoreDao {
 			while(rs.next()){
 				StoreDto dto = new StoreDto();
 				
-				dto.setOrder_no(rs.getInt("order_no"));
+				dto.setOrder_code(rs.getString("order_code"));
 				dto.setDate(rs.getDate("date"));
 				dto.setTotal(rs.getInt("total"));
 				dto.setStatus(rs.getString("status"));
@@ -148,30 +145,29 @@ public class StoreDao {
 		return list;
 	}
 	
-	public StoreDto getStore_total(String acc_no, String detail_date) {
-		int account_no = Integer.parseInt(acc_no);
+	public StoreDto getStore_total(int account_no, String detail_date) {
 		String sql = null;
 		StoreDto dto = new StoreDto();
 
 		try{
 			con = ds.getConnection();
 			if(detail_date.equals("today")) {
-				sql = "select sum(m.total) as total from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='°áÁ¦¿Ï·á' and m.date>curdate()";
+				sql = "select sum(m.total) as total from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½' and m.date>curdate()";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 			} else if(detail_date.equals("month")) {
-				sql = "select sum(m.total) as total from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='°áÁ¦¿Ï·á' and date(m.date)>=date_format(now(), '%Y-%m-01') and date(m.date) <= last_day(now())";
+				sql = "select sum(m.total) as total from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½' and date(m.date)>=date_format(now(), '%Y-%m-01') and date(m.date) <= last_day(now())";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 			} else if(detail_date == null || detail_date.isEmpty() || detail_date.equals("total")) {
-				sql = "select sum(m.total) as total from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='°áÁ¦¿Ï·á'";
+				sql = "select sum(m.total) as total from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½'";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 			} else {
 				String[] date = detail_date.split("-");
 				String date1 = date[0]+"-"+date[1]+"-"+date[2];
 				String date2 = date[3]+"-"+date[4]+"-"+date[5];
-				sql = "select sum(m.total) as total from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='°áÁ¦¿Ï·á' and date(m.date)>=? and date(m.date)<=?";
+				sql = "select sum(m.total) as total from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½' and date(m.date)>=? and date(m.date)<=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 				pstmt.setDate(2, java.sql.Date.valueOf(date1));
@@ -192,24 +188,21 @@ public class StoreDao {
 		return dto;
 	}
 	
-	public boolean updateOrderStatus(String acc_no, String order) {
-		int account_no = Integer.parseInt(acc_no);
-		int order_no = Integer.parseInt(order);
+	public boolean updateOrderStatus(int account_no, String order_code) {
 		boolean updateResult = false;
 		try{
 			con = ds.getConnection();
 			
-			String sql = "update main_order set status='°áÁ¦¿Ï·á' where account_no=? and order_no=?";
+			String sql = "update main_order set status='order_com' where account_no=? and order_code=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, account_no);
-			pstmt.setInt(2, order_no);
+			pstmt.setString(2, order_code);
 			pstmt.executeUpdate();
 			if(pstmt.executeUpdate() == 1) {
 				updateResult = true;
 			} else {
 				updateResult = false;
 			}
-
 		}
 		catch(Exception err){
 			System.out.println("updateOrderStatus() : " + err);

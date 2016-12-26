@@ -42,39 +42,6 @@ public class AccountDao {
 			return dto;
 		}
 
-		/* 
-		public ArrayList getSawonList(String search, String searchText) {
-			ArrayList list = new ArrayList();
-			String sql = null;
-			if (searchText == null || searchText.isEmpty()) {
-				sql = "select * from tblsawon";
-			} else {
-				sql = "select * from tblsawon where " + search + " like '%" + searchText + "%'";
-			}
-			try {
-				con = ds.getConnection();
-				pstmt = con.prepareStatement(sql);
-				rs = pstmt.executeQuery();
-				while (rs.next()) {
-					Sawon s = new Sawon();
-					s.setS_no(rs.getInt("s_no"));
-					s.setS_id(rs.getString("s_id"));
-					s.setS_name(rs.getString("s_name"));
-					s.setS_pass(rs.getString("s_pass"));
-					s.setS_age(rs.getInt("s_age"));
-					s.setS_addr(rs.getString("s_addr"));
-					s.setS_dept(rs.getString("s_dept"));
-					list.add(s);
-				}
-			} catch (Exception e) {
-				System.out.println("getSawonList() : " + e);
-			} finally {
-				freeConnection();
-			}
-			return list;
-		}
-		 */
-
 		public void addAccount(AccountDto dto) {
 			try {
 				String sql = "insert into account(level, id, pw, account_name, tel, email) values(?,?,?,?,?,?)";
@@ -87,6 +54,29 @@ public class AccountDao {
 				pstmt.setString(4, dto.getAccount_name());
 				pstmt.setString(5, dto.getTel1()+dto.getTel2()+dto.getTel3());
 				pstmt.setString(6, dto.getEmail1()+"@"+dto.getEmail2());
+
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				System.out.println("addAccount() : " + e);
+			} finally {
+				freeConnection();
+			}
+		}
+		
+		public void addManager(AccountDto dto) {
+			try {
+				String sql = "insert into account(level, id, pw, account_name, manager_area, manager_name, tel, email) values(?,?,?,?,?,?,?,?)";
+				con = ds.getConnection();
+
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "manager");
+				pstmt.setString(2, dto.getId());
+				pstmt.setString(3, dto.getPw());
+				pstmt.setString(4, dto.getAccount_name());
+				pstmt.setString(5, dto.getManager_area());
+				pstmt.setString(6, dto.getManager_name());
+				pstmt.setString(7, dto.getTel1()+dto.getTel2()+dto.getTel3());
+				pstmt.setString(8, dto.getEmail1()+"@"+dto.getEmail2());
 
 				pstmt.executeUpdate();
 			} catch (Exception e) {

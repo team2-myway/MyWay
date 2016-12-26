@@ -16,80 +16,84 @@
 <link rel="stylesheet" href="../lib/daumeditor/css/editor.css" type="text/css" charset="utf-8"/>
 <script src="../lib/daumeditor/js/editor_loader.js?environment=development" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
-<script>
-function validForm(editor) {
-   var validator = new Trex.Validator();
-   var content = editor.getContent();
-   if (!validator.exists(content)) {
-      alert('내용을 입력하세요');
-      return false;
-   }
-  return true;
-}
 
-//validForm 함수가 true로 return된 후에 동작하는 함수
-function setForm(editor) {
-     var form = editor.getForm();
-     var content = editor.getContent();
-     var textarea = document.createElement('textarea');
-     //textarea를 생성하여 해당태그에 에디터 입력값들을 신규생성 textarea에 담는다
-     textarea.name = 'content';
-     textarea.value = content;
-     form.createField(textarea);
-     return true;
-}
+<script>
+	function validForm(editor) {
+	   var validator = new Trex.Validator();
+	   var content = editor.getContent();
+	   if (!validator.exists(content)) {
+	      alert('내용을 입력하세요');
+	      return false;
+	   }
+	  return true;
+	}
+	
+	//validForm 함수가 true로 return된 후에 동작하는 함수
+	function setForm(editor) {
+	     var form = editor.getForm();
+	     var content = editor.getContent();
+	     var textarea = document.createElement('textarea');
+	     //textarea를 생성하여 해당태그에 에디터 입력값들을 신규생성 textarea에 담는다
+	     textarea.name = 'content';
+	     textarea.value = content;
+	     textarea.style="display:none";
+	     form.createField(textarea);
+	     return true;
+	}
 </script>
 <script> 
-window.onload = function() { 
-	var grade = "<%=dto.getGrade()%>";
-	var imanager_area ="<%=selectdto.getManager_area()%>";
-	var imanager_name ="<%=dto.getManager_name ()%>";
-	
-	if( grade != null ) {
-		$("input:radio[name=grade][value="+grade+"]").attr("checked","checked");
+	window.onload = function() { 
+		$(document).ready(loadContent());
 	}
-
-}
-
-// 매장 지점 
-function SelManagerAddr(){
-	var manager_area = $("#manager_area").val();
-    var param = "manager_area=" + manager_area + "?manager_name=" + manager_name;
-    sendRequest("POST","managerSelect.jsp", Addrback, param);
-}
-
-function Addrback(){
-    if(httpRequest.readyState == 4){
-       if(httpRequest.status == 200){
-          var div = document.getElementById("manager_name");
-           div.innerHTML = httpRequest.responseText;
-           //alert(httpRequest.responseText);
-        }else{
-          alert("error : " + httpRequest.status);
-       }
-    }
- }
+	function getGrade() {
+		var grade = "<%=dto.getGrade()%>";
+		if( grade != null ) {
+			$("input:radio[name=grade][value="+grade+"]").attr("checked","checked");
+		}
+	}
+	// 매장 지점 
+	function SelManagerAddr(){
+		alert("SelManagerAddr");
+		var imanager_name ="<%=dto.getManager_name ()%>";
+		var manager_area = $("#manager_area").val();
+	    var param = "manager_area=" + manager_area + "&manager_name=" + imanager_name;
+	    sendRequest("POST","managerSelect.jsp", Addrback, param);
+	}
+	
+	function Addrback(){
+	    if(httpRequest.readyState == 4){
+	       if(httpRequest.status == 200){
+	          var div = document.getElementById("manager_name");
+	           div.innerHTML = httpRequest.responseText;
+	           //alert(httpRequest.responseText);
+	        }else{
+	          alert("error : " + httpRequest.status);
+	       }
+	    }
+	 }
 </script>
 <script type="text/javascript">
  function loadContent() {
-  var attachments = {};
-  /* 저장된 컨텐츠를 불러오기 위한 함수 호출 */
-  Editor.modify({
-   "attachments": function () { /* 저장된 첨부가 있을 경우 배열로 넘김, 위의 부분을 수정하고 아래 부분은 수정없이 사용 */
-    var allattachments = [];
-    for (var i in attachments) {
-     allattachments = allattachments.concat(attachments[i]);
-    }
-    return allattachments;
-   }(),
-   "content": $tx('content2') /* 내용 문자열, 주어진 필드(textarea) 엘리먼트 */
-  });
+	var attachments = {};
+	/* 저장된 컨텐츠를 불러오기 위한 함수 호출 */
+	Editor.modify({
+		"attachments": function () { /* 저장된 첨부가 있을 경우 배열로 넘김, 위의 부분을 수정하고 아래 부분은 수정없이 사용 */
+			var allattachments = [];
+			for (var i in attachments) {
+				allattachments = allattachments.concat(attachments[i]);
+			}
+			return allattachments;
+		}(),
+		"content": document.getElementById("content2") /* 내용 문자열, 주어진 필드(textarea) 엘리먼트 */
+	});
+	getGrade();
+	SelManagerAddr();
+
+
  }
 </script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script>
-	$(document).ready(loadContent());
-</script>
+
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -102,7 +106,7 @@ function Addrback(){
          <div class="col-md-12">
             <div class="col-md-12">
                <form name="tx_editor_form" id="tx_editor_form" action="review_UpdateProc.jsp?account_no=<%=account_no %>&review_no=<%=dto.getReview_no()%>" method="post" accept-charset="utf-8">
-               	<textarea id="content2" ><%=dto.getContent() %></textarea> <!-- style="display:none" -->
+               	<textarea id="content2" name="content2" style="display:none"><%=dto.getContent() %></textarea>
                   <table width=80% border=0 cellspacing=0 cellpadding=3 align="center">
                      <tr>
                         <td align=left>제 목</td>
@@ -115,14 +119,14 @@ function Addrback(){
 						<td>
 						<div>
 						<div class="col-md-6">
-                    	<select id="manager_area" onchange="SelManagerAddr()">
+                    	<select id="manager_area" onChange="SelManagerAddr()">
                            <option value="" width="200px;"> 지역선택</option>
                         <%
                            List areaList = dao.getManagerArea();
                            for (int i = 0; i < areaList.size(); i++) {
                         	   ReviewDto areadto = (ReviewDto) areaList.get(i);
                            %>
-                           <option value="<%= areadto.getManager_area()%>" <%=areadto.getManager_area().equals(selectdto.getManager_area())?"selected":"" %>><%=areadto.getManager_area()%></option>
+                           <option value="<%= areadto.getManager_area()%>" <%=areadto.getManager_area().equals(selectdto.getManager_area())?"selected=selected":"" %>><%=areadto.getManager_area()%></option>
                         <%
                         	} 
 

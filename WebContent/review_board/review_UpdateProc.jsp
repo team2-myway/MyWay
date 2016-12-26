@@ -26,7 +26,7 @@
 %>
       <script>
          alert("다시 작성해주세요");
-         location.href="review_Post.jsp";
+         history.back();
       </script>
 <%      
    }

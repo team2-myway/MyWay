@@ -20,15 +20,6 @@
     List list = dao.getCommentRead(review_no);  
 %>
 <script>
-	function fnUpdateCheck(account_no, review_no) {
-		var session_id = <%=session.getAttribute("id")%>;
-		if(session_id == null) {
-			alert("회원만 수정할 수 있습니다");
-		} else {			
-			location.href="review_Update.jsp?&account_no="+account_no+"&review_no="+review_no;
-		}
-	}
-
 	function fnSessionCheck() {
 		var session_id = <%=session.getAttribute("id")%>;
 		if (session_id == null) {
@@ -69,7 +60,7 @@
 									<input type="button" id="modify" value="목록"
 									onclick="location.href='review_List.jsp'" />&nbsp;&nbsp;&nbsp;&nbsp;
 									<input type="button" id="modify" value="수정"
-									onclick="fnUpdateCheck(<%=account_no%>, <%=dto.getReview_no()%>)" />&nbsp;&nbsp;&nbsp;&nbsp;
+									onclick="location.href='review_UpdateChk.jsp?account_no=<%=account_no%>&review_no=<%=review_no%>'" />&nbsp;&nbsp;&nbsp;&nbsp;
 									<input type="button" id="delete" value="삭제"
 									onclick="location.href='review_Delete.jsp?account_no=<%=account_no%>&review_no=<%=dto.getReview_no()%>'" /></td>
 							</tr>
@@ -100,6 +91,7 @@
 				<tr align="center">
 					<td>내용</td>
 					<td><%=commentdto.getContent() %></td>
+					
 					</tr>
 <%
 			}

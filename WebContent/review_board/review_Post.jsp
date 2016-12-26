@@ -35,6 +35,7 @@
 	        //textarea를 생성하여 해당태그에 에디터 입력값들을 신규생성 textarea에 담는다
 	        textarea.name = 'content';
 	        textarea.value = content;
+	        textarea.style="display:none";
 	        form.createField(textarea);
 	     return true;
 	}

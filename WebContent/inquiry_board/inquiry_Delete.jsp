@@ -8,8 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 <title>삭제</title>
-<jsp:useBean id="dao" class="review.ReviewDao" />
-<jsp:useBean id="dto" class="review.ReviewDto" />
+<jsp:useBean id="dao" class="inquiry.InquiryDao" />
+<jsp:useBean id="dto" class="inquiry.InquiryDto" />
 <script>
 	function fnDeleteCheck() {
 		if (document.form.pw.value == "") {
@@ -24,24 +24,24 @@
 </head>
 <body class="page">
 <%
-	String review_no = request.getParameter("review_no");
+	String board_no = request.getParameter("board_no");
 	String account_no = request.getParameter("account_no");
 	String pw = request.getParameter("pw"); 
 	
 	if(pw != null){
-		boolean deleteret = dao.reviewDelete(account_no, pw, review_no);
+		boolean deleteret = dao.inquiryDelete(account_no, pw, board_no);
 		if(deleteret == false) {
 %>
 			<script>
 				alert("비밀번호 불일치");
-				location.href="review_Delete.jsp?account_no=<%=account_no%>&review_no=<%=review_no%>";
+				location.href="inquiry_Delete.jsp?account_no=<%=account_no%>&board_no=<%=board_no%>";
 			</script>
 <%
 		} else if(deleteret == true) {
 			%>
 			<script>
 				alert("삭제 완료");
-				location.href="review_List.jsp";
+				location.href="inquiry_List.jsp";
 			</script>
 			<%
 		}
@@ -53,7 +53,7 @@
 		<div class="container">
 			<div class="col-md-12">
 				<div class="col-md-12">
-					<form name=form method="post" action="review_Delete.jsp?account_no=<%=account_no %>&review_no=<%=review_no %>" accept-charset="UTF-8">
+					<form name=form method="post" action="inquiry_Delete.jsp?account_no=<%=account_no %>&board_no=<%=board_no %>" accept-charset="UTF-8">
 						<table width=80% border=0 cellspacing=0 cellpadding=3 align="center">
 							<tr>
 								<td>비밀번호를 입력해 주세요.</td>
