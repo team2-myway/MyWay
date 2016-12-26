@@ -24,7 +24,7 @@ public class OrderDao {
 			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/mysqlDB");
 			
 		}catch(Exception err){
-			System.out.println("¿¬°á ½ÇÆĞ" + err);
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½" + err);
 		}
 	}
 	public void StampAdd(int account_no, int count){
@@ -38,7 +38,7 @@ public class OrderDao {
 		rs.next();
 		int stamp = rs.getInt("stamp");
 		int countstamp = stamp+count;
-		// È¸¿øÀÇ ½ºÅÆÇÁÀÇ °¹¼ö¸¦ ´Ã¸²
+		// È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½
 		sql ="update account set stamp=? where account_no = ?";
 		con = ds.getConnection();
 		stmt = con.prepareStatement(sql);
@@ -70,7 +70,7 @@ public class OrderDao {
 			stmt.setString(8, dto.getFavorite());
 			stmt.executeUpdate();
 		//	System.out.println(sql);
-			//È¸¿øÀÌ °¡Áø ½ºÅÛÇÁÀÇ °¹¼ö ¾Ë±âÀ§ÇÔ
+			//È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë±ï¿½ï¿½ï¿½ï¿½ï¿½
 			StampAdd(dto.getAccount_no(), dto.getMenu_count());
 			OrderSave(dto);
 		}catch(Exception err){
@@ -81,7 +81,7 @@ public class OrderDao {
 	}
 	public void OrderSave(OrderDto dto){
 		String sql = "insert into main_order(order_code,account_no, account_name, account_tel, store_no, total, date, status) "
-				+ "values (?, ?, ?, ?, ?, ?, date_format(now(),'%Y/%m/%d %H:%i:%s'),'ÁÖ¹®¿Ï·á')";
+				+ "values (?, ?, ?, ?, ?, ?, date_format(now(),'%Y/%m/%d %H:%i:%s'),'ï¿½Ö¹ï¿½ï¿½Ï·ï¿½')";
 		try{
 			con = ds.getConnection();
 			stmt = con.prepareStatement(sql);
@@ -123,19 +123,22 @@ public class OrderDao {
 		}
 		return ordermax_no;
 	}
-	
+	// ë‚˜ì˜ ì¦ê²¨ì°¾ê¸°ì™€ ì£¼ë¬¸ë‚´ì—­ ë³´ê¸° 
 	public ArrayList MyOrderList(int account_no, String map){
 		ArrayList list = new ArrayList();
 		String sql = "";
 		if(map.equals("orderlist")){
 			sql="select a.manager_area manager_area, a.manager_name, m.total, d.vegetable_no, substr(m.date,1,16) date, "
-					+ "d.sauce_no, d.count, menu.menu_name, b.name bread_name from main_order m "
+					+ "d.sauce_no, d.count, menu.menu_name, side.count, sm.side_menu_name, side.price, b.name bread_name from main_order m "
 					+ "left join detail_order d on m.order_code = d.order_code "
 					+ "left join bread b on b.bread_no = d.bread_no "
+					+ "left join side_order side on side.order_code = m.order_code "
+					+ "left join side_menu sm on sm.side_menu_no = side.side_menu_no "
 					+ "left join menu on menu.menu_no = d.menu_no "
 					+ "left join account a on a.account_no = m.store_no "
 					+ "where m.account_no="+account_no;
 		}else{
+			//ì¦ê²¨ì°¾ê¸°
 			sql="select a.manager_area manager_area, a.manager_name, m.total, d.vegetable_no, substr(m.date,1,16) date, "
 					+ "d.sauce_no, d.count, menu.menu_name, menu.menu_size, d.menu_no, d.bread_no, b.name bread_name from main_order m "
 					+ "left join detail_order d on m.order_code = d.order_code "
@@ -144,7 +147,7 @@ public class OrderDao {
 					+ "left join account a on a.account_no = m.store_no "
 					+ "where m.account_no="+account_no +" and d.favorite ='ok'";
 		}
-		//System.out.println(sql);
+		System.out.println(sql);
 		try{
 			con = ds.getConnection();
 			stmt = con.prepareStatement(sql);
@@ -162,6 +165,9 @@ public class OrderDao {
 					dto.setOrder_date(rs.getString("date"));
 					dto.setVegetable_no_List(rs.getString("d.vegetable_no"));
 					dto.setSauce_no_List(rs.getString("d.sauce_no"));
+					dto.setSide_menu_name(rs.getString("sm.side_menu_name"));
+					dto.setSide_menu_count(rs.getInt("side.count"));
+					dto.setSide_menu_countPirce(rs.getInt("side.price"));
 					list.add(dto);
 				}
 			}else{
@@ -197,7 +203,7 @@ public class OrderDao {
 				
 				for(int i=0; i<vegetalbe.length; i++){
 					ordervegetable = vegetalbe[i];
-					// ¹è¿­ÀÇ ¸¶Áö¸·À» È®ÀÎ ¸¶Áö¸·¶§´Â or À» ³ÖÀ¸¸é ¾ÈµÇ±â ¶§¹®
+					// ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ or ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ±ï¿½ ï¿½ï¿½ï¿½ï¿½
 					if(vegetalbe[i]==vegetalbe[vegetalbe.length-1]){
 						sql1 += "vegetable_no = '"+ ordervegetable +"'";
 					}else{
@@ -221,7 +227,7 @@ public class OrderDao {
 		}
 		return list;
 	}
-	//¼±ÅÃÇÑ ¼Ò½ºÀÇ ÀÌ¸§À» ¾Ë±âÀ§ÇÔ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ë±ï¿½ï¿½ï¿½ï¿½ï¿½
 	public ArrayList SauceOrderList(String sauce_no){
 		ArrayList list = new ArrayList();
 		try{
@@ -231,7 +237,7 @@ public class OrderDao {
 			//System.out.println(sql1);
 			for(int i=0; i<sauce.length; i++){
 				ordersauce = sauce[i];
-				// ¹è¿­ÀÇ ¸¶Áö¸·À» È®ÀÎ ¸¶Áö¸·¶§´Â or À» ³ÖÀ¸¸é ¾ÈµÇ±â ¶§¹®
+				// ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ or ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ±ï¿½ ï¿½ï¿½ï¿½ï¿½
 				if(sauce[i]==sauce[sauce.length-1]){
 					sql2 += "sauce_no = '"+ ordersauce +"'";
 				}else{
@@ -255,7 +261,7 @@ public class OrderDao {
 		return list;
 	}
 
-	//¸Ş´º »çÀÌÁî º°·Î ³ª¿À°Ô ÇÏ´Â °Íµé Å¬·¡½ºµµ ÁöÁ¤
+	//ï¿½Ş´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½Íµï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public ArrayList MenuSizeList(String menusize, String menuclass){
 		ArrayList list = new ArrayList();
 		String sql="";
@@ -291,7 +297,7 @@ public class OrderDao {
 		return list;
 	}
 	
-	// ¸Ş´ºÀÇ ÃßÃµ¼Ò½º¸¦ »Ì¾Æ¿À±â 
+	// ï¿½Ş´ï¿½ï¿½ï¿½ ï¿½ï¿½Ãµï¿½Ò½ï¿½ï¿½ï¿½ ï¿½Ì¾Æ¿ï¿½ï¿½ï¿½ 
 	public ArrayList BestSauce(String menu_no){
 		ArrayList list = new ArrayList();
 		OrderDto dto = new OrderDto();
@@ -312,7 +318,7 @@ public class OrderDao {
 					
 					for(int i=0; i<sauce.length; i++){
 						bestsauce = sauce[i];
-						// ¹è¿­ÀÇ ¸¶Áö¸·À» È®ÀÎ ¸¶Áö¸·¶§´Â or À» ³ÖÀ¸¸é ¾ÈµÇ±â ¶§¹®
+						// ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ or ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ±ï¿½ ï¿½ï¿½ï¿½ï¿½
 						if(sauce[i]==sauce[sauce.length-1]){
 							sql1 += "sauce_no = '"+ bestsauce +"'";
 						}else{
@@ -339,7 +345,7 @@ public class OrderDao {
 	}
 	
 	
-	// ¸Ş´º Å¬·¡½º ¿¡ ´ëÇÑ ¸®½ºÆ®
+	// ï¿½Ş´ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 	public ArrayList MenuClassList(){
 		ArrayList list = new ArrayList();
 		String sql = "select class from menu group by class";
@@ -412,7 +418,7 @@ public class OrderDao {
 		
 		return list;
 	}
-	//»§ ¸®½ºÆ® »Ì±â
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ì±ï¿½
 	public ArrayList BreadList(){
 		ArrayList list = new ArrayList();
 		String sql = "select * from bread";
@@ -438,7 +444,7 @@ public class OrderDao {
 	}
 	
 	
-	//¼Ò½º ¸®½ºÆ® 
+	//ï¿½Ò½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® 
 	public ArrayList SauceList(String sauce){
 		ArrayList list = new ArrayList();
 			String sql = "select * from sauce where class='"+sauce+"'";
@@ -462,7 +468,7 @@ public class OrderDao {
 		}
 		return list;
 	}
-	// Ã¤¼Ò ¸®½ºÆ®
+	// Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 	public ArrayList VegetableList(){
 		ArrayList list = new ArrayList();
 		String sql = "select * from vegetable";
@@ -486,7 +492,7 @@ public class OrderDao {
 	}
 		return list;
 	}
-	// ¸ÅÀå Áö¿ªº°·Î ³ª¿À´Â °Í
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	public ArrayList ManagerAddrList(){
 		ArrayList list = new ArrayList();
 		String sql = "SELECT manager_area FROM myway.account where level = 'super' or level = 'manager' group by manager_area;";
@@ -533,7 +539,7 @@ public class OrderDao {
 	}
 		return list;
 	}
-	// È¸¿øÁ¤º¸ °¡Á®¿À±â 
+	// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	public ArrayList MyAccountList(int account_no){
 		String sql ="select account_name, tel from account where account_no = "+account_no;
 		ArrayList list = new ArrayList();

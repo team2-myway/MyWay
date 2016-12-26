@@ -6,28 +6,17 @@ public class OrderDto {
 	private ArrayList vegetableOrderNo;
 	private ArrayList sauceOrderNo;
 	
-	public ArrayList getVegetableOrderNo() {
-		return vegetableOrderNo;
-	}
-	public void setVegetableOrderNo(ArrayList vegetableOrderNo) {
-		this.vegetableOrderNo = vegetableOrderNo;
-	}
-	public ArrayList getSauceOrderNo() {
-		return sauceOrderNo;
-	}
-	public void setSauceOrderNo(ArrayList sauceOrderNo) {
-		this.sauceOrderNo = sauceOrderNo;
-	}
-	//°í°´ Á¤º¸
+	
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	private int account_no;
 	private String account_name;
 	private String account_tel;
-	//¸ÅÀå
+	//ï¿½ï¿½ï¿½ï¿½
 	private String manage_addr;
 	private String manage_name;
 	private int manage_no;
 	
-	//¸Þ´º
+	//ï¿½Þ´ï¿½
 	private String menu_size;
 	private String menu_class;
 	private int menu_no;
@@ -38,22 +27,22 @@ public class OrderDto {
 	private String menu_bestSouce;
 	private String menu_detail;
 	private int menu_count;
-	//Ã¤¼Ò
+	//Ã¤ï¿½ï¿½
 	private int vegetable_no;
 	private String vegetable_name;
 	private String vegetable_img;
 	
-	//»§ Á¾·ù
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	private int bread_no;
 	private String bread_name;
 	private String bread_detail;
 	
-	//¼Ò½º
+	//ï¿½Ò½ï¿½
 	private int sauce_no;
 	private String sauce_name;
 	private String sauce_class;
 	
-	//»çÀÌµå ¸Þ´º
+	//ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Þ´ï¿½
 	private int side_menu_no ;
 	private String side_category;
 	private String side_menu_name;
@@ -61,6 +50,8 @@ public class OrderDto {
 	private int side_menu_calorie;
 	private int side_menu_price;
 	private String side_menu_detail;
+	private int side_menu_countPirce;
+	private int side_menu_count;
 	
 	private int[] side_menu_noList;
 	private int[] side_menu_countList;
@@ -74,6 +65,31 @@ public class OrderDto {
 	private String favorite;
 	private String order_date;
 	private int order_price;
+	
+	public int getSide_menu_countPirce() {
+		return side_menu_countPirce;
+	}
+	public void setSide_menu_countPirce(int side_menu_countPirce) {
+		this.side_menu_countPirce = side_menu_countPirce;
+	}
+	public int getSide_menu_count() {
+		return side_menu_count;
+	}
+	public void setSide_menu_count(int side_menu_count) {
+		this.side_menu_count = side_menu_count;
+	}
+	public ArrayList getVegetableOrderNo() {
+		return vegetableOrderNo;
+	}
+	public void setVegetableOrderNo(ArrayList vegetableOrderNo) {
+		this.vegetableOrderNo = vegetableOrderNo;
+	}
+	public ArrayList getSauceOrderNo() {
+		return sauceOrderNo;
+	}
+	public void setSauceOrderNo(ArrayList sauceOrderNo) {
+		this.sauceOrderNo = sauceOrderNo;
+	}
 	
 	public int[] getSide_menu_noList() {
 		return side_menu_noList;
