@@ -113,9 +113,6 @@ public class SideMenuDao {
 		SideMenuDto dto = new SideMenuDto();
 
 		String sql = "select category, side_menu_name, image, calorie, price, detail from side_menu where side_menu_no=?";
-
-		//String sql = "select image, category, side_menu_name, calorie, price, detail from side_menu where side_menu_no=?";
-
 		try{
 			con = ds.getConnection();
 			stmt = con.prepareStatement(sql);

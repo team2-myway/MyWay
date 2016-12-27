@@ -8,13 +8,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>아이디 찾기</title>
 <script>
-	function popupOpen(form) {
-		var name = document.getElementById("name").value;
-		var email = document.getElementById("email").value;
+   function popupOpen(form) {
+      var name = document.getElementById("name").value;
+      var email = document.getElementById("email").value;
 
-		window.open("window_found_ID.jsp?name="+name+"&email="+email,"foundID","width=500 height=500 left=1000 top=100 directories=no location=no");			
+      window.open("window_found_ID.jsp?name="+name+"&email="+email,"foundID","width=500 height=500 left=1000 top=100 directories=no location=no");         
 
-	}
+   }
 </script>
 </head>
 <body class="page">
@@ -24,29 +24,29 @@
       <div class="container">
          <div class="col-md-12">
             <div class="col-md-12">
-            	
-            	<div class="col-md-offset-3 col-md-6" style="text-align:center;">
-	            	<h2 align="center">아이디 찾기</h2>
-	            	<div class="form-group" >
-	            		<form name="form">
-								<table>
-								<tr>
-									<td>이름</td>
-									<td><input type="text" id="name" name="name" /></td>
-								</tr>
-								<tr>
-									<td>Email</td>
-									<td><input type="text" id="email" name="email" /></td>
-								</tr>
-								<tr>
-									<td><input type="button" value="아이디찾기" class="btn btn-default" onclick="popupOpen(form)"/></td>
-									<td><input type="button" value="비밀번호찾기" class="btn btn-default" onclick="javascript:location.href='found_PW.jsp'" /></td>
-								</tr>
-							</table>
-						</form>
-	            		
-            		</div>
-            	</div>
+               
+               <div class="col-md-offset-3 col-md-6" style="text-align:center;">
+                  <h2 align="center">아이디 찾기</h2>
+                  <div class="form-group" >
+                     <form name="form">
+                        <table>
+                        <tr>
+                           <td>이름</td>
+                           <td><input type="text" id="name" name="name" /></td>
+                        </tr>
+                        <tr>
+                           <td>Email</td>
+                           <td><input type="text" id="email" name="email" /></td>
+                        </tr>
+                        <tr>
+                           <td><input type="button" value="아이디찾기" class="btn btn-default" onclick="popupOpen(form)"/></td>
+                           <td><input type="button" value="비밀번호찾기" class="btn btn-default" onclick="javascript:location.href='found_PW.jsp'" /></td>
+                        </tr>
+                     </table>
+                  </form>
+                     
+                  </div>
+               </div>
 
             </div>
          </div>

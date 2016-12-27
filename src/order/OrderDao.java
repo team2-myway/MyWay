@@ -501,7 +501,7 @@ public class OrderDao {
 	// ���� �������� ������ ��
 	public ArrayList ManagerAddrList(){
 		ArrayList list = new ArrayList();
-		String sql = "SELECT manager_area FROM myway.account where level = 'super' or level = 'manager' group by manager_area;";
+		String sql = "SELECT manager_area FROM account where level = 'super' or level = 'manager' group by manager_area;";
 	try{
 		con = ds.getConnection();
 		stmt = con.prepareStatement(sql);
@@ -524,7 +524,7 @@ public class OrderDao {
 	public ArrayList ManagerList(String area){
 		
 		ArrayList list = new ArrayList();
-		String sql = "SELECT * FROM myway.account where (level = 'super' or level = 'manager') and manager_area='"+area+"'";
+		String sql = "SELECT * FROM account where (level = 'super' or level = 'manager') and manager_area='"+area+"'";
 	try{
 		con = ds.getConnection();
 		stmt = con.prepareStatement(sql);
@@ -547,6 +547,7 @@ public class OrderDao {
 	}
 	// ȸ������ �������� 
 	public ArrayList MyAccountList(int account_no){
+		System.out.println(account_no);
 		String sql ="select account_name, tel from account where account_no = "+account_no;
 		ArrayList list = new ArrayList();
 		try{

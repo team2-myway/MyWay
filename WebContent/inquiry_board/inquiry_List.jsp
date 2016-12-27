@@ -32,10 +32,8 @@
 		List list = dao.getBoardList(keyField, keyWord);
 		AccountDao ad = new AccountDao();
 		AccountDto accountdto = ad.session(session.getAttribute("id"));
-
 		//////////////////////////////////////////////
 		// Paging 기법
-
 		int totalRecord = 0; // 전체 글의 갯수
 		int numPerPage = 5; // 한 페이지 당 보여질 글의 갯수
 		int pagePerBlock = 3; // 한 블럭 당 페이지 수
@@ -44,17 +42,13 @@
 		int nowPage = 0; // 현재 페이지 번호
 		int nowBlock = 0; // 현재 블럭 번호
 		int beginPerPage = 0; // 페이지 당 시작번호
-
 		totalRecord = list.size();
 		totalPage = (int) Math.ceil(((double) totalRecord / numPerPage));
 		totalBlock = (int) Math.ceil(((double) totalPage / pagePerBlock));
-
 		if (request.getParameter("nowPage") != null)
 			nowPage = Integer.parseInt(request.getParameter("nowPage"));
-
 		if (request.getParameter("nowBlock") != null)
 			nowBlock = Integer.parseInt(request.getParameter("nowBlock"));
-
 		beginPerPage = nowPage * numPerPage;
 	%>
 	<section id="page" class="csstransition cmsms_resp hfeed site">
@@ -96,14 +90,13 @@
 										if (list.size() == 0) {
 									%>
 									<tr>
-										<td>등록된 글이 없습니다.</td>
+										<td colspan="5" style="text-align:center">등록된 글이 없습니다.</td>
 									</tr>
 									<%
 										} else {
 											for (int i = beginPerPage; i < beginPerPage + numPerPage; i++) {
 												if (i == totalRecord)
 													break;
-
 												InquiryDto dto = (InquiryDto) list.get(i);
 									%>
 									<tr align="center">
@@ -132,7 +125,6 @@
 					</table>
 					
 					<div class="col-md-12">
-						<div class="col-md-4">
 							<%
 						 	if (nowBlock > 0) {
 %>
@@ -157,12 +149,11 @@
 <%
  							}
  %>
-						</div>
-						<div class="col-md-4">
-							<input type="button" id="write" value="글쓰기" class="btn btn-default" onClick="location.href='inquiry_Post.jsp'"/>
-							<input type="button" id="lsit" value="목록" class="btn btn-default" onClick="location.href='inquiry_List.jsp'"/>
-						</div>
 					</div>			
+					<div class="col-md-12" style="text-align:center;">
+						<input type="button" id="write" value="글쓰기" class="btn btn-default" onClick="location.href='inquiry_Post.jsp'"/>
+						<input type="button" id="lsit" value="목록" class="btn btn-default" onClick="location.href='inquiry_List.jsp'"/>
+					</div>
 					
 					<BR>
 				</div>
@@ -190,7 +181,6 @@
 				}
 			});
 		})
-
 		function setConfig() {
 			var config = {
 				txHost : '', /* 런타임 시 리소스들을 로딩할 때 필요한 부분으로, 경로가 변경되면 이 부분 수정이 필요. ex) http://xxx.xxx.com */

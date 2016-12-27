@@ -5,6 +5,7 @@
 <%
 	java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("ddHHmmss");
 	String today = formatter.format(new java.util.Date());
+	
 	AccountDao adao = new AccountDao();
 	AccountDto adto = adao.session(session.getAttribute("id"));
 	String level = adto.getLevel();
