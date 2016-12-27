@@ -456,7 +456,7 @@
 								<button class="btn btn-primary" id="SideOrder_Save">주문하기</button>
 							</div>
 							<div class="col-md-6">
-								<button class="btn btn-primary" id="">다른메뉴 주문하기</button>
+								<button class="btn btn-primary" id="SideDetail_Save">다른메뉴 주문하기</button>
 							</div>
 						</div>	
 					</div>
@@ -555,14 +555,19 @@
 			$("input[name='menu_size']").click(function(){
 				var size = $(":radio[name='menu_size']:checked").val();
 			});
+			//바로저장
 			$("#Order_Save").click(function(){
 				SelectValues('order');
 			});
-			$("#SideOrder_Save").click(function(){
-				SideOrderSave();
-			});
+			//저장한 후 , 다시하기
 			$("#DetailOrder_Save").click(function(){
 				SelectValues('detail');
+			});
+			$("#SideOrder_Save").click(function(){
+				ManagerCheck('order');
+			});
+			$("#SideOrder_Save").click(function(){
+				ManagerCheck('detail');
 			});
 		
 		});
@@ -897,10 +902,18 @@
 			TotalSidePrice(price,side_no);
 			$("#Html_TrAppeand_"+side_no).remove();
 		}
-		function SideOrderSave(){
+		function ManagerCheck(type){
+			var store_no = $("#store_no").val();
+			if(store_no == ""){
+				alert("매장을 선택해 주세요.");
+				return;
+			}
+			SideOrderSave(type);
+		}
+		function SideOrderSave(type){
 			 var param = $("#OrderSaveForm").serialize();
 			// alert(param);
-			 sendRequest("POST","OrderSave.jsp", DetailOrderSaveBack,param);	
+			 sendRequest("POST","OrderSave.jsp", DetailOrderSaveBack(type),param);	
 		}
 		
 	</script>
