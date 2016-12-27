@@ -66,54 +66,61 @@ function Addrback(){
 <body class="page">
 <%
 	request.setCharacterEncoding("UTF-8");
-%>
+	                        		AccountDao adao = new AccountDao();
+	                        		AccountDto adto = new AccountDto();
+	                        		adto = adao.session(session.getAttribute("id"));
+ %>
    <section id="page" class="csstransition cmsms_resp hfeed site">
       <%@ include file="../include/header.jsp"%>
       <div class="container">
          <div class="col-md-12">
-            <div class="col-md-12">
+            <h3>후기 글쓰기</h3>
+            <div class="col-md-12" style="padding-top:20px;">
+            	<div class="col-md-offset-1 col-md-10">
                <form name="post_form" id="tx_editor_form" action="review_PostProc.jsp" method="post" accept-charset="utf-8">
-                  <div class="form-group" >
-						<div class="col-md-12">
-							<label for="title" >제     목</label>&nbsp;&nbsp;&nbsp;<input type=text name=title size=40 maxlength=20>
-							<br>					
-	                        <%
-	                        	if(session.getAttribute("id") != "") {
-	                        		AccountDao adao = new AccountDao();
-	                        		AccountDto adto = new AccountDto();
-	                        		adto = adao.session(session.getAttribute("id"));
-	                        %>
-							<div class="col-md-12">
-								<div class="col-md-6">
-									<label for="title" >이     름</label>&nbsp;&nbsp;&nbsp;<input type=text name=account_name size=40 maxlength=20 value="<%=adto.getAccount_name()%>">
-			                        <%
-			                        	}	
-			                        %>
-								</div>
-								<div class="col-md-6" >
-										<div id="star" style="cursor: pointer; width: 200px;">
-											<label for="title" >별     점</label>&nbsp;&nbsp;&nbsp;
-											<img src="../lib/images/star/star-on.png" alt="1" title="bad">&nbsp;
-											<img src="../lib/images/star/star-on.png" alt="2" title="poor">&nbsp;
-											<img src="../lib/images/star/star-on.png" alt="3" title="regular">&nbsp;
-											<img src="../lib/images/star/star-on.png" alt="4" title="good">&nbsp;
-											<img src="../lib/images/star/star-on.png" alt="5" title="gorgeous">
-											<br>
-											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" id="grade" name="grade" value="1">&nbsp;&nbsp;
-											<input type="radio" id="grade" name="grade" value="2">&nbsp;&nbsp;
-											<input type="radio" id="grade" name="grade" value="3">&nbsp;&nbsp;
-											<input type="radio" id="grade" name="grade" value="4">&nbsp;&nbsp;
-											<input type="radio" id="grade" name="grade" value="5">
-									</div>
-								</div>
+					<table>
+					<tr>
+						<td style="width:15%">
+							<label for="title" >제     목</label>
+						</td>
+						<td colspan="3">
+							<input type=text name=title size=40 maxlength=20>
+						</td>
+					</tr>
+					<tr style="padding-top:10px;">
+						<td>
+							<label for="title" >이     름</label>&nbsp;&nbsp;&nbsp;
+							<input type=hidden name=account_name size=40 maxlength=20 value="<%=adto.getAccount_name()%>">
+							<input type="hidden" name="account_no" value="<%=session.getAttribute("account_no")%>"/>
+						</td>
+						<td style="width:35%">
+							<%=adto.getAccount_name()%>
+						</td>
+						<td style="width:15%;"><label for="title" >별     점</label>&nbsp;&nbsp;&nbsp;</td>
+						<td>
+							<div id="star" style="cursor: pointer; width: 200px;">
+								<img src="../lib/images/star/star-on.png" alt="1" title="bad">&nbsp;
+								<img src="../lib/images/star/star-on.png" alt="2" title="poor">&nbsp;
+								<img src="../lib/images/star/star-on.png" alt="3" title="regular">&nbsp;
+								<img src="../lib/images/star/star-on.png" alt="4" title="good">&nbsp;
+								<img src="../lib/images/star/star-on.png" alt="5" title="gorgeous">
+							<br>
+								<input type="radio" id="grade" name="grade" value="1">&nbsp;&nbsp;
+								<input type="radio" id="grade" name="grade" value="2">&nbsp;&nbsp;
+								<input type="radio" id="grade" name="grade" value="3">&nbsp;&nbsp;
+								<input type="radio" id="grade" name="grade" value="4">&nbsp;&nbsp;
+								<input type="radio" id="grade" name="grade" value="5">
 							</div>
-						</div>
-						<div>
+						</td>
+					</tr>
+					<tr style="padding-top:10px;">
+						<td>
+							<label for="title" >지     점</label>&nbsp;&nbsp;&nbsp;
+						</td>
+						<td colspan="3">
 							<div>
-								<label for="title" >지     점</label>&nbsp;&nbsp;&nbsp;
-								<div>
-			                    	<select id="manager_area" onchange="SelManagerAddr()">
-			                           <option value="" width="200px;"> 지역선택 </option>
+			            	  	<select id="manager_area"  style="width:200px;" onchange="SelManagerAddr()">
+			            	  		<option value="" > 지역선택 </option>
 			                        <%
 			                           List areaList = dao.getManagerArea();
 			                           for (int i = 0; i < areaList.size(); i++) {
@@ -123,31 +130,27 @@ function Addrback(){
 			                        <%
 			                        	} 
 			                        %>
-			                        </select>
-			                     	<select name="manager_name" id="manager_name"></select>
-			                 	 	</div>
-							</div>
-						</div>
-							
-							
-						</div>
-						<div>
-							<table>
-							<tr>
-								<td id="editorTd"></td>
-							</tr>
-							<tr align="center">
-								<td colspan="2"><input type="button" id="save" value="저장" class="btn btn-default"/>
-									<input type="reset" class="btn btn-default" value="다시쓰기" /></td>
-							</tr>
-							</table>
-						</div>
-					</div>
-               </form>
+								</select>
+			                    <select name="manager_name"style="width:200px;" id="manager_name"></select>
+			               	 </div>
+						</td>
+					</tr>	
+					<tr >
+						<td id="editorTd" style="padding-top:10px;" colspan="4"></td>
+					</tr>
+					<tr align="center" style="padding-top:10px;">
+						<td colspan="4">
+							<input type="button" id="save" value="저장" class="btn btn-primary"/>
+							<input type="reset" class="btn btn-default" value="다시쓰기" />
+						</td>
+					</tr>
+					</table>
+		     	  </form>
+            	</div>
+				</div>
             </div>
          </div>
-      </div>
-
+     
 
 
       <!-- 공간주기 -->

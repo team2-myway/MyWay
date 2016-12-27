@@ -566,7 +566,7 @@
 			$("#SideOrder_Save").click(function(){
 				ManagerCheck('order');
 			});
-			$("#SideOrder_Save").click(function(){
+			$("#SideDetail_Save").click(function(){
 				ManagerCheck('detail');
 			});
 		
@@ -914,7 +914,7 @@
 		}
 		function SideOrderSave(type){
 			 var param = $("#OrderSaveForm").serialize();
-			// alert(param);
+			 alert(param);
 			 sendRequest("POST","OrderSave.jsp", DetailOrderSaveBack(type),param);	
 		}
 		

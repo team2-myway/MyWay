@@ -12,6 +12,7 @@
 <jsp:setProperty property="account_name" name="dto"/>
 <jsp:setProperty property="content" name="dto"/>
 <%
+	System.out.println(request.getParameter("account_name"));
 	boolean insertResult = dao.insertBoard(dto);
 	if(insertResult == true) {
 %>

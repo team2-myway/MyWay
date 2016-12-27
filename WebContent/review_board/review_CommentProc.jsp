@@ -7,13 +7,16 @@
 
 <jsp:setProperty property="review_no" name="dto"/>
 <jsp:setProperty property="content" name="dto"/>
+<jsp:setProperty property="account_no" name="dto"/>
+<jsp:setProperty property="account_name" name="dto"/>
+
 <%
     boolean insertResult = dao.insertComment(dto);
     if(insertResult == true) {
 %>
       <script>
          alert("댓글이 등록되었습니다");
-         location.href="review_List.jsp";
+         location.href="review_Read.jsp?account_no=5&review_no=1";
       </script>
 <%
     } else {
