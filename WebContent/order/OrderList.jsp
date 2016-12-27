@@ -13,8 +13,8 @@
 <%
 	String StartDate = request.getParameter("StartDate");
 	String EndDate = request.getParameter("EndDate");
-	//int account_no = (int)session.getAttribute("account_no");
-	int account_no = 5;	
+	int account_no = (Integer)session.getAttribute("account_no");
+	//int account_no = 5;	
 	ArrayList OrderList = dao.MyOrderList(account_no,"orderlist",StartDate,EndDate);
 	
 	int totalRecord = 0; //전체 글의 갯수

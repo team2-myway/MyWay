@@ -5,8 +5,8 @@
 <%
 	java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("ddHHmmss");
 	String today = formatter.format(new java.util.Date());
-	//int account_no = (Integer)session.getAttribute("account_no");
-	int account_no = 5;
+	int account_no = (Integer)session.getAttribute("account_no");
+//	int account_no = 5; 
 	
 	String order_code = dao.Order_Code(account_no,today);
 	session.setAttribute("order_code", order_code);
