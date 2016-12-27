@@ -4,6 +4,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+.color{
+		background-color:#E4F7BA;
+	}
+textarea{
+	min-height: 100px;
+}
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../lib/daumeditor/css/editor.css" type="text/css" charset="utf-8" />
 <script src="../lib/daumeditor/js/editor_loader.js?environment=development" type="text/javascript" charset="utf-8"></script>
@@ -15,6 +23,11 @@
 	request.setCharacterEncoding("UTF-8");
     String review_no = request.getParameter("review_no");
     int account_no = Integer.parseInt(request.getParameter("account_no"));
+    
+    AccountDto adto = new AccountDto();
+	AccountDao adao = new AccountDao();
+	adto = adao.session(session.getAttribute("id"));
+	String session_level = adto.getLevel();
     
     dto = dao.getReviewRead(review_no);
     List list = dao.getCommentRead(review_no);  
@@ -35,47 +48,56 @@
 		<div class="container">
 			<div class="col-md-12">
 				<div class="col-md-12">
-					<form method="post" accept-charset="UTF-8">
-						<table width=80% border=0 cellspacing=0 cellpadding=3 align="center">
-							<tr>
-								<td>제 목</td>
-								<td size=40><%=dto.getTitle() %></td>
-								<td>이름</td>
-								<td><%=dto.getAccount_name() %></td>
-							</tr>
-							<tr>
-								<td>지 점</td>
-								<td><%=dto.getManager_name() %></td>
-								<td>날 짜</td>
-								<td><%=dto.getDate() %></td>
-								<td>별 점</td>
-								<td><%=dto.getGrade() %></td>
-							</tr>
-							<tr>
-								<td>내용</td>
-								<td><%=dto.getContent() %></td>
-							</tr>
-							<tr>
-								<td colspan="2" align="right">
-									<input type="button" id="modify" value="목록"
-									onclick="location.href='review_List.jsp'" />&nbsp;&nbsp;&nbsp;&nbsp;
-									<input type="button" id="modify" value="수정"
-									onclick="location.href='review_UpdateChk.jsp?account_no=<%=account_no%>&review_no=<%=review_no%>'" />&nbsp;&nbsp;&nbsp;&nbsp;
-									<input type="button" id="delete" value="삭제"
-									onclick="location.href='review_Delete.jsp?account_no=<%=account_no%>&review_no=<%=dto.getReview_no()%>'" /></td>
-							</tr>
+					<div class="col-md-offset-1 col-md-10">
+						<table width=100% border=0 cellspacing=0 cellpadding=3 border="1" class="table">
+							<tbody style="text-align:center;">
+								<tr>
+									<td class="color" width="10%">제 목</td>
+									<td colspan="2"width="40%"><%=dto.getTitle() %></td>
+									<td class="color" width="10%">이름</td>
+									<td colspan="2" width="40%"><%=dto.getAccount_name() %></td>
+								</tr>
+								<tr>
+									<td class="color">지 점</td>
+									<td><%=dto.getManager_name() %></td>
+									<td class="color"width="10%">날 짜</td>
+									<td width="15%"><%=dto.getDate() %></td>
+									<td class="color"width="10%">별 점</td>
+									<td width="15%"><%=dto.getGrade() %></td>
+								</tr>
+								<tr>
+									<td class="color">내용</td>
+									<td colspan="5" height="150px"><%=dto.getContent() %></td>
+								</tr>
+								<tr>
+									<td colspan="6" align="center">
+										<input type="button" id="modify" class="btn btn-success" value="목록"
+										onclick="location.href='review_List.jsp'" />&nbsp;&nbsp;&nbsp;&nbsp;
+										<%
+											if(session_level.equals("super") || dto.getAccount_no()== account_no){
+												%>
+												<input type="button" id="modify" class="btn btn-primary" value="수정"
+												onclick="location.href='review_UpdateChk.jsp?account_no=<%=account_no%>&review_no=<%=review_no%>'" />&nbsp;&nbsp;&nbsp;&nbsp;
+												<input type="button" id="delete" class="btn btn-danger" value="삭제"
+												onclick="location.href='review_Delete.jsp?account_no=<%=account_no%>&review_no=<%=dto.getReview_no()%>'" /></td>
+												<% 
+											}
+										%>
+								</tr>
+							</tbody>
 						</table>
-					</form>
+					</div>
 					<br><br><br><br><br><hr/><br><br>
 				</div>
 				
-				<div>
-					<table width=80% border=0 cellspacing=0 cellpadding=3 align="center">
+				<div class="col-md-12">
+					<div class="col-md-offset-1 col-md-10">
+					<table width=100% border=1 style="border-color:aqua;" cellspacing=0 cellpadding=3 align="center">
 					<%
 		if(list.isEmpty()) {
 %>
 			<tr align="center">
-				<td>등록된 댓글이 없습니다!</td>
+				<td colspan="2">등록된 댓글이 없습니다!</td>
 			</tr>
 <%
 		} else {
@@ -83,38 +105,39 @@
 			for(int i=0; i<list.size(); i++) {
 				ReviewDto commentdto = (ReviewDto)list.get(i);
 %>
-				<tr align="center">
-					<td>이름</td><td><%=commentdto.getAccount_name()%></td>
-					<td>날짜</td><td><%=commentdto.getDate() %></td>
-					<td><br><br></td>
+				<tr>
+					<td width="10%" align="center" style="background-color:#D4F4FA">
+					<%=commentdto.getAccount_name()%><br><%=commentdto.getDate() %>
+					</td>
+					<td style="padding-left:10px;background-color:#B2EBF4 " ><%=commentdto.getContent() %></td>
 				</tr>
-				<tr align="center">
-					<td>내용</td>
-					<td><%=commentdto.getContent() %></td>
-					
-					</tr>
+		
+				
 <%
 			}
 		}
 %>
-					<tr>
-						<td><BR> <BR></td>
-					</tr>
-						</table>
-						<hr/>
-					<form action="review_CommentProc.jsp" >
-						<table width=80% border=0 cellspacing=0 cellpadding=3 align="center">
-							<input type="hidden" name="review_no" value=<%=review_no %> />
-							<tr>
-								<td>댓글</td>
-								<td><textarea name="content"></textarea></td>
-							</tr>
-							<tr>
-								<td><input type="submit" id="commentsave" value="댓글등록" onclick="fnSessionCheck()"/></td>
-							</tr>
-						</table>
-					</form>
+					</table>
 				</div>
+			</div>
+			<hr/>
+				<form action="review_CommentProc.jsp" method="post" >
+					<div class="col-md-offset-1 col-md-10" style="padding-top:20px;">
+						<table width=100% style="height:100px;" border=1 cellspacing=0 cellpadding=3 >
+							<tbody style="text-align:center;">
+								<tr>
+									<td width="15%">댓글
+									<input type="hidden" name="review_no" value=<%=review_no %>/>
+									<input type="hidden" name="account_no" value=<%=account_no%>/>
+									<input type="hidden" name="account_name" value=<%=adto.getAccount_name()%>/>
+									</td>
+									<td width="70%" height="100px"><textarea name="content" style="width:100%; height:100px;" ></textarea></td>
+									<td width="15%" style="padding-left:20px;"><input type="submit" id="commentsave" value="댓글등록" onclick="fnSessionCheck()"/></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</form>
 			</div>
 		</div>
 		

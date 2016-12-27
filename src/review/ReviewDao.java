@@ -94,13 +94,14 @@ public class ReviewDao {
 
 		try {
 			con = ds.getConnection();
-			sql = "select review_no, account_name, manager_name, title, content, date, grade from review_board where review_no=?";
+			sql = "select review_no, account_name,account_no, manager_name, title, content, date, grade from review_board where review_no=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, Integer.parseInt(review_no));
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				dto.setReview_no(rs.getInt("review_no"));
+				dto.setAccount_no(rs.getInt("account_no"));
 				dto.setAccount_name(rs.getString("account_name"));
 				dto.setManager_name(rs.getString("manager_name"));
 				dto.setTitle(rs.getString("title"));
@@ -246,8 +247,8 @@ public class ReviewDao {
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, 1); // ?��?�� account_no
-			pstmt.setString(2, "?��?��?��"); //?��?�� account_name.. ?��?��?��?�� 받아?���?
+			pstmt.setInt(1, dto.getAccount_no()); // ?��?�� account_no
+			pstmt.setString(2, dto.getAccount_name()); //?��?�� account_name.. ?��?��?��?�� 받아?���?
 			pstmt.setInt(3, dto.getReview_no());
 			pstmt.setString(4, dto.getContent());
 

@@ -96,7 +96,7 @@
                               if (list.size() == 0) {
                            %>
                            <tr>
-                              <td>등록된 글이 없습니다.</td>
+                              <td colspan="5" style="text-align:center;">등록된 글이 없습니다.</td>
                            </tr>
                            <%
                               } else {
@@ -120,7 +120,6 @@
                            </tbody>
                 </table>
                 <div class="col-md-12">
-						<div class="col-md-4">
 <%
                       if (nowBlock > 0) {
 %>
@@ -145,12 +144,11 @@
 <%
                       }
  %>
-						</div>
-						<div class="col-md-4">
-							<input type="button" id="write" value="글쓰기" class="btn btn-default" onClick="location.href='review_Post.jsp'"/>
-							<input type="button" id="lsit" value="목록" class="btn btn-default" onClick="location.href='review_List.jsp'"/>
-						</div>
 					</div>			
+					<div class="col-md-12" style="text-align:center;">
+						<input type="button" id="write" value="글쓰기" class="btn btn-primary" onClick="location.href='review_Post.jsp'"/>
+						<input type="button" id="lsit" value="목록" class="btn btn-default" onClick="location.href='review_List.jsp'"/>
+					</div>
 					
 				
                <BR>

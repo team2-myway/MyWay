@@ -63,8 +63,8 @@
 			<div class="col-md-12">
 				<div class="col-md-12">
 					<form action="inquiry_List.jsp" name="search" method="post">
-						<div align="right">
-							<div class="col-md-3">
+						<div align="right" style="margin-right:auto;">
+							<div class="col-md-3" >
 								<select name="keyField" size="1">
 										<option value="title">제목
 										<option value="account_name">글쓴이

@@ -82,7 +82,7 @@ public class InquiryDao {
 	public boolean insertBoard(InquiryDto dto) {
 		boolean result = false;
 		String sql = "insert into inquiry_board(account_no, account_name, title, date, category, content, depth, position) values(?,?,?,now(),?,?,?,?)";
-
+		System.out.println(sql);
 		try{
 			con = ds.getConnection();
 			
@@ -116,7 +116,7 @@ public class InquiryDao {
 		
 		try{
 			con = ds.getConnection();
-			sql = "select board_no, account_name, title, category, content, date from inquiry_board where board_no=?";
+			sql = "select board_no, account_name,account_no, title, category, content, date from inquiry_board where board_no=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, board_no);
 			rs = pstmt.executeQuery();
@@ -124,6 +124,7 @@ public class InquiryDao {
 			while(rs.next()){
 				dto.setBoard_no(rs.getInt("board_no"));
 				dto.setAccount_name(rs.getString("account_name"));
+				dto.setAccount_no(rs.getInt("account_no"));
 				dto.setTitle(rs.getString("title"));
 				dto.setCategory(rs.getString("category"));			
 				dto.setContent(rs.getString("content"));

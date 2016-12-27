@@ -7,6 +7,7 @@
 
 <jsp:setProperty property="account_name" name="dto"/>
 <jsp:setProperty property="manager_name" name="dto"/>
+<jsp:setProperty property="account_no" name="dto"/>
 <jsp:setProperty property="title" name="dto"/>
 <jsp:setProperty property="grade" name="dto"/>
 <jsp:setProperty property="date" name="dto"/>

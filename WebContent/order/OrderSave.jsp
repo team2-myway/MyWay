@@ -56,8 +56,10 @@
 		//String 배열을 int 배열로 바꾸기 위함
 		String[] sidemenus = request.getParameterValues("side_menu_no[]");
 		int[] SideNo = new int[sidemenus.length];
+		System.out.println(sidemenus.length);
 		for(int i=0; i<sidemenus.length; i++){
 			SideNo[i] = Integer.parseInt(sidemenus[i]);
+			//System.out.println(SideNo[i]);
 		}
 
 		String[] sidemenucount = request.getParameterValues("sidemenu_count");
@@ -70,8 +72,9 @@
 		int[] SideCountPrice = new int[sidemeuncountprice.length];
 		for(int i=0; i<sidemeuncountprice.length; i++){
 			SideCountPrice[i] = Integer.parseInt(sidemeuncountprice[i]);
-		}
 		
+		}
+			
 		
 		dto.setSide_menu_noList(SideNo);
 		dto.setSide_menu_countList(SideCount);

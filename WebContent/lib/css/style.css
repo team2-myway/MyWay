@@ -249,13 +249,6 @@ div {
 	padding:0;
 }
 
-blockquote, 
-code, 
-input, 
-textarea {
-	margin:0;
-	padding:0;
-}
 
 object, 
 video, 
@@ -292,11 +285,6 @@ textarea {
 	box-sizing:border-box;
 }
 
-textarea {
-	min-height:260px;
-	overflow:hidden;
-	resize:none;
-}
 
 h1, 
 h2, 
@@ -2857,7 +2845,7 @@ form input[type="submit"] {margin-bottom:5px;}
 
 .widget_custom_contact_form_entries .loading {margin-right:20px;}
 
-.widget_custom_contact_form_entries textarea {min-height:120px;}
+.widget_custom_contact_form_entries textarea {min-height:100px;}
 
 .bottom_inner .cmsms-form-builder .form_info.cmsms_textarea {padding:0 0 13px}
 
@@ -5274,7 +5262,6 @@ textarea {padding:8px 10px;}
 
 #commentform textarea {
 	margin-top:9px;
-	min-height:260px;
 	width:90%;
 	resize:none;
 }

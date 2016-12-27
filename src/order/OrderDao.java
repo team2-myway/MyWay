@@ -153,7 +153,6 @@ public class OrderDao {
 					+ "left join account a on a.account_no = m.store_no "
 					+ "where m.account_no="+account_no +" and d.favorite ='ok'";
 		}
-		System.out.println(sql);
 		//System.out.println(sql);
 		try{
 			con = ds.getConnection();

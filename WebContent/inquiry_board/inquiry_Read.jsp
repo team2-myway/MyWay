@@ -5,6 +5,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+	.color{
+		background-color:#E4F7BA;
+	}
+
+</style>
 <link rel="stylesheet" href="../lib/daumeditor/css/editor.css"
 	type="text/css" charset="utf-8" />
 <script
@@ -19,6 +25,12 @@
 	AccountDao adao = new AccountDao();
 	adto = adao.session(session.getAttribute("id"));
 	String session_level = adto.getLevel();
+	int session_account_no = (Integer)session.getAttribute("account_no");
+	int account_no = Integer.parseInt(request.getParameter("account_no"));
+	int board_no = Integer.parseInt(request.getParameter("board_no"));
+	
+	
+	
 %>
 <script>
 	function fnReplyCheck(board_no) {
@@ -37,37 +49,52 @@
 <body class="page">
 <%
 	request.setCharacterEncoding("UTF-8");
-	int account_no = Integer.parseInt(request.getParameter("account_no"));
-	int board_no = Integer.parseInt(request.getParameter("board_no"));
 	dto = dao.getInquiryRead(board_no);
+
 %>
 	<section id="page" class="csstransition cmsms_resp hfeed site">
 		<%@ include file="../include/header.jsp"%>
 		<div class="container">
 			<div class="col-md-12">
+				<h3>문의 사항</h3>
 				<div class="col-md-12">
-					<form method="post" accept-charset="utf-8">
-						<table width=80% align=left cellpadding=4 cellspacing=0 boarder="1">
+					<button class="btn btn-success" onclick="ListBack()">리스트 보기</button>
+				</div>
+				<div class="col-md-12" style="padding-top:20px;">
+					<table class="table" width=100% cellpadding=4 cellspacing=0 border="1">
 							<tr>
-								<td align=left>제 목</td>
-								<td size=40><%=dto.getTitle() %></td>
+								<td class="color" style="width:100px; text-align:center;">제 목</td>
+								<td colspan="3"><%=dto.getTitle() %></td>
 							</tr>
 							<tr>
-								<td>카테고리</td>
+								<td class="color" style="text-align:center;">작성자</td>
+								<td style="width:450px;"><b><%=dto.getAccount_name()%></b></td>
+								<td class="color" style="width:100px; text-align:center;">카테고리</td>
 								<td><%=dto.getCategory() %></td>
 							</tr>
-							
 							<tr>
-								<td>내용</td>
-								<td><%=dto.getContent() %> </td>
+								<td class="color" style="text-align:center;">내용</td>
+								<td colspan="4"><%=dto.getContent() %> </td>
 							</tr>
 							<tr>
-								<td colspan="2"><input type="button" id="modify" value="수정" onclick="location.href='inquiry_UpdateChk.jsp?account_no=<%=account_no%>&board_no=<%=dto.getBoard_no()%>'"/>
-									<input type="button" id="delete" value="삭제" onclick="location.href='inquiry_Delete.jsp?account_no=<%=account_no%>&board_no=<%=dto.getBoard_no()%>'"/>
-									<input type="button" id="reply" value="답변" onclick="fnReplyCheck('<%=dto.getBoard_no()%>')"/></td>
+								<td colspan="4" style="text-align:center;">
+								<%
+									if(session_level.equals("super") || session_account_no == dto.getAccount_no()){
+									%>
+									<input type="button" class="btn btn-warning" id="modify" value="수정" onclick="location.href='inquiry_UpdateChk.jsp?account_no=<%=account_no%>&board_no=<%=dto.getBoard_no()%>'"/>
+									<input type="button" class="btn btn-danger" id="delete" value="삭제" onclick="location.href='inquiry_Delete.jsp?account_no=<%=account_no%>&board_no=<%=dto.getBoard_no()%>'"/>
+									<%
+									}
+								%>
+								<%
+									if(session_level.equals("super")){
+								%>
+									<input type="button" class="btn btn-info" id="reply" value="답변" onclick="fnReplyCheck('<%=dto.getBoard_no()%>')"/></td>
+								<%
+									}
+								%>
 							</tr>
 						</table>
-					</form>
 				</div>
 			</div>
 		</div>
@@ -79,5 +106,10 @@
 	</section>
 	<script src="../lib/bootstrap/js/jquery-3.1.1.min.js"></script>
 	<script src="../lib/bootstrap/js/bootstrap.js"></script>
+	<script>
+	function ListBack(){
+		location.href="inquiry_List.jsp";
+	}
+	</script>
 </body>
 </html>

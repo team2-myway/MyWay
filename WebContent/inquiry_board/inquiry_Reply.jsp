@@ -60,36 +60,40 @@ function setForm(editor) {
 		<div class="container">
 			<div class="col-md-12">
 				<div class="col-md-12">
+					<h3>답변</h3>
+					<div class="col-md-offset-1 col-md-10" style="padding-top:20px;">
 					<form name="tx_editor_form" id="tx_editor_form" action="inquiry_ReplyProc.jsp" method="post" accept-charset="utf-8">
 						<input type="hidden" name="board_no" value="<%=board_no%>" />
-						<table>
+						<table style="width:100%;">
 							<tr>
 								<td align=left>제 목</td>
-								<td><input type=text name=title size=40 maxlength=20></td>
+								<td colspan="3"><input type=text name=title size=40 maxlength=20 width="100%"></td>
 							</tr>
 							<tr>	
-								<td>카테고리</td>
-								<td>
-								<select name="category">
+								<td width="15%" style="padding-top:10px;">글쓴이</td>
+								<td width="35%" style="padding-top:10px;">
+									<%=adto.getAccount_name()%>
+									<input type=hidden name=account_name size=40 maxlength=20 value="<%=adto.getAccount_name()%>">
+								</td>
+								<td width="15%" style="padding-top:10px;">카테고리</td>
+								<td width="35%" style="padding-top:10px;">
+									<select name="category">
 										<option value="답변">답변</option>
-								</select>
+									</select>
 								</td>
 							</tr>
-							<tr>	
-								<td>글쓴이</td>
-								<td><input type=text name=account_name size=40 maxlength=20 value="<%=adto.getAccount_name()%>"></td>
-							</tr>
-
 							<tr>
-								<td>내용</td>
-								<td id="editorTd"></td>
+								<td id="editorTd" colspan="4" style="padding-top:10px;"></td>
 							</tr>
 							<tr>
-								<td colspan="2"><input type="button" id="save" value="저장" onclick="check()"/>
-									<input type="reset" value="다시쓰기" /></td>
+								<td colspan="4" style="text-align:center;">
+									<input type="button" class="btn btn-primary" id="save" value="저장" onclick="check()"/>
+									<input type="reset"  class="btn btn-warning" value="다시쓰기" />
+								</td>
 							</tr>
 						</table>
 					</form>
+					</div>
 				</div>
 			</div>
 		</div>

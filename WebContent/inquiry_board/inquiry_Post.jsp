@@ -62,18 +62,19 @@ function setForm(editor) {
 		<div class="container">
 			<div class="col-md-12">
 				<div class="col-md-12">
-					<div class="col-md-offset-2 col-md-8">
+					<h3>문의사항 글쓰기</h3>
+				</div>
+				<div class="col-md-12" style="padding-top:20px;">
+					<div class="col-md-offset-1 col-md-10">
 						<form name="post_form" id="tx_editor_form" action="inquiry_PostProc.jsp?account_no=<%=adto.getAccount_no()%>" method="post" accept-charset="utf-8">
 					<div class="form-group">
-						<table>
+						<table style="width:800px;">
 							<tr>
-								<td><label for="title">제 목</label></td>
-								<td><input type=text name=title maxlength=20 /></td>
-							</tr>
-							<tr>
-								<td><label for="title">카테고리</label>&nbsp;&nbsp;&nbsp;</td>
-								<td>
-								<select name="category">
+								<td width="10%"><label for="title">제 목</label></td>
+								<td width="40%"><input type=text name="title" maxlength=20 style="width:90%;" /></td>
+								<td width="10%"><label for="title" >카테고리</label></td>
+								<td width="40%" >
+								<select name="category" style="width:90%;">
 									<option value="공지">공지</option>
 									<option value="문의" selected>문의</option>
 								</select>
@@ -81,13 +82,15 @@ function setForm(editor) {
 							</tr>
 							<tr>
 								<td><label for="title">이 름</label></td>
-								<td><input type=text name=account_name maxlength=20 value="<%=adto.getAccount_name()%>"></td>
+								<td colspan="3">
+									<label><%=adto.getAccount_name()%></label>
+									<input type=hidden name="account_name" maxlength=20 style="width:40%;" value="<%=adto.getAccount_name()%>"></td>
 							</tr>
 							<tr>
-								<td id="editorTd" colspan="2"></td>
+								<td id="editorTd" colspan="4"></td>
 							</tr>
 							<tr align="center">
-								<td colspan="2"><input type="button" id="save" value="저장"
+								<td colspan="4"><input type="button" id="save" value="저장"
 									class="btn btn-default" onClick="check()" /> <input
 									type="reset" class="btn btn-default" value="다시쓰기" /></td>
 							</tr>
@@ -121,7 +124,8 @@ function setForm(editor) {
 			}
 		});	
 		$("#save").click(function(){
-			Editor.save(); 
+			Editor.save();
+			//location.href="inquiry_List.jsp";
 		})
 	})
 	
