@@ -167,7 +167,7 @@
 						}
 						if (totalBlock > nowBlock + 1) {
 %>
-							&nbsp;&nbsp;&nbsp;:::<a href="List.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=(nowBlock + 1)%>">다음
+							&nbsp;&nbsp;&nbsp;:::<a href="store_detail.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=(nowBlock + 1)%>">다음
 							<%=pagePerBlock%>개 </a> 
 <%
  						}

@@ -19,7 +19,7 @@
 <html>
 <head>
 
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
 	.sauce{
@@ -556,10 +556,13 @@
 				var size = $(":radio[name='menu_size']:checked").val();
 			});
 			$("#Order_Save").click(function(){
-				SelectValues();
+				SelectValues('order');
 			});
 			$("#SideOrder_Save").click(function(){
 				SideOrderSave();
+			});
+			$("#DetailOrder_Save").click(function(){
+				SelectValues('detail');
 			});
 		
 		});
@@ -748,12 +751,12 @@
 			$("#CountPirce").val(menuPrice);
 			$("#Html_CountPrice").html(menuPrice);
 		}
-		function SelectValues(){
+		function SelectValues(type){
 			selectVegRow();
 			selectSauRow();
-			OrderSave_Check();
+			OrderSave_Check(type);
 		}
-		function OrderSave_Check(){
+		function OrderSave_Check(type){
 		
 			var menu_no = $(":radio[name='menu_no']:checked").val();
 			var bread_no = $(":radio[name='bread_no']:checked").val();
@@ -779,20 +782,25 @@
 				alert("소스를 선택 해 주세요.");
 				return;
 			}
-			
-			OrderSave();
+				OrderSave(type);
+			//	OrderSave();
 		}
 		
-		function OrderSave(){
+		function OrderSave(type){
 			 var param = $("#OrderSaveForm").serialize();
-			sendRequest("POST","OrderSave.jsp", DetailOrderSaveBack,param);
+			sendRequest("POST","OrderSave.jsp", DetailOrderSaveBack(type),param);
 			
 		}
-		function DetailOrderSaveBack(){
+		function DetailOrderSaveBack(type){
 			if(httpRequest.readyState == 4){
 				if(httpRequest.status == 200){
-					alert("저장 성공!");
-					location.href="OrderList.jsp";
+					alert("주문 완료!");
+					if(type=='detail'){
+						location.reload();
+						$('#manage_addr').focus();
+					}else{
+						location.href="OrderList.jsp";
+					}
 			 		//	alert(httpRequest.responseText);
 			 	}else{
 					alert(httpRequest.status);

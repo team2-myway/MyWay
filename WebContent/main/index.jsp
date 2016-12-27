@@ -136,7 +136,7 @@
 								</li>
 								<li data-transition="random" data-slotamount="7" data-masterspeed="300" >
 									<!-- MAIN IMAGE -->				
-									<img src="../lib/images/main/6-1.PNG"  alt="6"  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">				
+									<img src="../lib/images/main/6.PNG"  alt="6"  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">				
 
 								</li>
 								<li data-transition="random" data-slotamount="7" data-masterspeed="300" >
@@ -145,15 +145,15 @@
 								</li>
 								<li data-transition="random" data-slotamount="7" data-masterspeed="300" >
 									<!-- MAIN IMAGE -->				
-									<img src="../lib/images/main/8.PNG"  alt="8"  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">				
+									<img src="../lib/images/main/8-1.PNG"  alt="8-1"  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">				
 								</li>
 								<li data-transition="random" data-slotamount="7" data-masterspeed="300" >
 									<!-- MAIN IMAGE -->				
-									<img src="../lib/images/main/9-2.PNG"  alt="9-2" style="width:80%" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">				
+									<img src="../lib/images/main/16.png"  alt="16" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">				
 								</li>
 								<li data-transition="random" data-slotamount="7" data-masterspeed="300" >
 									<!-- MAIN IMAGE -->				
-									<img src="../lib/images/main/10.PNG"  alt="10"  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">				
+									<img src="../lib/images/main/17.png"  alt="17"  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">				
 								</li>
 								
 							</ul>

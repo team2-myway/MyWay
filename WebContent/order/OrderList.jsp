@@ -12,7 +12,32 @@
 <%
 	//int account_no = (int)session.getAttribute("account_no");
 	int account_no = 5;	
+	ArrayList OrderList = dao.MyOrderList(account_no,"orderlist");
+	
+	int totalRecord = 0; //전체 글의 갯수
+	int numPerPage = 7; //한페이지당 글의 개수
+	int pagePerBlock = 3; //한 블럭 당 페이지 수
+	int totalPage = 0; //전체 페이지 수
+	int totalBlock = 0; //전체 블록의 수
+	int nowPage = 0; //현재 페이지 번호
+	int nowBlock = 0; //현재 블럭 번호
+	int beginPerPage = 0; //페이지당 시작번호
 
+	totalRecord = OrderList.size();
+	totalPage = (int) Math.ceil(((double) totalRecord / numPerPage));
+	totalBlock = (int) Math.ceil(((double) totalPage / pagePerBlock));
+
+	if (request.getParameter("nowPage") != null) {
+		nowPage = Integer.parseInt(request.getParameter("nowPage"));
+	}
+
+	if (request.getParameter("nowBlock") != null) {
+			nowBlock = Integer.parseInt(request.getParameter("nowBlock"));
+	}
+
+	beginPerPage = nowPage * numPerPage;
+
+	
 %>
 <body class="page">
 	<section id="page" class="csstransition cmsms_resp hfeed site">
@@ -30,8 +55,10 @@
 			</tr>
 			<%
 				try {
-					ArrayList OrderList = dao.MyOrderList(account_no,"orderlist");
-					for (int i = 0; i < OrderList.size(); i++) {
+					for (int i = beginPerPage; i < beginPerPage + numPerPage; i++) {
+						if (i == totalRecord){
+							break;
+						}
 					OrderDto dto = (OrderDto) OrderList.get(i);
 					if(dto.getBread_name() != null){
 				%>
@@ -88,6 +115,37 @@
 					}
 			%>
 		 </table>
+		<div class="col-md-12" style="text-align:center">
+			<table>
+					<tr>
+							<td align="left">Go to Page &nbsp;&nbsp;&nbsp;&nbsp; 
+	<%
+	 						if (nowBlock > 0) {
+	%> 
+	 						<a href="OrderList.jsp?nowPage=<%=(nowBlock - 1) * pagePerBlock%>&nowBlock=<%=(nowBlock - 1)%>">이전 <%=pagePerBlock%>개
+							</a>:::&nbsp;&nbsp;&nbsp; 
+	<%
+	 						}
+	%> 
+	<%
+	 						for (int i = 0; i < pagePerBlock; i++) {
+	 							if ((nowBlock * pagePerBlock) + i == totalPage)
+	 								break;
+	 %> 
+	 							<a href="OrderList.jsp?nowPage=<%=i + (nowBlock * pagePerBlock)%>&nowBlock=<%=nowBlock%>"><%=i + 1 + (nowBlock * pagePerBlock)%></a>&nbsp;&nbsp;&nbsp;
+	<%
+							}
+							if (totalBlock > nowBlock + 1) {
+	%>
+								&nbsp;&nbsp;&nbsp;:::<a href="OrderList.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=(nowBlock + 1)%>">다음
+								<%=pagePerBlock%>개 </a> 
+	<%
+	 						}
+	%>
+							</td>
+						</tr>
+			</table>
+		</div>
 		
 		</div>
 		<div style="height: 50px;">&nbsp;</div>
