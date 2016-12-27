@@ -111,7 +111,7 @@ public class MenuDao {
 	//�󼼺���
 	public MenuDto MenuDetailList(int menu_no){
 		MenuDto dto = new MenuDto();
-		String sql = "select class, menu_size, menu_name, calorie, price, detail, sauce_no from menu where menu_no=?";
+		String sql = "select image, class, menu_size, menu_name, calorie, price, detail, sauce_no from menu where menu_no=?";
 		try{
 			con = ds.getConnection();
 			stmt = con.prepareStatement(sql);
@@ -119,6 +119,7 @@ public class MenuDao {
 			rs = stmt.executeQuery();
 			
 			while(rs.next()){
+				dto.setM_img(rs.getString("image"));
 				dto.setM_class(rs.getString("class"));
 				dto.setM_size(rs.getString("menu_size"));
 				dto.setM_name(rs.getString("menu_name"));

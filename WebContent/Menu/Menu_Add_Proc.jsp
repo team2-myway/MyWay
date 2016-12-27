@@ -33,7 +33,7 @@ String path1 = request.getRealPath("/menu");
 	dto.setM_class(menu_class);
 	dto.setM_calorie(calorie);
 	dto.setM_price(price);
-	dto.setM_img(fileFullPath);
+	dto.setM_img("/MyWay/Menu/"+filename1);
 	dto.setM_recomsauce(recomsauce);
 	dto.setM_size(size);
 	dto.setM_detail(detail);
