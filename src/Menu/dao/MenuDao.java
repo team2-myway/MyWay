@@ -111,11 +111,11 @@ public class MenuDao {
 	//�󼼺���
 	public MenuDto MenuDetailList(int menu_no){
 		MenuDto dto = new MenuDto();
-<<<<<<< HEAD
+
 		String sql = "select class, menu_size, menu_name, image, calorie, price, detail, sauce_no from menu where menu_no=?";
-=======
-		String sql = "select image, class, menu_size, menu_name, calorie, price, detail, sauce_no from menu where menu_no=?";
->>>>>>> refs/remotes/origin/Wan
+
+		//String sql = "select image, class, menu_size, menu_name, calorie, price, detail, sauce_no from menu where menu_no=?";
+
 		try{
 			con = ds.getConnection();
 			stmt = con.prepareStatement(sql);

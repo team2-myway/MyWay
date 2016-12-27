@@ -22,11 +22,8 @@
 <br><br>
 	<tr>
 		<td><%=dto.getM_name() %></td><br><br>
-<<<<<<< HEAD
-		<td><img src="<%=dto.getM_img()%>"></td><br><br>
-=======
 		<td><img src="<%=dto.getM_img()%>"/></td><br><br>
->>>>>>> refs/remotes/origin/Wan
+
 		
 			<td valign="top" align=left>
 					<text name="detail"><%=dto.getM_detail() %></text>

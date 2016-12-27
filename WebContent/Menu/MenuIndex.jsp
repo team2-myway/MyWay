@@ -27,7 +27,7 @@
 	for(int i=0; i<menulist.size(); i++){
 			dto = (MenuDto)menulist.get(i);
 %>
-<<<<<<< HEAD
+
 							<tr>
 								<td><img src="<%=dto.getM_img()%>"></td>
 								<td><a href="Menu_Detail.jsp?menu_no=<%=dto.getM_no()%>"><%=dto.getM_name() %></a></td>
@@ -35,7 +35,7 @@
 								<td><input type="button" value="수정" onclick="location.href='Menu_Edit.jsp?menu_no=<%=dto.getM_no()%>'" /></td>
 								<td><input type="button" value="삭제" onclick="location.href='Menu_Del.jsp?menu_no=<%=dto.getM_no()%>'" /></td>
 							</tr>
-=======
+
 							<div class="col-md-4" style=" height:450px; text-align:center; ">
 		<article class="service type-service hentry one_fourth format-slider col-md-12">
 			<figure>
@@ -47,7 +47,6 @@
 						<td><a href="Menu_Detail.jsp?menu_no=<%=dto.getM_no()%>"><%=dto.getM_name() %></a></td>
 						<td><input type="button" value="수정" onclick="location.href='Menu_Edit.jsp?menu_no=<%=dto.getM_no()%>'" /></td>
 						<td><input type="button" value="삭제" onclick="location.href='Menu_del.jsp?menu_no=<%=dto.getM_no()%>'" /></td>
->>>>>>> refs/remotes/origin/Wan
 							
 						<span class="image_rollover"></span>
 					</span>
