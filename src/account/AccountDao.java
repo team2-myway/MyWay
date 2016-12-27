@@ -205,38 +205,7 @@ public class AccountDao {
 				freeConnection();
 			}
 		}
-		/*
-		public void editSawon(Sawon dto) {
-			String sql = "update tblsawon set s_pass = ?,s_age=?,s_addr=?,s_dept=? where s_no = ?";
-			try {
-				con = ds.getConnection();
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, dto.getS_pass());
-				pstmt.setInt(2, dto.getS_age());
-				pstmt.setString(3, dto.getS_addr());
-				pstmt.setString(4, dto.getS_dept());
-				pstmt.setInt(5, dto.getS_no());
-				pstmt.executeUpdate();
-			} catch (Exception e) {
-				System.out.println("editSawon() : " + e);
-			} finally {
-				freeConnection();
-			}
-		}
-*/
-		/*
-		public void delSawon(int no) {
-			String sql = "delete from tblsawon where s_no =?";
-			try {
-				con = ds.getConnection();
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, no);
-				pstmt.executeUpdate();
-			} catch (Exception e) {
-				System.out.println("delSawon() : " + e);
-			}
-		}
-*/
+
 		public void freeConnection() {
 			if (rs != null) {
 				try {

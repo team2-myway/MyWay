@@ -50,6 +50,10 @@ function setForm(editor) {
 <%
 	request.setCharacterEncoding("UTF-8");
 	int board_no = Integer.parseInt(request.getParameter("board_no"));
+	AccountDao adao = new AccountDao();
+	AccountDto adto = new AccountDto();
+	adto = adao.session(session.getAttribute("id"));
+	
 %>
 	<section id="page" class="csstransition cmsms_resp hfeed site">
 		<%@ include file="../include/header.jsp"%>
@@ -73,7 +77,7 @@ function setForm(editor) {
 							</tr>
 							<tr>	
 								<td>글쓴이</td>
-								<td><input type=text name=account_name size=40 maxlength=20></td>
+								<td><input type=text name=account_name size=40 maxlength=20 value="<%=adto.getAccount_name()%>"></td>
 							</tr>
 
 							<tr>

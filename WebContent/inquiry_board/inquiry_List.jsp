@@ -63,33 +63,35 @@
 			<div class="col-md-12">
 				<div class="col-md-12">
 					<form action="inquiry_List.jsp" name="search" method="post">
-						<table width=80% align=center cellpadding=4 cellspacing=0>
-							<tr>
-								<td align=right valign=bottom>
+						<div align="right">
+							<div class="col-md-3">
 								<select name="keyField" size="1">
 										<option value="title">제목
 										<option value="account_name">글쓴이
 										<option value="content">내용
 								</select> 
-									<input type="text" size="16" name="keyWord"> 
-									<input type="button" value="검색" onClick="check()"> 
-									<input type="hidden" name="page" value="0">
-								</td>
-							</tr>
-						</table>
+							</div>
+							<div class="col-md-3">
+								<input type="text" size="16" name="keyWord"> 
+								<button type="submit" value="검색" class="btn btn-info" onClick="check()" >
+									<span class="glyphicon glyphicon-search"></span>
+								</button>
+								<input type="hidden" name="page" value="0">
+							</div>
+						</div>
 					</form>
-
-					<table align=center width=80% border=0 cellspacing=0 cellpadding=3>
-						<tr>
-							<td align=center colspan=2>
-								<table border=1 width=100% cellpadding=2 cellspacing=0>
-									<tr align=center height=120%>
-										<td width=10% name=board_no>No</td>
-										<td width=10% name=category>카테고리</td>
-										<td width=60% name=title>제목</td>
-										<td width=10% name=account_name>글쓴이</td>
-										<td width=10% name=date>날짜</td>
-									</tr>
+					
+					<table border=1 width=100% cellpadding=2 cellspacing=0 class="table table-bordered table-hover table-condensed table-striped">
+						   <thead>
+                           <tr align=center height=120%>
+							<td width=10% name=board_no>No</td>
+							<td width=10% name=category>카테고리</td>
+							<td width=60% name=title>제목</td>
+							<td width=10% name=account_name>글쓴이</td>
+							<td width=10% name=date>날짜</td>
+							</tr>
+                           </thead>
+                           <tbody>
 									<%
 										if (list.size() == 0) {
 									%>
@@ -122,19 +124,16 @@
 										<td><%=dto.getAccount_name()%></td>
 										<td><%=dto.getDate()%></td>
 									</tr>
-									<%
-										}
-										}
-									%>
-								</table>
-							</td>
-						</tr>
-						<tr>
-							<td><BR> <BR></td>
-						</tr>
-						<tr>
-							<td align="left">Go to Page &nbsp;&nbsp;&nbsp;
 <%
+										}
+									}
+%>
+						</tbody>
+					</table>
+					
+					<div class="col-md-12">
+						<div class="col-md-4">
+							<%
 						 	if (nowBlock > 0) {
 %>
 							<a href="inquiry_List.jsp?nowBlock=<%=nowBlock - 1%>&nowPage=<%=(nowBlock - 1) * pagePerBlock%>">이전 <%=pagePerBlock%>개
@@ -158,11 +157,13 @@
 <%
  							}
  %>
-							</td>
-							<td align=right><a href="inquiry_Post.jsp">[글쓰기]</a> <a
-								href="inquiry_List.jsp">[처음으로]</a></td>
-						</tr>
-					</table>
+						</div>
+						<div class="col-md-4">
+							<input type="button" id="write" value="글쓰기" class="btn btn-default" onClick="location.href='inquiry_Post.jsp'"/>
+							<input type="button" id="lsit" value="목록" class="btn btn-default" onClick="location.href='inquiry_List.jsp'"/>
+						</div>
+					</div>			
+					
 					<BR>
 				</div>
 			</div>

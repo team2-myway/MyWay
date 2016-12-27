@@ -63,33 +63,27 @@ function setForm(editor) {
 			<div class="col-md-12">
 				<div class="col-md-12">
 					<form name="post_form" id="tx_editor_form" action="inquiry_PostProc.jsp?account_no=<%=adto.getAccount_no()%>" method="post" accept-charset="utf-8">
-						<table>
+						 <div class="form-group" >
+							<label for="title" >제     목</label>&nbsp;&nbsp;&nbsp;<input type=text name=title maxlength=20 />
+							<br>
+							<label for="title" >카테고리</label>&nbsp;&nbsp;&nbsp;
+							<select name="category">
+									<option value="공지">공지</option>
+									<option value="문의" selected>문의</option>
+							</select>
+							<br>
+							<label for="title" >이     름</label>&nbsp;&nbsp;&nbsp;<input type=text name=account_name maxlength=20 value="<%=adto.getAccount_name()%>">
+							<br>
+							<table>
 							<tr>
-								<td align=left>제 목</td>
-								<td><input type=text name=title size=40 maxlength=20></td>
-							</tr>
-							<tr>	
-								<td>카테고리</td>
-								<td>
-								<select name="category">
-										<option value="공지">공지</option>
-										<option value="문의" selected>문의</option>
-								</select>
-								</td>
-							</tr>
-							<tr>	
-								<td>이름</td>
-                        		<td><input type=text name=account_name size=40 maxlength=20 value="<%=adto.getAccount_name()%>"></td>
-							</tr>
-							<tr>
-								<td>내용</td>
 								<td id="editorTd"></td>
 							</tr>
-							<tr>
-								<td colspan="2"><input type="button" id="save" value="저장" onClick="check()"/>
-									<input type="reset" value="다시쓰기" /></td>
+							<tr align="center">
+								<td colspan="2"><input type="button" id="save" value="저장" class="btn btn-default" onClick="check()"/>
+									<input type="reset" class="btn btn-default" value="다시쓰기" /></td>
 							</tr>
-						</table>
+							</table>
+						 </div>
 					</form>
 				</div>
 			</div>

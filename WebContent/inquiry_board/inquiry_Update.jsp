@@ -76,25 +76,29 @@ function setForm(editor) {
 				<div class="col-md-12">
 					<form name="tx_editor_form" id="tx_editor_form" action="inquiry_UpdateProc.jsp?board_no=<%=dto.getBoard_no()%>" method="post" accept-charset="utf-8">
 						<textarea id="content2" name="content2" style="display:none"><%=dto.getContent() %></textarea>
-						<table>
+						 <div class="form-group" >
+							<label for="title" >제     목</label>&nbsp;&nbsp;&nbsp;<input type=text name=title size=40 maxlength=20 value=<%=dto.getTitle()%> />
+							<br>
+							<label for="title" >카테고리</label>&nbsp;&nbsp;&nbsp;
+							<select name="category">
+									<option value="공지">공지</option>
+									<option value="문의" selected>문의</option>
+							</select>
+							<br>
+							<label for="title" >이     름</label>&nbsp;&nbsp;&nbsp;<input type=text name=account_name maxlength=20 value="<%=dto.getAccount_name()%>">
+							<br>
+							<table>
 							<tr>
-								<td align=left>제 목</td>
-								<td><input type=text name=title size=40 maxlength=20 value=<%=dto.getTitle()%> /></td>
-							</tr>
-							<tr>
-								<td>카테고리</td>
-								<td><input type=text name=category size=40 maxlength=30 value=<%=dto.getCategory()%>></td>
-							</tr>
-							
-							<tr>
-								<td>내용</td>
 								<td id="editorTd"></td>
 							</tr>
-							<tr>
-								<td colspan="2"><input type="button" id="save" value="저장" onclick="check()"/>
-									<input type="reset" value="취소" /></td>
+							<tr align="center">
+								<td colspan="2"><input type="button" id="save" value="저장" class="btn btn-default" onclick="check()"/>
+									<input type="reset" class="btn btn-default" value="다시쓰기" /></td>
 							</tr>
-						</table>
+							</table>
+						 </div>
+						
+				
 					</form>
 				</div>
 			</div>

@@ -89,15 +89,11 @@
 	getGrade();
 	SelManagerAddr();
 
-
  }
 </script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-
-
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>후기글 수정</title>
 </head>
 <body class="page">
    <section id="page" class="csstransition cmsms_resp hfeed site">

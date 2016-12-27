@@ -152,22 +152,22 @@ public class StoreDao {
 		try{
 			con = ds.getConnection();
 			if(detail_date.equals("today")) {
-				sql = "select sum(m.total) as total from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='�����Ϸ�' and m.date>curdate()";
+				sql = "select sum(m.total) as total from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='pay_com' and m.date>curdate()";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 			} else if(detail_date.equals("month")) {
-				sql = "select sum(m.total) as total from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='�����Ϸ�' and date(m.date)>=date_format(now(), '%Y-%m-01') and date(m.date) <= last_day(now())";
+				sql = "select sum(m.total) as total from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='pay_com' and date(m.date)>=date_format(now(), '%Y-%m-01') and date(m.date) <= last_day(now())";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 			} else if(detail_date == null || detail_date.isEmpty() || detail_date.equals("total")) {
-				sql = "select sum(m.total) as total from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='�����Ϸ�'";
+				sql = "select sum(m.total) as total from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='pay_com'";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 			} else {
 				String[] date = detail_date.split("-");
 				String date1 = date[0]+"-"+date[1]+"-"+date[2];
 				String date2 = date[3]+"-"+date[4]+"-"+date[5];
-				sql = "select sum(m.total) as total from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='�����Ϸ�' and date(m.date)>=? and date(m.date)<=?";
+				sql = "select sum(m.total) as total from account a INNER JOIN main_order m ON a.account_no=m.account_no where a.account_no=? and status='pay_com' and date(m.date)>=? and date(m.date)<=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 				pstmt.setDate(2, java.sql.Date.valueOf(date1));
@@ -193,11 +193,11 @@ public class StoreDao {
 		try{
 			con = ds.getConnection();
 			
-			String sql = "update main_order set status='order_com' where account_no=? and order_code=?";
+			String sql = "update main_order set status='pay_com' where account_no=? and order_code=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, account_no);
 			pstmt.setString(2, order_code);
-			pstmt.executeUpdate();
+			//pstmt.executeUpdate();
 			if(pstmt.executeUpdate() == 1) {
 				updateResult = true;
 			} else {
