@@ -480,7 +480,7 @@
 						</tr>
 						<%
 				try {
-					ArrayList OrderList = dao.MyOrderList(account_no,"favorite");
+					ArrayList OrderList = dao.MyOrderList(account_no,"favorite",null,null);
 					for (int i = 0; i < OrderList.size(); i++) {
 					OrderDto dto = (OrderDto) OrderList.get(i);
 			%>
@@ -752,7 +752,9 @@
 		function Menu_CountPrice(){	
 			var basic_price = $("#Html_basic_price").val();
 			var menu_count = $("#Menu_count").val();
+			
 			var menuPrice = basic_price * menu_count;
+				alert(basic_price + " ," + menu_count);
 			$("#CountPirce").val(menuPrice);
 			$("#Html_CountPrice").html(menuPrice);
 		}
