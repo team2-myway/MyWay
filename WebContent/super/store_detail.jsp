@@ -111,7 +111,7 @@
 			<div class="col-sm-12" id="store_list" align="center">
 				<table width=100% border=0 cellspacing=0cellpadding=3>
 					<tr align=center bgcolor=#D0D0D0 height=120%>
-						<td width="200px" align="center">no</td>
+						<td width="200px" align="center">order_code</td>
 						<td width="200px" align="center">날짜</td>
 						<td width="200px" align="center">주문내역</td>
 						<td width="200px" align="center">결제금액</td>

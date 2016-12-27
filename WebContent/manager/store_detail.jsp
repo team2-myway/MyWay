@@ -8,9 +8,9 @@
 <title>Insert title here</title>
 <script src="../lib/js/jquery-3.1.1.min.js"></script>
 <script>
-	function fnOrderStatus(account_no, order_no) {
+	function fnOrderStatus(account_no, order_code) {
 		if(confirm("결제하시겠습니까?")) {
-			location.href="update_status.jsp?account_no="+account_no+"&order_no="+order_no;
+			location.href="update_status.jsp?account_no="+account_no+"&order_code="+order_code;
 		} 
 	}
 </script>

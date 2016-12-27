@@ -62,8 +62,9 @@
          <div class="col-md-12">
             <div class="col-md-12">
                <form action="review_List.jsp" name="search" method="post">
+               <div>
                   <table width=80% align=center cellpadding=4 cellspacing=0>
-                     <tr>
+                     <tr >
                         <td align=right valign=bottom>
                         <select name="keyField" size="1">
                               <option value="title">제목
@@ -72,23 +73,27 @@
                         </select> 
                         <input type="text" size="16" name="keyWord">
                         <input type="button" value="검색" onClick="check()">
-                        <input type="hidden" name="page" value="0"></td>
+                        <input type="hidden" name="page" value="0">
+                        </td>
                      </tr>
                   </table>
+               </div>
                </form>
 
-               <table align=center width=80% border=0 cellspacing=0 cellpadding=3>
+               <table align=center width=80% border=0 cellspacing=0 cellpadding=3 > 
                   <tr>
                      <td align=center colspan=2>
-                        <table border=1 width=100% cellpadding=2 cellspacing=0>
+                        <table border=1 width=100% cellpadding=2 cellspacing=0 class="table table-bordered table-hover table-condensed table-striped">
+                           <thead>
                            <tr align=center height=120%>
                               <td width=10% name=review_no>No</td>
                               <td width=60% name=title>제목</td>
                               <td width=10% name=account_name>글쓴이</td>
                               <td width=10% name=date>날짜</td>
-                              <td width=10% name=grade>별점</td>
-                              
+                              <td width=10% name=grade>별점</td>   
                            </tr>
+                           </thead>
+                           <tbody>
                            <%
                               if (list.size() == 0) {
                            %>
@@ -114,6 +119,7 @@
                               }
                            }
                            %>
+                           </tbody>
                         </table>
                      </td>
                   </tr>

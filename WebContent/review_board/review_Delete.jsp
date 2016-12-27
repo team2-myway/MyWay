@@ -21,7 +21,6 @@
 	}
 </script>
 </head>
-</head>
 <body class="page">
 <%
 	String review_no = request.getParameter("review_no");

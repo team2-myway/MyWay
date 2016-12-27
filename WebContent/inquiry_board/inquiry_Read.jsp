@@ -14,16 +14,21 @@
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<%
+	AccountDto adto = new AccountDto();
+	AccountDao adao = new AccountDao();
+	adto = adao.session(session.getAttribute("id"));
+	String session_level = adto.getLevel();
+%>
 <script>
 	function fnReplyCheck(board_no) {
-		alert("session");
-		var session_id = <%=session.getAttribute("id") %>;
-		alert("session_id : " +session_id);
-		if(session_id == null) {
-			alert("관리자만 답글을 작성할 수 있습니다.");	
-			history.back();
-		} else if(session_id != null) {
+		var session_id = "<%=session_level%>";
+		if (session_id == null) {
+			alert("관리자만 답변할 수 있습니다");
+		} else if(session_id == "super") {
 			location.href="inquiry_Reply.jsp?board_no="+board_no;
+		} else {
+			alert("관리자만 답변할 수 있습니다");
 		}
 	}
 </script>

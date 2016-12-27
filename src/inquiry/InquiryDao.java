@@ -33,10 +33,10 @@ public class InquiryDao {
 		String sql = null;
 		
 		if(keyWord == null || keyWord.isEmpty()){
-			sql = "select * from inquiry_board order by board_no desc";
+			sql = "select * from inquiry_board order by position asc, board_no asc";
 		}
 		else{
-			sql = "select * from inquiry_board where " + keyField + " like '%" + keyWord + "%' order by board_no desc";
+			sql = "select * from inquiry_board where " + keyField + " like '%" + keyWord + "%' order by position asc, board_no asc";
 		}
 		
 		try{
