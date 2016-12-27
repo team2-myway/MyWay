@@ -38,6 +38,8 @@ public class AccountDao {
 				}
 			} catch (Exception e) {
 				System.out.println("session() : " + e);
+			} finally{
+				freeConnection();
 			}
 			return dto;
 		}

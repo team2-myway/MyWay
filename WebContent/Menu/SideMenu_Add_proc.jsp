@@ -25,12 +25,11 @@
 	int price = Integer.parseInt(mr.getParameter("price"));
 	String detail = mr.getParameter("detail");
 	
-	System.out.println("sidemenuadd.jsp : " + fileFullPath);
 	dto.setM_name(side_menu_name);
 	dto.setM_category(category);
 	dto.setM_calorie(calorie);
 	dto.setM_price(price);
-	dto.setM_img(fileFullPath);
+	dto.setM_img("/MyWay/Menu/"+filename1);
 	dto.setM_detail(detail);
 	
 	dao.AddSideMenu(dto);

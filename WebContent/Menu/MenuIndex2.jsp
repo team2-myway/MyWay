@@ -17,44 +17,54 @@
 	<section id="page" class="csstransition cmsms_resp hfeed site">
 		<%@ include file="../include/header.jsp"%><br><br>
 		
-		<center>
-			
-			<input type="button" value="SideMenu" onclick="location.href='SideMenuIndex.jsp?'" /></td>
 		
-		</center>
 		<br><br>
 		
 		<div class="container">
 			<div class="col-md-12">
-				<div>
-					<form>
-						<table class="table"width=100% border=0 cellspacing=0 cellpadding=3>
-						<tr>
-							<th>이미지</th>
-							<th>이름</th>
-							<th>가격</th>
-						
-						</tr>
+		
 <%
-							 for(int i=0; i<menulist.size(); i++) {
-								 dto = (MenuDto)menulist.get(i);
-								 
+	for(int i=0; i<menulist.size(); i++){
+			dto = (MenuDto)menulist.get(i);
 %>
-							<tr>
-								<td><img src="<%=dto.getM_img()%>"></td>
-								<td><a href="Menu_Detail.jsp?menu_no=<%=dto.getM_no()%>"><%=dto.getM_name() %></a></td>
-								<td><%=dto.getM_price() %></td>
-							</tr>
-							
+							<div class="col-md-4" style=" height:450px; text-align:center; ">
+		<article class="service type-service hentry one_fourth format-slider col-md-12">
+			<figure>
+				<span class="image_container_img">
+					<span class="p_img_container">
+						<img src="<%=dto.getM_img() %>" 
+								alt="Pediatric Clinic" class="fullwidth wp-post-image cmsms_img"
+								style="opacity: 1;">
+						<td><a href="Menu_Detail.jsp?menu_no=<%=dto.getM_no()%>"><%=dto.getM_name() %></a></td>
+						
+						<span class="image_rollover"></span>
+					</span>
+				</span>
+			</figure>
+			<div class="service_rollover" style="text-align:center;">
+				<header class="entry-header" style="padding-bottom:10px;">
+					<h5 class="entry-title" style="color:blue">
+					</h5>
+				</header>
+				
+				<footer class="entry-meta">
+					<span class="post_category">가격 :<td><%=dto.getM_price() %> <b></b>원<br>
+					
+					</span>
+				<div style="text-align:center">
+					<p></p>
+				</div>
+				</footer>
+			</div>
+		</article>
+	</div>
 <%
 							 }
 %>
 
-						</table>
-					</form>
-				</div>
 			</div>
 		</div>
+	
 	</section>
 		
 		<!-- 공간주기 -->

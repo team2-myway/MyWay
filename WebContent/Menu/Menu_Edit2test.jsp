@@ -27,17 +27,17 @@
 				<form id="Menu_Saves" onsubmit="return false;" method="post"
 					action="Menu_Edit_Proc.jsp?menu_no=<%=menu_no%>"
 					enctype="multipart/form-data">
-
+					
 					<table width="1000" border="1" cellspacing="0" cellpadding="15">
 						<tr>
 							<td class="heading" valign="top" align="right" nowrap>메뉴 이름</td>
-							<td valign="top" align=left colspan="2"><input type="text"
+							<td valign="top" align=left><input type="text"
 								id="menu_name" name="menu_name" value="<%=mdto.getM_name()%>"
 								namesize="80" /></td>
-							</tr>
+						</tr>
 						<tr>
-							<td class="heading" valign="top" align="right" nowrap>메뉴 카테고리</td>
-							<td colspan="2"><select name="class" id="menu_class">
+							<td>메뉴 카테고리</td>
+							<td><select name="class" id="menu_class">
 									<option value="premium"
 										<%if (mdto.getM_class().equals("premium")) {%>
 										selected="selected" <%}%>>premium</option>
@@ -51,58 +51,41 @@
 						</tr>
 						<tr>
 							<td class="heading" valign="top" align="right" nowrap>사이즈</td>
-							<td valign="top" align=left colspan="2">
-							<input type="radio"	name="menu_size" value="15"
-							 <%
-							 	if(mdto.getM_size().equals("15")){
-							 		%>
-							 		checked="checked"
-							 		<%
-							 	}
-							 %>
-							 />15cm&nbsp;&nbsp;&nbsp; 
-							<input type="radio" name="menu_size" value="30" 
-							<%
-							 	if(mdto.getM_size().equals("15")){
-							 		%>
-							 		checked="checked"
-							 		<%
-							 	}
-							 %>
-							/>30cm&nbsp;&nbsp;&nbsp;</td>
+							<td valign="top" align=left><input type="radio"
+								name="menu_size" value="15" checked /> 15cm&nbsp;&nbsp;&nbsp; <input
+								type="radio" name="menu_size" value="30" />
+								30cm&nbsp;&nbsp;&nbsp;</td>
 						</tr>
 						<tr>
 							<td class="heading" valign="top" align="right" nowrap>이미지 파일</td>
-							<td><img height="200" width="200" src=
-							"<%=mdto.getM_img() %>"
-							/></td>
 							<td valign="top" align=left><input type="file" name="image" />
-							<%
-							System.out.print(mdto.getM_img());
-							%>
+							</td>
 						</tr>
 						<tr>
 							<td class="heading" valign="top" align="right" nowrap>칼로리</td>
-							<td valign="top" align="left" colspan="2"><input type="text"
+							<td valign="top" align=left><input type="text"
 								name="calorie" id="calorie" value="<%=mdto.getM_calorie()%>" />
 							</td>
 						</tr>
 						<tr>
 							<td class="heading" valign="top" align="right" nowrap>가격</td>
-							<td valign="top" align=left colspan="2"><input type="text" name="price"
+							<td valign="top" align=left><input type="text" name="price"
 								id="price" value="<%=mdto.getM_price()%>" /></td>
 						</tr>
 						<tr>
 							<td class="heading" valign="top" align="right" nowrap>상세내용</td>
-							<td valign="top" align=left colspan="2"><textarea name="detail"><%=mdto.getM_detail()%></textarea>
+							<td valign="top" align=left><textarea name="detail"><%=mdto.getM_detail()%></textarea>
 							</td>
 						</tr>
+						<br><br>
+						
 						<tr>
 							<td class="heading" valign="top" align="right" nowrap>추천소스</td>
-							<td valign="top" align=left colspan="2">
+							<td valign="top" align=left>
 								<div class="col-md-12">
-									<div class="col-sm-4" style="height: 150px;">
-										<label>달콤한 소스</label>
+									
+										<label> 달콤한 소스</label>
+										
 										<%
 											try {
 												String sauce = "달콤한소스";
@@ -110,161 +93,128 @@
 												for (int i = 0; i < sauceList.size(); i++) {
 													OrderDto dto = (OrderDto) sauceList.get(i);
 										%>
+										</div>
 										<div class="checkbox">
 											<input type="checkbox" name="sauce_no[]"
 												value="<%=dto.getSauce_no()%>"
-												<%
-													for(int j =0; j< sauceListview.length; j++){
-														if(Integer.parseInt(sauceListview[j])==dto.getSauce_no()){
-														%>
-														checked="checked"
-														<%	
-														}
-													}
-												%>
-												/> <span style="padding-left: 10px;"><%=dto.getSauce_name()%></span>
-										</div>
+												<%System.out.print(sauceListview[i] + "slv");
+					System.out.println();
+					System.out.print(dto.getSauce_no() + "gsn");
+
+					for (int j = 0; j < sauceListview.length; j++) {
+						if (sauceListview[i].equals(dto.getSauce_no())) {%>
+												checked="checked" <%}
+					}%> /> <span
+												style="padding-left: 10px;"><%=dto.getSauce_name()%></span>
+										
 										<%
 											}
 
 											} catch (Exception err) {
-												System.out.println("달콤 : " + err);
+												System.out.println("index.jsp : " + err);
 											}
 										%>
-									</div>
-									<div class="col-sm-4" style="height: 150px;">
-										<label> 매콤한 소스</label>
-										<%
-											try {
-												String sauce = "매콤한소스";
-												ArrayList sauceList = dao.SauceList(sauce);
-												for (int i = 0; i < sauceList.size(); i++) {
-													OrderDto dto = (OrderDto) sauceList.get(i);
-										%>
-										<div class="checkbox">
-											<input type="checkbox" name="sauce_no[]" value="<%=dto.getSauce_no()%>" 
-												<%
-													for(int j =0; j< sauceListview.length; j++){
-														if(Integer.parseInt(sauceListview[j])==dto.getSauce_no()){
-														%>
-														checked="checked"
-														<%
-														}
-													}
-												%>/> 
-												<span style="padding-left: 10px;"><%=dto.getSauce_name()%></span>
+										
 										</div>
-										<%
-											}
-
-											} catch (Exception err) {
-												System.out.println("매콤 : " + err);
-											}
-										%>
-									</div>
-									<div class="col-sm-4" style="height:150px;">
-										<label> 새콤한 소스</label>
-										<%
-											try {
-												String sauce = "새콤한소스";
-												ArrayList sauceList = dao.SauceList(sauce);
-												for (int i = 0; i < sauceList.size(); i++) {
-													OrderDto dto = (OrderDto) sauceList.get(i);
-										%>
-										<div class="checkbox">
-											<input type="checkbox" name="sauce_no[]"
-												value="<%=dto.getSauce_no()%>" 
-												<%
-													for(int j =0; j< sauceListview.length; j++){
-														if(Integer.parseInt(sauceListview[j])==dto.getSauce_no()){
-														%>
-														checked="checked"
-														<%	
-														}
-													}
-												%>
-												/> 
-											<span style="padding-left: 10px;"><%=dto.getSauce_name()%></span>
-										</div>
-										<%
-											}
-
-											} catch (Exception err) {
-												System.out.println("새콤: " + err);
-											}
-										%>
-									</div>
-									<div class="col-sm-4" style="height: 150px;">
-										<label> 고소한 소스</label>
-										<%
-											try {
-												String sauce = "고소한소스";
-												ArrayList sauceList = dao.SauceList(sauce);
-												for (int i = 0; i < sauceList.size(); i++) {
-													OrderDto dto = (OrderDto) sauceList.get(i);
-										%>
-										<div class="checkbox">
-											<input type="checkbox" name="sauce_no[]"
-												value="<%=dto.getSauce_no()%>" 
-												<%
-													for(int j =0; j< sauceListview.length; j++){
-														if(Integer.parseInt(sauceListview[j])==dto.getSauce_no()){
-														%>
-														checked="checked"
-														<%	
-														}
-													}
-												%>
-												/>
-											<span style="padding-left: 10px;"><%=dto.getSauce_name()%></span>
-										</div>
-										<%
-											}
-
-											} catch (Exception err) {
-												System.out.println("고소: " + err);
-											}
-										%>
-									</div>
-									<div class="col-sm-4" style="height: 150px;">
-										<label> 일반 소스</label>
-										<%
-											try {
-												String sauce = "일반소스";
-												ArrayList sauceList = dao.SauceList(sauce);
-												for (int i = 0; i < sauceList.size(); i++) {
-													OrderDto dto = (OrderDto) sauceList.get(i);
-										%>
-										<div class="checkbox">
-											<input type="checkbox" name="sauce_no[]"
-												value="<%=dto.getSauce_no()%>" 
-												<%
-													for(int j =0; j< sauceListview.length; j++){
-														if(Integer.parseInt(sauceListview[j])==dto.getSauce_no()){
-														%>
-														checked="checked"
-														<%	
-														}
-													}
-												%>
-												/>
-											<span style="padding-left: 10px;"><%=dto.getSauce_name()%></span>
-										</div>
-										<%
-											}
-
-											} catch (Exception err) {
-												System.out.println("일반 : " + err);
-											}
-										%>
-									</div>
+								<td valign="top" align=right>
+								<label> 매콤한 소스</label>
+									<%
+										try {
+											String sauce = "매콤한소스";
+											ArrayList sauceList = dao.SauceList(sauce);
+											for (int i = 0; i < sauceList.size(); i++) {
+												OrderDto dto = (OrderDto) sauceList.get(i);
+									%>
 								</div>
+								<div class="checkbox">
+									<input type="checkbox" name="sauce_no[]" value="" /> <span
+										style="padding-left: 10px;"><%=dto.getSauce_name()%></span>
+								</div>
+								<div>
+									<%
+										}
+
+										} catch (Exception err) {
+											System.out.println("index.jsp : " + err);
+										}
+									%>
+								</div><td>
+								<div class="col-sm-4" style="height: 150px;">
+									<label> 새콤한 소스</label>
+									<%
+										try {
+											String sauce = "새콤한소스";
+											ArrayList sauceList = dao.SauceList(sauce);
+											for (int i = 0; i < sauceList.size(); i++) {
+												OrderDto dto = (OrderDto) sauceList.get(i);
+									%>
+									<div class="checkbox">
+										<input type="checkbox" name="sauce_no[]"
+											value="<%=dto.getSauce_no()%>" /> <span
+											style="padding-left: 10px;"><%=dto.getSauce_name()%></span>
+									
+									<%
+										}
+
+										} catch (Exception err) {
+											System.out.println("index.jsp : " + err);
+										}
+									%>
+								</div>
+								<div class="col-sm-4" style="height: 150px;">
+									<label> 고소한 소스</label>
+									<%
+										try {
+											String sauce = "고소한소스";
+											ArrayList sauceList = dao.SauceList(sauce);
+											for (int i = 0; i < sauceList.size(); i++) {
+												OrderDto dto = (OrderDto) sauceList.get(i);
+									%>
+									<div class="checkbox">
+										<input type="checkbox" name="sauce_no[]"
+											value="<%=dto.getSauce_no()%>" /> <span
+											style="padding-left: 10px;"><%=dto.getSauce_name()%></span>
+									</div>
+									<%
+										}
+
+										} catch (Exception err) {
+											System.out.println("index.jsp : " + err);
+										}
+									%>
+								</div>
+								<div class="col-sm-4" style="height: 150px;">
+									<label> 일반 소스</label>
+									<%
+										try {
+											String sauce = "일반소스";
+											ArrayList sauceList = dao.SauceList(sauce);
+											for (int i = 0; i < sauceList.size(); i++) {
+												OrderDto dto = (OrderDto) sauceList.get(i);
+									%>
+									<div class="checkbox">
+										<input type="checkbox" name="sauce_no[]"
+											value="<%=dto.getSauce_no()%>" /> <span
+											style="padding-left: 10px;"><%=dto.getSauce_name()%></span>
+
+										<%
+											}
+
+											} catch (Exception err) {
+												System.out.println("index.jsp : " + err);
+											}
+										%>
+									</div>
+									
+							
+						<br><br>
 						<tr>
-							<td><input type="hidden" id="SelectSauceValue"
-								name="SelectSauceValue" /></td>
+								</div> <input type="hidden" id="SelectSauceValue"
+								name="SelectSauceValue" />
+							</td>
 						</tr>
 						<tr>
-							<td colspan="3" align="center">
+							<td colspan="2" align="center">
 								<button class="btn btn-primary" id="Menu_Save">저장</button> <input
 								type="reset" value="취소" />
 							</td>
