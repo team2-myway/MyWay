@@ -5,12 +5,11 @@
 <%
 	java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("ddHHmmss");
 	String today = formatter.format(new java.util.Date());
-	int account_no = (Integer)session.getAttribute("account_no");
-//	int account_no = 5; 
 	
 	AccountDao adao = new AccountDao();
 	AccountDto adto = adao.session(session.getAttribute("id"));
 	String level = adto.getLevel();
+	int account_no = adto.getAccount_no();
 	String order_code = dao.Order_Code(account_no,today);
 	session.setAttribute("order_code", order_code);
 	 

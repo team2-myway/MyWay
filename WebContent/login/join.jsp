@@ -46,14 +46,14 @@
 	            	<h2 align="center">회원가입</h2>
 	            	<div class="form-group">	
 		            	<form action="join_proc.jsp" name="joinform" method="post" onsubmit="fncCheck();return false">
-							<table>
+							<table class="table">
 								<tr>
 									<th><label>ID</label></th>
 									<td><input type="text" id="id" name="id" /></td>
 								</tr>
 								<tr>
 									<th><label>PW</label></th>
-									<td><input type="password" id="pw" name="pw" value="pw" /></td>
+									<td><input type="password" id="pw" name="pw"  /></td>
 								</tr>
 								<tr>
 									<th><label>이름</label></th>
@@ -62,35 +62,41 @@
 								<tr>
 									<th><label>TEL</label></th>
 									<td>
-									<select id="tel1" name="tel1">
+									<span>
+									<select id="tel1" name="tel1" style="width:100px;">
 											<option selected="selected">010</option>
-											<option>011</option>
+											<option >011</option>
 											<option>012</option>
 											<option>013</option>
 									</select>
-									</td><td> - <input type="text" id="tel2" name="tel2"> </td> 
-									<td> - <input type="text" id="tel3" name="tel3"></td>
+									 - <input type="text" id="tel2" name="tel2"style="width:100px;"> 
+									- <input type="text" id="tel3" name="tel3" style="width:100px;">
+									</span>
+									</td> 
+									 
 								</tr>
 								<tr>
 									<th><label>E-MAIL</label></th>
-									<td><input type="text" id="email1" name ="email1" size="10" /> </td>
-									<td> @ <select id="email2" name="email2">
+									<td><input type="text" id="email1" name ="email1" size="10" style="width:150px;"/> 
+										@ <select id="email2" name="email2"style="width:150px;">
 											<option>naver.com</option>
 											<option>daum.net</option>
 											<option>gmail.com</option>
 											<option>bulabula.com</option>
 											<option>holahola.com</option>
-									</select></td>
+										</select>
+									</td>
+							
 								</tr>
 								<tr>
-									<td colspan="2"><textarea rows="5" cols="40" readonly="readonly">개인정보 동의</textarea></td>
+									<td colspan="2"><textarea style="width:100%" rows="5" cols="40" readonly="readonly">개인정보 동의</textarea></td>
 								</tr>
 								<tr>
-									<td><input type="checkbox" id="accept" name="accept">동의합니다</td>
+									<td colspan="2" style="text-align:right;"><input type="checkbox" id="accept" name="accept">동의합니다</td>
 								</tr>
 								<tr align="center">
-									<td><input type="submit" value="확인" /></td>
-									<td><input type="button" value="GotoMain"
+									<td><input type="submit" class="btn btn-primary" value="가입하기" /></td>
+									<td><input type="button" class="btn btn-defult" value="GotoMain"
 										onclick="javascript:location.href='../main/index.jsp';" /></td>
 								</tr>
 							</table>
