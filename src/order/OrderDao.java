@@ -69,8 +69,7 @@ public class OrderDao {
 			stmt.setInt(7, dto.getMenu_price());
 			stmt.setString(8, dto.getFavorite());
 			stmt.executeUpdate();
-		//	System.out.println(sql);
-			//ȸ���� ���� �������� ���� �˱�����
+			
 			StampAdd(dto.getAccount_no(), dto.getMenu_count());
 			OrderSave(dto);
 		}catch(Exception err){
@@ -125,7 +124,7 @@ public class OrderDao {
 		return ordermax_no;
 	}
 	// 나의 즐겨찾기와 주문내역 보기 
-	public ArrayList MyOrderList(int account_no, String map){
+	public ArrayList MyOrderList(int account_no, String map, String StartDate, String EndDate){
 		ArrayList list = new ArrayList();
 		String sql = "";
 		if(map.equals("orderlist")){
@@ -137,7 +136,13 @@ public class OrderDao {
 					+ "left join side_menu sm on sm.side_menu_no = side.side_menu_no "
 					+ "left join menu on menu.menu_no = d.menu_no "
 					+ "left join account a on a.account_no = m.store_no "
-					+ "where m.account_no="+account_no+" order by date desc";
+					+ "where m.account_no="+account_no;
+			if(StartDate == null || StartDate.isEmpty() || StartDate == null || StartDate.isEmpty()){
+				sql += " order by date desc";
+			}else{
+				sql += " and substr(date,1,10)>='"+StartDate+"' and substr(date,1,10)<='"+EndDate+"' order by date desc";
+			
+			}
 		}else{
 			//즐겨찾기
 			sql="select a.manager_area manager_area, a.manager_name, m.total, d.vegetable_no, substr(m.date,1,16) date, "
@@ -148,6 +153,7 @@ public class OrderDao {
 					+ "left join account a on a.account_no = m.store_no "
 					+ "where m.account_no="+account_no +" and d.favorite ='ok'";
 		}
+		System.out.println(sql);
 		//System.out.println(sql);
 		try{
 			con = ds.getConnection();
@@ -493,7 +499,6 @@ public class OrderDao {
 	}
 		return list;
 	}
-	
 	// ���� �������� ������ ��
 	public ArrayList ManagerAddrList(){
 		ArrayList list = new ArrayList();
@@ -581,10 +586,13 @@ public class OrderDao {
 				stmt.setInt(3, count[i]);
 				stmt.setInt(4, price[i]);
 				
+				System.out.println(sql);
 				stmt.executeUpdate();
 			}
 			
-			OrderSave(dto);			
+			OrderSave(dto);
+			
+			
 		}catch(Exception err){
 			System.out.println("SideOrderSave : " + err);
 		}finally{

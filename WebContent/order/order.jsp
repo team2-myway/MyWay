@@ -5,19 +5,18 @@
 <%
 	java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("ddHHmmss");
 	String today = formatter.format(new java.util.Date());
-
 	AccountDao adao = new AccountDao();
 	AccountDto adto = adao.session(session.getAttribute("id"));
 	String level = adto.getLevel();
 	int account_no = adto.getAccount_no();
-	
 	String order_code = dao.Order_Code(account_no,today);
 	session.setAttribute("order_code", order_code);
-	
+	 
 %>
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
@@ -32,6 +31,7 @@
 		padding-bottom:10px;
 	}
 </style>
+</head>
 <body class="page">
 <section id="page" class="csstransition cmsms_resp hfeed site">
 <%@ include file="../include/header.jsp"%>
@@ -196,7 +196,6 @@
 											ArrayList vegetableList = dao.VegetableList();
 											for (int i = 0; i < vegetableList.size(); i++) {
 												OrderDto dto = (OrderDto) vegetableList.get(i);
-												
 										%>	
 										<div class="col-md-4 vegetables" style=" height:200px;">
 											<div style="text-align: center">
@@ -214,7 +213,7 @@
 											}
 			
 											}catch (Exception err) {
-												System.out.println("order_vegetable.jsp : " + err);
+												System.out.println("index.jsp : " + err);
 											}
 										%>
 										<input type="hidden" id="VegetableList" name="VegetableList"/>
@@ -479,7 +478,7 @@
 						</tr>
 						<%
 				try {
-					ArrayList OrderList = dao.MyOrderList(account_no,"favorite");
+					ArrayList OrderList = dao.MyOrderList(account_no,"favorite",null,null);
 					for (int i = 0; i < OrderList.size(); i++) {
 					OrderDto dto = (OrderDto) OrderList.get(i);
 			%>
@@ -565,7 +564,7 @@
 			$("#SideOrder_Save").click(function(){
 				ManagerCheck('order');
 			});
-			$("#SideOrder_Save").click(function(){
+			$("#SideDetail_Save").click(function(){
 				ManagerCheck('detail');
 			});
 		
@@ -751,7 +750,9 @@
 		function Menu_CountPrice(){	
 			var basic_price = $("#Html_basic_price").val();
 			var menu_count = $("#Menu_count").val();
+			
 			var menuPrice = basic_price * menu_count;
+			
 			$("#CountPirce").val(menuPrice);
 			$("#Html_CountPrice").html(menuPrice);
 		}
@@ -804,6 +805,7 @@
 						$('#manage_addr').focus();
 					}else{
 						location.href="OrderList.jsp";
+						
 					}
 			 		//	alert(httpRequest.responseText);
 			 	}else{
@@ -914,13 +916,12 @@
 			// alert(param);
 			 sendRequest("POST","OrderSave.jsp", DetailOrderSaveBack(type),param);	
 		}
-
+		
 		var lv = <%=level%>;
 		if(lv == null) {
 			alert("회원만 주문 할 수 있습니다.");
 			location.href="../login/join.jsp";
 		}
-
 	</script>
 
 </body>

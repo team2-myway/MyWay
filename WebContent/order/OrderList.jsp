@@ -5,15 +5,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
 <title>Insert title here</title>
 </head>
 <jsp:useBean id="dao" class="order.OrderDao"></jsp:useBean>
 <%
+	String StartDate = request.getParameter("StartDate");
+	String EndDate = request.getParameter("EndDate");
 	AccountDao adao = new AccountDao();
 	AccountDto adto = adao.session(session.getAttribute("id"));
-	int account_no = adto.getAccount_no();	
-	ArrayList OrderList = dao.MyOrderList(account_no,"orderlist");
+	int account_no = adto.getAccount_no();
+	ArrayList OrderList = dao.MyOrderList(account_no,"orderlist",StartDate,EndDate);
 	
 	int totalRecord = 0; //전체 글의 갯수
 	int numPerPage = 7; //한페이지당 글의 개수
@@ -45,7 +48,20 @@
 		<%@ include file="../include/header.jsp"%>
 		<div class="container">
 		<h3> 나의 주문 내역 </h3>
-		
+			<div class="row">
+				<div class="col-md-12" style="text-align:right">
+				<form method="post" action="OrderList.jsp" name="search">
+					<p>조회기간:
+					  <input type="text" style="width:150px;" id="StartDate" name="StartDate"/> ~  
+					  <input type="text" style="width:150px;" id="EndDate" name="EndDate"/>
+					<button type="submit" value="검색" class="btn btn-info" onclick="check()">
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
+					</p>
+				</form>
+				</div>
+			</div>
+			
 		<table class="table table-striped">
 			<tr>
 				<th>No</th>
@@ -110,6 +126,7 @@
 					<%
 						}
 						}
+					
 					} catch (Exception err) {
 						System.out.println("OrderList.jsp : " + err);
 					}
@@ -155,5 +172,33 @@
 	</section>
 	<script src="../lib/bootstrap/js/jquery-3.1.1.min.js"></script>
 	<script src="../lib/bootstrap/js/bootstrap.js"></script>
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+	<script>
+	  $.datepicker.setDefaults({
+	    dateFormat: 'yy-mm-dd',
+	    prevText: '이전 달',
+	    nextText: '다음 달',
+	    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	    dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+	    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+	    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+	    showMonthAfterYear: true,
+	    yearSuffix: '년'
+	  });
+	  
+	  $(function() {
+	    $("#StartDate, #EndDate").datepicker();
+	    
+	  });
+		
+	  function check(){
+			document.search.submit();
+		}
+	  
+	</script>
+
 </body>
 </html>

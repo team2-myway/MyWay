@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>아이디 찾기</title>
 </head>
 <body>
 	<jsp:useBean id="dto" class="account.AccountDto"></jsp:useBean>
@@ -17,7 +17,7 @@
 		if (dao.findID(name, email).getId() == null) {
 	%>
 	<script>
-		alert("name, email not exist");
+		alert("아이디가 존재하지 않습니다.");
 		window.close();
 	</script>
 	<%

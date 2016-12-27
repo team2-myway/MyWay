@@ -104,7 +104,7 @@ public class AccountDao {
 			return adto;
 		}
 		
-		public AccountDto findID(String name,String email) {
+		public AccountDto findID(String name, String email) {
 			AccountDto adto = new AccountDto();
 			String sql = "select id from account where account_name=? and email=?";
 			try {
@@ -113,7 +113,7 @@ public class AccountDao {
 				pstmt.setString(1, name);
 				pstmt.setString(2, email);
 				rs = pstmt.executeQuery();
-				if (rs.next()) {
+				if(rs.next()) {
 					adto.setId(rs.getString("id"));
 				}
 			} catch (Exception e) {
