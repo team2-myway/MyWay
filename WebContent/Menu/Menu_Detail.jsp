@@ -28,10 +28,6 @@
 	<tr>
 		<td><%=dto.getM_name() %></td><br><br>
 		<td><img src="<%=dto.getM_img()%>"></td><br><br>
-<<<<<<< HEAD
-=======
-		
->>>>>>> refs/remotes/origin/Wan
 			<td valign="top" align=left>
 					<text name="detail"><%=dto.getM_detail() %></text>
 			</td><br><br>

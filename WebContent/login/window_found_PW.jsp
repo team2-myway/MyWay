@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="EUC-KR"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,8 +21,9 @@
 		var pw1 = document.getElementById("new_pw1").value;
 		var pw2 = document.getElementById("new_pw2").value;
 		if (pw1 == pw2 && pw1 != null) {
-			alert("��й�ȣ�� ����Ǿ����ϴ�.");
+			alert("비밀번호가 변경되었습니다.");
 			return true;
+			location.href="../login/login.jsp"
 		} else {
 			alert("pw1 != pw2");
 			document.form.focus();
@@ -43,9 +44,9 @@
 	%>
 	<form action = "found_PW_proc.jsp" method="post" onsubmit="fncCheck();">
 		<input type="hidden" name="account_no" value='<%=dao.findByPW(id, name, email).getAccount_no()%>'/>
-		�� ��й�ȣ : <input type="text" id="new_pw1" name="new_pw1" /><br /> 
-		�� ��й�ȣ Ȯ�� : <input type="text" id="new_pw2" name="new_pw2" /> 
-		<input type="submit" value="��й�ȣ ����"  />
+		새 비밀번호 : <input type="text" id="new_pw1" name="new_pw1" /><br /> 
+		새 비밀번호 확인 : <input type="text" id="new_pw2" name="new_pw2" /> 
+		<input type="submit" value="비밀번호 변경"  />
 	</form>
 	<%
 		}

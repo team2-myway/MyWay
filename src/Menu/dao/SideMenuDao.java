@@ -111,6 +111,7 @@ public class SideMenuDao {
 	//�󼼺���
 	public SideMenuDto SideMenuDetailList(int menu_no){
 		SideMenuDto dto = new SideMenuDto();
+
 		String sql = "select category, side_menu_name, image, calorie, price, detail from side_menu where side_menu_no=?";
 		try{
 			con = ds.getConnection();

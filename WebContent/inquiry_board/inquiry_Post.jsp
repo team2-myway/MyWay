@@ -75,7 +75,6 @@ function setForm(editor) {
 								<td width="10%"><label for="title" >카테고리</label></td>
 								<td width="40%" >
 								<select name="category" style="width:90%;">
-									<option value="공지">공지</option>
 									<option value="문의" selected>문의</option>
 								</select>
 								 </td>
