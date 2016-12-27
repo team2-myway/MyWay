@@ -55,8 +55,8 @@
 									href="../main/index.jsp"><span>메인</span></a></li>
 								<li class="dropdown menu-item menu-item-has-children"><a><span>메뉴보기</span></a>
 									<ul class="sub-menu">
-										<li class="dropdown menu-item menu-item-has-children"><a href="../Menu/MenuIndex2.jsp"><span>메인메뉴</span></a></li>
-										<li class="dropdown menu-item menu-item-has-children"><a href="../Menu/SideMenuIndex2.jsp"><span>사이드메뉴</span></a></li>
+										<li class="dropdown menu-item menu-item-has-children"><a href="../Menu/MenuIndex.jsp"><span>메인메뉴</span></a></li>
+										<li class="dropdown menu-item menu-item-has-children"><a href="../Menu/SideMenuIndex.jsp"><span>사이드메뉴</span></a></li>
 									</ul>
 								</li>
 								<li class="dropdown menu-item menu-item-has-children"><a><span>주문하기</span></a>
@@ -112,8 +112,8 @@
 										href="../main/index.jsp"><span>메인</span></a></li>
 									<li class="dropdown menu-item menu-item-has-children"><a><span>메뉴보기</span></a>
 										<ul class="sub-menu">
-											<li class="dropdown menu-item menu-item-has-children"><a href="../Menu/MenuIndex2.jsp"><span>메인메뉴</span></a></li>
-											<li class="dropdown menu-item menu-item-has-children"><a href="../Menu/SideMenuIndex2.jsp"><span>사이드메뉴</span></a></li>
+											<li class="dropdown menu-item menu-item-has-children"><a href="../Menu/MenuIndex.jsp"><span>메인메뉴</span></a></li>
+											<li class="dropdown menu-item menu-item-has-children"><a href="../Menu/SideMenuIndex.jsp"><span>사이드메뉴</span></a></li>
 										</ul></li>
 									<li class="menu-item"><a href="../manager/store_detail.jsp"><span>매장현황</span></a></li>
 									<li class="dropdown menu-item menu-item-has-children"><a href="../inquiry_board/inquiry_List.jsp"><span>문의사항</span></a></li>

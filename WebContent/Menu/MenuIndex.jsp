@@ -12,6 +12,10 @@
 <jsp:useBean id="dao" class="Menu.dao.MenuDao" />
 <%
 	List menulist = dao.MenuList();
+	AccountDto adto = new AccountDto();
+	AccountDao adao = new AccountDao();
+	adto = adao.session(session.getAttribute("id"));
+	Object level = session.getAttribute("level");
 %>
 <body class="page">
 	<section id="page" class="csstransition cmsms_resp hfeed site">
@@ -28,15 +32,7 @@
 			dto = (MenuDto)menulist.get(i);
 %>
 
-							<tr>
-								<td><img src="<%=dto.getM_img()%>"></td>
-								<td><a href="Menu_Detail.jsp?menu_no=<%=dto.getM_no()%>"><%=dto.getM_name() %></a></td>
-								<td><%=dto.getM_price() %></td>
-								<td><input type="button" value="수정" onclick="location.href='Menu_Edit.jsp?menu_no=<%=dto.getM_no()%>'" /></td>
-								<td><input type="button" value="삭제" onclick="location.href='Menu_Del.jsp?menu_no=<%=dto.getM_no()%>'" /></td>
-							</tr>
-
-							<div class="col-md-4" style=" height:450px; text-align:center; ">
+	<div class="col-md-4" style=" height:450px; text-align:center; ">
 		<article class="service type-service hentry one_fourth format-slider col-md-12">
 			<figure>
 				<span class="image_container_img">
@@ -44,10 +40,7 @@
 						<img src="<%=dto.getM_img() %>" 
 								alt="Pediatric Clinic" class="fullwidth wp-post-image cmsms_img"
 								style="opacity: 1;">
-						<td><a href="Menu_Detail.jsp?menu_no=<%=dto.getM_no()%>"><%=dto.getM_name() %></a></td>
-						<td><input type="button" value="수정" onclick="location.href='Menu_Edit.jsp?menu_no=<%=dto.getM_no()%>'" /></td>
-						<td><input type="button" value="삭제" onclick="location.href='Menu_del.jsp?menu_no=<%=dto.getM_no()%>'" /></td>
-							
+						<a href="Menu_Detail.jsp?menu_no=<%=dto.getM_no()%>"><%=dto.getM_name() %></a>
 						<span class="image_rollover"></span>
 					</span>
 				</span>
@@ -59,16 +52,30 @@
 				</header>
 				
 				<footer class="entry-meta">
-					<span class="post_category">가격 : <td><%=dto.getM_price() %><b></b>원<br>
+					<span class="post_category">가격 :<%=dto.getM_price() %> <b></b>원<br>
 					
 					</span>
 				<div style="text-align:center">
-					<p></p>
+					
+					<p>
+						<%
+								 if(session_id ==null){
+							//		 System.out.println("hadsfs");
+								 }else if(level.equals("super")){
+								%>
+						<input type="button" value="수정" onclick="location.href='Menu_Edit.jsp?menu_no=<%=dto.getM_no()%>'" />
+						<input type="button" value="삭제" onclick="location.href='Menu_del.jsp?menu_no=<%=dto.getM_no()%>'" />
+					<% 
+						}
+					%>
+		
+					</p>
 				</div>
 				</footer>
 			</div>
 		</article>
 	</div>
+					
 <%
 							 }
 %>
