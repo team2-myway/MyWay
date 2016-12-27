@@ -14,20 +14,20 @@
 <%
 	int account_no = Integer.parseInt(request.getParameter("account_no"));
 	String order_code = request.getParameter("order_code");
-
+	
 	boolean update = dao.updateOrderStatus(account_no, order_code);
 	if(update == true) {
 %>
 		<script>
 			alert("결제 완료");
-			location.href="store_detail.jsp?account_no="+account_no;
+			location.href="store_detail.jsp?account_no="+<%=account_no%>;
 		</script>
 <%
 	} else {
 %>
 	<script>
 		alert("결제되지 않았습니다.");
-		location.href="store_detail.jsp";
+		history.back();
 	</script>
 <%
 	}

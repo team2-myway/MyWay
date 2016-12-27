@@ -8,6 +8,11 @@
 <title>Insert title here</title>
 <script src="../lib/js/jquery-3.1.1.min.js"></script>
 <script>
+	function fnOrderStatus(account_no, order_code) {
+		if(confirm("결제하시겠습니까?")) {
+			location.href="update_status.jsp?account_no="+account_no+"&order_code="+order_code;
+		} 
+	}
 </script>
 </head>
 <body class="page">
@@ -28,8 +33,9 @@
 		}
 	}
 	
-	List list = dao.getStore_list(account_no);
+	List list = dao.getStore_managerlist(account_no);
 	List listdetail = dao.getStore_detail(account_no, detail_date);
+	List listnow = dao.getNoworder_list(account_no);
 	StoreDto totdto = dao.getStore_total(account_no, detail_date);
 	
 	///////////////////////////paging 기법///////////////////////////
@@ -62,13 +68,16 @@
 		<div class="container">
 			<!-- 매장정보 -->
 			<div class="col-sm-12" id="store_info" align="center">
-				<table width=100% border=0 cellspacing=0cellpadding=3>
+				<table width=100% border=0 cellspacing=0 cellpadding=3 class="table table-bordered table-hover table-condensed table-striped">
+					<thead>
 					<tr align=center bgcolor=#D0D0D0 height=120%>
 						<td width="200px" align="center">관리자</td>
 						<td width="200px" align="center">매장지역</td>
 						<td width="200px" align="center">매장명</td>
 						<td width="200px" align="center">매장번호</td>
 					</tr>
+					</thead>
+					<tbody>
 <%
 			try{ 
 				request.setCharacterEncoding("UTF-8");
@@ -87,29 +96,79 @@
 				System.out.println("store_detail.jsp : " + e);
 			}
 %>
-					<tr>
-						<td><BR> <BR></td>
+					</tbody>
+				</table>
+			</div>
+
+			<!-- 현재주문 -->
+			<div class="col-sm-12" id="now_order" align="center">
+				<table width=100% border=0 cellspacing=0 cellpadding=3 class="table table-bordered table-hover table-condensed table-striped">
+					<thead>
+					<tr align=center bgcolor=#D0D0D0 height=120%>
+						<td width="200px" align="center">no</td>
+						<td width="200px" align="center">날짜</td>
+						<td width="200px" align="center">주문내역</td>
+						<td width="200px" align="center">결제금액</td>
+						<td width="200px" align="center">결제상태</td>
 					</tr>
+					</thead>
+					<tbody>
+<%
+		if(listnow.isEmpty()) {
+%>
+			<tr align="center" >
+				<td colspan="5">등록된 데이터가 없습니다!</td>
+			</tr>
+<%
+		} else {
+			try{ 
+				request.setCharacterEncoding("UTF-8");
+			
+					for(int i = 0; i < listnow.size(); i++) {
+						dto = (StoreDto)listnow.get(i);
+%>
+						<tr align="center">
+							<td><%=dto.getOrder_code() %></td>
+							<td><%=dto.getDate() %></td>
+							<td>주문내역</td>
+							<td><%=dto.getTotal() %></td>
+							<td><input type="button" id="status" value="<%=dto.getStatus() %>" onclick="fnOrderStatus('<%=account_no%>', '<%=dto.getOrder_code()%>')"/></td>
+						</tr>
+<%
+					}
+			} catch(Exception e) {
+				System.out.println("store_detail.jsp : " + e);
+			}
+		}
+%>
+				</tbody>
 				</table>
 			</div>
 			
-			<!-- 버튼 -->
-			<div class="col-sm-12"  id="detail_button" align="center">
-				<input type="button" id="today" value="오늘매출" onclick="location.href='store_detail.jsp?account_no=<%=account_no%>&date=today'"/>
-				<input type="button" id="month" value="이번달매출" onclick="location.href='store_detail.jsp?account_no=<%=account_no%>&date=month'"/>
-				<input type="button" id="total" value="전체매출" onclick="location.href='store_detail.jsp?account_no=<%=account_no%>&date=total'"/>
-				<form name="dateform" method="post" action="store_detail.jsp?account_no=<%=account_no%>">
-				<input type="text" name="date1" /> - <input type="text" name="date2" /> 
-				<input type="submit" id="search" value="검색"/>
-				</form>
+			<!-- 매출버튼 -->
+			<div class="col-sm-12" id="detail_button" align="center" style="margin-top:50px">
+				<div class="col-sm-4" align="right">
+					<input type="button" id="today" value="오늘매출" onclick="location.href='store_detail.jsp?account_no=<%=account_no%>&date=today'" class="btn btn-default"/>
+					<input type="button" id="month" value="이번달매출" onclick="location.href='store_detail.jsp?account_no=<%=account_no%>&date=month'" class="btn btn-default"/>
+					<input type="button" id="total" value="전체매출" onclick="location.href='store_detail.jsp?account_no=<%=account_no%>&date=total'" class="btn btn-default"/>
+				</div>
+				<div class="col-sm-2" id="store_total">
+					총 매출 : <%=totdto.getTotal()%><br/>
+				</div>
+				<div class="col-sm-6" >
+					<form name="dateform" method="post" action="store_detail.jsp?account_no=<%=account_no%>">
+					<input type="text" name="date1" style="width:200px;"/> - <input type="text" name="date2" style="width:200px;"/> 
+					<button type="submit" id="search" value="검색" class="btn btn-info" >
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
+					</form>
+				</div>
 			</div>
-			<!-- 매출  -->
-			<div class="col-sm-12" id="store_total" align="right">
-				총 매출 : <%=totdto.getTotal()%><br/>
-			</div>
+
 			<!-- 리스트 -->
-			<div class="col-sm-12" id="store_list" align="center">
-				<table width=100% border=0 cellspacing=0cellpadding=3>
+			<div class="col-sm-12" id="store_list" align="center" style="margin-top:50px;">
+				<table width=100% border=0 cellspacing=0 cellpadding=3 class="table table-bordered table-hover table-condensed table-striped">
+					<thead>
 					<tr align=center bgcolor=#D0D0D0 height=120%>
 						<td width="200px" align="center">order_code</td>
 						<td width="200px" align="center">날짜</td>
@@ -117,11 +176,13 @@
 						<td width="200px" align="center">결제금액</td>
 						<td width="200px" align="center">결제상태</td>
 					</tr>
+					</thead>
+					<tbody>
 <%
 					if(listdetail.isEmpty()) {
 %>
 					<tr align="center">
-						<td>등록된 데이터가 없습니다!</td>
+						<td colspan="5">등록된 데이터가 없습니다!</td>
 					</tr>
 <%
 		} else {
@@ -146,10 +207,10 @@
 		}
 %>
 					<tr>
-						<td><BR> <BR></td>
+						<td colspan="5"><BR> <BR></td>
 					</tr>
 					<tr>
-						<td align="left">Go to Page &nbsp;&nbsp;&nbsp;&nbsp; <%
+						<td align="center" colspan="5"><%
  						if (nowBlock > 0) {
  %> 
  						<a href="store_detail.jsp?nowPage=<%=(nowBlock - 1) * pagePerBlock%>&nowBlock=<%=(nowBlock - 1)%>">이전 <%=pagePerBlock%>개
@@ -174,6 +235,7 @@
 %>
 						</td>
 					</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>
