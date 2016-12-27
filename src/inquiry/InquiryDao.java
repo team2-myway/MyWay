@@ -116,13 +116,14 @@ public class InquiryDao {
 		
 		try{
 			con = ds.getConnection();
-			sql = "select board_no, title, category, content, date from inquiry_board where board_no=?";
+			sql = "select board_no, account_name, title, category, content, date from inquiry_board where board_no=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, board_no);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
 				dto.setBoard_no(rs.getInt("board_no"));
+				dto.setAccount_name(rs.getString("account_name"));
 				dto.setTitle(rs.getString("title"));
 				dto.setCategory(rs.getString("category"));			
 				dto.setContent(rs.getString("content"));
