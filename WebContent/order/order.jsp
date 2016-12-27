@@ -5,20 +5,19 @@
 <%
 	java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("ddHHmmss");
 	String today = formatter.format(new java.util.Date());
-	//int account_no = (Integer)session.getAttribute("account_no");
-	int account_no = 5;
+
+	AccountDao adao = new AccountDao();
+	AccountDto adto = adao.session(session.getAttribute("id"));
+	String level = adto.getLevel();
+	int account_no = adto.getAccount_no();
 	
 	String order_code = dao.Order_Code(account_no,today);
 	session.setAttribute("order_code", order_code);
-		
-	 
+	
 %>
-
-
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
@@ -33,7 +32,6 @@
 		padding-bottom:10px;
 	}
 </style>
-</head>
 <body class="page">
 <section id="page" class="csstransition cmsms_resp hfeed site">
 <%@ include file="../include/header.jsp"%>
@@ -198,6 +196,7 @@
 											ArrayList vegetableList = dao.VegetableList();
 											for (int i = 0; i < vegetableList.size(); i++) {
 												OrderDto dto = (OrderDto) vegetableList.get(i);
+												
 										%>	
 										<div class="col-md-4 vegetables" style=" height:200px;">
 											<div style="text-align: center">
@@ -215,7 +214,7 @@
 											}
 			
 											}catch (Exception err) {
-												System.out.println("index.jsp : " + err);
+												System.out.println("order_vegetable.jsp : " + err);
 											}
 										%>
 										<input type="hidden" id="VegetableList" name="VegetableList"/>
@@ -456,7 +455,7 @@
 								<button class="btn btn-primary" id="SideOrder_Save">주문하기</button>
 							</div>
 							<div class="col-md-6">
-								<button class="btn btn-primary" id="">다른메뉴 주문하기</button>
+								<button class="btn btn-primary" id="SideDetail_Save">다른메뉴 주문하기</button>
 							</div>
 						</div>	
 					</div>
@@ -555,11 +554,19 @@
 			$("input[name='menu_size']").click(function(){
 				var size = $(":radio[name='menu_size']:checked").val();
 			});
+			//바로저장
 			$("#Order_Save").click(function(){
-				SelectValues();
+				SelectValues('order');
+			});
+			//저장한 후 , 다시하기
+			$("#DetailOrder_Save").click(function(){
+				SelectValues('detail');
 			});
 			$("#SideOrder_Save").click(function(){
-				SideOrderSave();
+				ManagerCheck('order');
+			});
+			$("#SideOrder_Save").click(function(){
+				ManagerCheck('detail');
 			});
 		
 		});
@@ -748,12 +755,12 @@
 			$("#CountPirce").val(menuPrice);
 			$("#Html_CountPrice").html(menuPrice);
 		}
-		function SelectValues(){
+		function SelectValues(type){
 			selectVegRow();
 			selectSauRow();
-			OrderSave_Check();
+			OrderSave_Check(type);
 		}
-		function OrderSave_Check(){
+		function OrderSave_Check(type){
 		
 			var menu_no = $(":radio[name='menu_no']:checked").val();
 			var bread_no = $(":radio[name='bread_no']:checked").val();
@@ -779,20 +786,25 @@
 				alert("소스를 선택 해 주세요.");
 				return;
 			}
-			
-			OrderSave();
+				OrderSave(type);
+			//	OrderSave();
 		}
 		
-		function OrderSave(){
+		function OrderSave(type){
 			 var param = $("#OrderSaveForm").serialize();
-			sendRequest("POST","OrderSave.jsp", DetailOrderSaveBack,param);
+			sendRequest("POST","OrderSave.jsp", DetailOrderSaveBack(type),param);
 			
 		}
-		function DetailOrderSaveBack(){
+		function DetailOrderSaveBack(type){
 			if(httpRequest.readyState == 4){
 				if(httpRequest.status == 200){
-					alert("저장 성공!");
-					location.href="OrderList.jsp";
+					alert("주문 완료!");
+					if(type=='detail'){
+						location.reload();
+						$('#manage_addr').focus();
+					}else{
+						location.href="OrderList.jsp";
+					}
 			 		//	alert(httpRequest.responseText);
 			 	}else{
 					alert(httpRequest.status);
@@ -889,12 +901,26 @@
 			TotalSidePrice(price,side_no);
 			$("#Html_TrAppeand_"+side_no).remove();
 		}
-		function SideOrderSave(){
+		function ManagerCheck(type){
+			var store_no = $("#store_no").val();
+			if(store_no == ""){
+				alert("매장을 선택해 주세요.");
+				return;
+			}
+			SideOrderSave(type);
+		}
+		function SideOrderSave(type){
 			 var param = $("#OrderSaveForm").serialize();
 			// alert(param);
-			 sendRequest("POST","OrderSave.jsp", DetailOrderSaveBack,param);	
+			 sendRequest("POST","OrderSave.jsp", DetailOrderSaveBack(type),param);	
 		}
-		
+
+		var lv = <%=level%>;
+		if(lv == null) {
+			alert("회원만 주문 할 수 있습니다.");
+			location.href="../login/join.jsp";
+		}
+
 	</script>
 
 </body>

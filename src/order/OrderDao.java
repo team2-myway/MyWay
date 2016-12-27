@@ -482,17 +482,18 @@ public class OrderDao {
 			OrderDto dto = new OrderDto();
 			dto.setVegetable_no(rs.getInt("vegetable_no"));
 			dto.setVegetable_name(rs.getString("name"));
-			dto.setVegetable_img(rs.getString("img"));
+			dto.setVegetable_img(rs.getString("image"));
 			list.add(dto);
 		}
 		
 	}catch(Exception err){
-		System.out.println("SauceList" + err);
+		System.out.println("VegetableList" + err);
 	}finally{
 		freeConnection();
 	}
 		return list;
 	}
+	
 	// ���� �������� ������ ��
 	public ArrayList ManagerAddrList(){
 		ArrayList list = new ArrayList();
@@ -580,15 +581,12 @@ public class OrderDao {
 				stmt.setInt(3, count[i]);
 				stmt.setInt(4, price[i]);
 				
-				System.out.println(sql);
 				stmt.executeUpdate();
 			}
 			
-			OrderSave(dto);
-			
-			
+			OrderSave(dto);			
 		}catch(Exception err){
-			System.out.println("MyAccountList" + err);
+			System.out.println("SideOrderSave : " + err);
 		}finally{
 			freeConnection();
 		}

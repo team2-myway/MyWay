@@ -185,6 +185,10 @@ html body {background-color:#ffffff;
 	top:20px; 
 	right:0px; 
 } 
+.header .header_html2 { 
+	top:20px; 
+	right:0px; 
+} 
 
 .services_inner .media_box figure .preloader, 
 .services_inner figure .preloader, 
@@ -528,6 +532,13 @@ h3:after,
 	left:auto;
 	top:0;
 }
+.custom_header2 {
+	position:absolute;
+	right:0;
+	width:100%;
+	left:auto;
+	top:0;
+}
 
 .header .header_html {
 	position:absolute;
@@ -555,6 +566,15 @@ h3:after,
 	top:126px;
 	left:0;
 	z-index:20;
+}
+.header .wrap_nav {
+	border:1px solid #dddddd;
+	width:100%;
+	position:absolute;
+	top:126px;
+	left:0;
+	z-index:20;
+	
 }
 
 .header .wrap_nav .navi_scrolled {
