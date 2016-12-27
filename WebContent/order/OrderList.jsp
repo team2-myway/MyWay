@@ -194,17 +194,6 @@
 	  });
 		
 	  function check(){
-			if(document.search.StartDate.value == ""){
-				alert("시작기간을 선택해 주세요.");
-				document.search.StartDate.focus();
-				return;
-			}
-			if(document.search.EndDate.value == ""){
-				alert("시작기간을 선택해 주세요.");
-				document.search.EndDate.focus();
-				return;
-			}
-			
 			document.search.submit();
 		}
 	  
