@@ -22,7 +22,7 @@
 <br><br>
 	<tr>
 		<td><%=dto.getM_name() %></td><br><br>
-		<td><img src="<%=dto.getM_img()%>">img</td><br><br>
+		<td><img src="<%=dto.getM_img()%>"/></td><br><br>
 		
 			<td valign="top" align=left>
 					<text name="detail"><%=dto.getM_detail() %></text>
@@ -31,7 +31,7 @@
 	
 		<td><span style="color:red"> 칼로리   </td>
 		<td><%=dto.getM_calorie()%> kcal</span> </td> &nbsp;&nbsp;&nbsp; 
-		<td>가격 </span> </td>
+		<td>가격 </span> </td>	
 		<td><%=dto.getM_price() %> won</td> <br>
 
 </tr>

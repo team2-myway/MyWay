@@ -48,8 +48,8 @@
 				</header>
 				
 				<footer class="entry-meta">
-					<span class="post_category">가격 : <b></b>원<br>
-					 calorie :<b></b>
+					<span class="post_category">가격 :<td><%=dto.getM_price() %> <b></b>원<br>
+					
 					</span>
 				<div style="text-align:center">
 					<p></p>

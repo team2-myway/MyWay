@@ -1,8 +1,6 @@
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="java.util.Enumeration"%>
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <% 
 	request.setCharacterEncoding("UTF-8");
@@ -10,7 +8,7 @@
 <jsp:useBean id = "dao" class="Menu.dao.MenuDao" />
 <jsp:useBean id="dto" class="Menu.dto.MenuDto"/>
 <%
-String path1 = request.getRealPath("/menu");
+	String path1 = request.getRealPath("/menu");
 	String path = getServletContext().getRealPath("menu"); //가상경로(web상의 url 경로)를 넘기면 컴퓨터의 실제 물리적 경로로 알려준다.
 	
 	int maxSize = 50 * 1024 * 1024; //50바이트 * 1024 * 1024= 50메가바이트

@@ -111,7 +111,7 @@ public class SideMenuDao {
 	//�󼼺���
 	public SideMenuDto SideMenuDetailList(int menu_no){
 		SideMenuDto dto = new SideMenuDto();
-		String sql = "select category, side_menu_name, calorie, price, detail from side_menu where side_menu_no=?";
+		String sql = "select image, category, side_menu_name, calorie, price, detail from side_menu where side_menu_no=?";
 		try{
 			con = ds.getConnection();
 			stmt = con.prepareStatement(sql);
@@ -124,6 +124,7 @@ public class SideMenuDao {
 				dto.setM_calorie(rs.getInt("calorie"));
 				dto.setM_price(rs.getInt("price"));
 				dto.setM_detail(rs.getString("detail"));
+				dto.setM_img(rs.getString("image"));
 			}
 			
 		}catch(Exception err){
