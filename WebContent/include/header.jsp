@@ -59,7 +59,12 @@
 										<li class="dropdown menu-item menu-item-has-children"><a href="../Menu/SideMenuIndex2.jsp"><span>사이드메뉴</span></a></li>
 									</ul>
 								</li>
-								<li class="dropdown menu-item menu-item-has-children"><a><span>주문하기</span></a></li>
+								<li class="dropdown menu-item menu-item-has-children"><a><span>주문하기</span></a>
+									<ul class="sub-menu">
+										<li class="dropdown menu-item menu-item-has-children"><a href="../order/order.jsp"><span>주문하기</span></a></li>
+										<li class="dropdown menu-item menu-item-has-children"><a href="../order/OrderList.jsp"><span>주문내역보기</span></a></li>
+									</ul>
+								</li>
 								<li class="dropdown menu-item menu-item-has-children"><a href="../inquiry_board/inquiry_List.jsp"><span>문의사항</span></a></li>
 								<li class="dropdown menu-item menu-item-has-children"><a href="../review_board/review_List.jsp"><span>후기</span></a></li>
 							</ul>

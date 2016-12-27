@@ -21,7 +21,7 @@
 		var pw1 = document.getElementById("new_pw1").value;
 		var pw2 = document.getElementById("new_pw2").value;
 		if (pw1 == pw2 && pw1 != null) {
-			alert("pw Change go");
+			alert("비밀번호가 변경되었습니다.");
 			return true;
 		} else {
 			alert("pw1 != pw2");
@@ -43,9 +43,9 @@
 	%>
 	<form action = "found_PW_proc.jsp" method="post" onsubmit="fncCheck();">
 		<input type="hidden" name="account_no" value='<%=dao.findByPW(id, name, email).getAccount_no()%>'/>
-		new PW<input type="text" id="new_pw1" name="new_pw1" /><br /> 
-		chk PW<input type="text" id="new_pw2" name="new_pw2" /> 
-		<input type="submit" value="change PW"  />
+		새 비밀번호 : <input type="text" id="new_pw1" name="new_pw1" /><br /> 
+		새 비밀번호 확인 : <input type="text" id="new_pw2" name="new_pw2" /> 
+		<input type="submit" value="비밀번호 변경"  />
 	</form>
 	<%
 		}

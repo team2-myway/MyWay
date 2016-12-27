@@ -18,7 +18,7 @@
 	<link rel="stylesheet" type="text/css" href="../lib/revolution/css/static-captions.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="../lib/revolution/css/settings.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.css" media="screen" />
-
+	
 <!-- 	
 	<script src="../lib/js/respond.min.js" type="text/javascript"></script>
 	<script type="text/javascript"	src="../lib/revolution/js/jquery.themepunch.revolution.js"></script>

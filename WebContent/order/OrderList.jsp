@@ -15,6 +15,8 @@
 	String EndDate = request.getParameter("EndDate");
 	int account_no = (Integer)session.getAttribute("account_no");
 	//int account_no = 5;	
+	AccountDao adao = new AccountDao();
+	AccountDto adto = adao.session(session.getAttribute("id"));
 	ArrayList OrderList = dao.MyOrderList(account_no,"orderlist",StartDate,EndDate);
 	
 	int totalRecord = 0; //전체 글의 갯수
@@ -187,7 +189,7 @@
 	    showMonthAfterYear: true,
 	    yearSuffix: '년'
 	  });
-	
+	  
 	  $(function() {
 	    $("#StartDate, #EndDate").datepicker();
 	    

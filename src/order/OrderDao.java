@@ -69,8 +69,7 @@ public class OrderDao {
 			stmt.setInt(7, dto.getMenu_price());
 			stmt.setString(8, dto.getFavorite());
 			stmt.executeUpdate();
-		//	System.out.println(sql);
-			//ȸ���� ���� �������� ���� �˱�����
+			
 			StampAdd(dto.getAccount_no(), dto.getMenu_count());
 			OrderSave(dto);
 		}catch(Exception err){
@@ -493,7 +492,7 @@ public class OrderDao {
 		}
 		
 	}catch(Exception err){
-		System.out.println("SauceList" + err);
+		System.out.println("VegetableList" + err);
 	}finally{
 		freeConnection();
 	}
@@ -595,7 +594,7 @@ public class OrderDao {
 			
 			
 		}catch(Exception err){
-			System.out.println("MyAccountList" + err);
+			System.out.println("SideOrderSave : " + err);
 		}finally{
 			freeConnection();
 		}

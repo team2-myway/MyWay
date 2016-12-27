@@ -16,6 +16,13 @@ public class StoreDto {
 	
 	private String menu_name; //�޴��̸�
 	
+	private int menu_price;
+	private int menu_count;
+	private String order_date;
+	private String side_menu_name;
+	private int side_menu_count;
+	private int side_menu_countPirce;
+	
 	public int getAccount_no() {
 		return account_no;
 	}
@@ -80,11 +87,49 @@ public class StoreDto {
 	}
 	
 	
+	
 	public String getMenu_name() {
 		return menu_name;
 	}
 	public void setMenu_name(String menu_name) {
 		this.menu_name = menu_name;
 	}
+	public int getMenu_price() {
+		return menu_price;
+	}
+	public void setMenu_price(int menu_price) {
+		this.menu_price = menu_price;
+	}
+	public int getMenu_count() {
+		return menu_count;
+	}
+	public void setMenu_count(int menu_count) {
+		this.menu_count = menu_count;
+	}
+	public String getOrder_date() {
+		return order_date;
+	}
+	public void setOrder_date(String order_date) {
+		this.order_date = order_date;
+	}
+	public String getSide_menu_name() {
+		return side_menu_name;
+	}
+	public void setSide_menu_name(String side_menu_name) {
+		this.side_menu_name = side_menu_name;
+	}
+	public int getSide_menu_count() {
+		return side_menu_count;
+	}
+	public void setSide_menu_count(int side_menu_count) {
+		this.side_menu_count = side_menu_count;
+	}
+	public int getSide_menu_countPirce() {
+		return side_menu_countPirce;
+	}
+	public void setSide_menu_countPirce(int side_menu_countPirce) {
+		this.side_menu_countPirce = side_menu_countPirce;
+	}
+	
 	
 }

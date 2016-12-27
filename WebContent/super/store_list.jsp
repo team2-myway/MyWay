@@ -47,17 +47,20 @@
 		<div class="container">
 			<!-- 리스트 -->
 			<div id="store_list" align="center">
-				<table width=100% border=0 cellspacing=0 cellpadding=3>
+				<table width=100% border=0 cellspacing=0 cellpadding=3 class="table table-bordered table-hover table-condensed table-striped">
+					<thead>
 					<tr align=center bgcolor=#D0D0D0 height=120%>
 						<td width="200px" align="center">관리자명</td>
 						<td width="200px" align="center">매장명</td>
 						<td width="200px" align="center">매출보기</td>
 					</tr>
+					</thead>
+					<tbody>
 					<%
 						if (list.isEmpty()) {
 					%>
 					<tr align="center">
-						<td>등록된 데이터가 없습니다!</td>
+						<td colspan="3">등록된 데이터가 없습니다!</td>
 					</tr>
 					<%
 						} else {
@@ -81,10 +84,10 @@
 						}
 					%>
 					<tr>
-						<td><BR> <BR></td>
+						<td colspan="3"><BR> <BR></td>
 					</tr>
 					<tr>
-						<td align="left">Go to Page &nbsp;&nbsp;&nbsp;&nbsp; <%
+						<td align="center" colspan="3"> <%
  						if (nowBlock > 0) {
  %> 
  						<a href="store_list.jsp?nowPage=<%=(nowBlock - 1) * pagePerBlock%>&nowBlock=<%=(nowBlock - 1)%>">이전 <%=pagePerBlock%>개
@@ -102,13 +105,14 @@
 						}
 						if (totalBlock > nowBlock + 1) {
 %>
-							&nbsp;&nbsp;&nbsp;:::<a href="List.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=(nowBlock + 1)%>">다음
+							&nbsp;&nbsp;&nbsp;:::<a href="store_List.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=(nowBlock + 1)%>">다음
 							<%=pagePerBlock%>개 </a> 
 <%
  						}
 %>
 						</td>
 					</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>

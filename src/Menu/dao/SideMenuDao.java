@@ -125,6 +125,7 @@ public class SideMenuDao {
 				dto.setM_calorie(rs.getInt("calorie"));
 				dto.setM_price(rs.getInt("price"));
 				dto.setM_detail(rs.getString("detail"));
+				dto.setM_img(rs.getString("image"));
 			}
 			
 		}catch(Exception err){

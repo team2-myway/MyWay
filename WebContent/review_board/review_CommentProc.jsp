@@ -11,12 +11,16 @@
 <jsp:setProperty property="account_name" name="dto"/>
 
 <%
-    boolean insertResult = dao.insertComment(dto);
+	
+	int review_no = Integer.parseInt(request.getParameter("review_no"));
+	int account_no = Integer.parseInt(request.getParameter("account_no"));
+    System.out.println(review_no + ":" + account_no);
+	boolean insertResult = dao.insertComment(dto);
     if(insertResult == true) {
 %>
       <script>
          alert("댓글이 등록되었습니다");
-         location.href="review_Read.jsp?account_no=5&review_no=1";
+         location.href="review_Read.jsp?account_no="+<%=account_no%>+"&review_no="+<%=review_no%>;
       </script>
 <%
     } else {

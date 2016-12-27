@@ -26,7 +26,7 @@
 		int menu_count = Integer.parseInt(request.getParameter("count"));
 		int menu_price = Integer.parseInt(request.getParameter("CountPirce"));
 		String favorite = request.getParameter("favorite");
-		
+		System.out.println(favorite);
 		dto.setMenu_no(menu_no);
 		dto.setBread_no(bread_no);
 		dto.setMenu_size(menu_size);

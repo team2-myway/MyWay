@@ -8,13 +8,13 @@
 	int account_no = (Integer)session.getAttribute("account_no");
 //	int account_no = 5; 
 	
+	AccountDao adao = new AccountDao();
+	AccountDto adto = adao.session(session.getAttribute("id"));
+	String level = adto.getLevel();
 	String order_code = dao.Order_Code(account_no,today);
 	session.setAttribute("order_code", order_code);
-		
 	 
 %>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -754,7 +754,7 @@
 			var menu_count = $("#Menu_count").val();
 			
 			var menuPrice = basic_price * menu_count;
-				alert(basic_price + " ," + menu_count);
+			
 			$("#CountPirce").val(menuPrice);
 			$("#Html_CountPrice").html(menuPrice);
 		}
@@ -807,6 +807,7 @@
 						$('#manage_addr').focus();
 					}else{
 						location.href="OrderList.jsp";
+						
 					}
 			 		//	alert(httpRequest.responseText);
 			 	}else{
@@ -918,6 +919,11 @@
 			 sendRequest("POST","OrderSave.jsp", DetailOrderSaveBack(type),param);	
 		}
 		
+		var lv = <%=level%>;
+		if(lv == null) {
+			alert("회원만 주문 할 수 있습니다.");
+			location.href="../login/join.jsp";
+		}
 	</script>
 
 </body>
