@@ -102,22 +102,22 @@ public class StoreDao {
 			con = ds.getConnection();
 			
 			if(detail_date == null || detail_date.isEmpty() || detail_date.equals("total")) {
-				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where m.store_no=? order by m.date desc";
+				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where m.status='pay_com' and m.store_no=? order by m.date desc";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 			} else if(detail_date.equals("today")) {
-				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where m.store_no=? and m.date>curdate() order by m.date desc";
+				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where m.status='pay_com' and  m.store_no=? and m.date>curdate() order by m.date desc";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 			} else if(detail_date.equals("month")) {
-				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where m.store_no=? and date(m.date)>=date_format(now(), '%Y-%m-01') and date(m.date) <= last_day(now()) order by m.date desc";
+				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where m.status='pay_com' and  m.store_no=? and date(m.date)>=date_format(now(), '%Y-%m-01') and date(m.date) <= last_day(now()) order by m.date desc";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 			} else {
 				String[] date = detail_date.split("-");
 				String date1 = date[0]+"-"+date[1]+"-"+date[2];
 				String date2 = date[3]+"-"+date[4]+"-"+date[5];
-				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where m.store_no=?and date(m.date)>=? and date(m.date)<=? order by m.date desc";
+				sql = "select m.order_code, m.date, m.total, m.status from account a INNER JOIN main_order m ON a.account_no=m.account_no where m.status='pay_com' and  m.store_no=?and date(m.date)>=? and date(m.date)<=? order by m.date desc";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, account_no);
 				pstmt.setDate(2, java.sql.Date.valueOf(date1));
@@ -153,7 +153,14 @@ public class StoreDao {
 		try{
 			con = ds.getConnection();
 			
-			sql = "select m.order_code, m.total, substr(m.date,1,16) date, d.count, menu.menu_name, side.count, sm.side_menu_name, m.status, side.price from main_order m left join detail_order d on m.order_code = d.order_code left join bread b on b.bread_no = d.bread_no left join side_order side on side.order_code = m.order_code left join side_menu sm on sm.side_menu_no = side.side_menu_no left join menu on menu.menu_no = d.menu_no left join account a on a.account_no = m.store_no where m.store_no=? and m.status='order_com';";
+			sql = "select m.order_code, m.total, substr(m.date,1,16) date,a.account_name, d.count, menu.menu_name, side.count, sm.side_menu_name, m.status, "
+					+ "side.price from main_order m "
+					+ "left join detail_order d on m.order_code = d.order_code "
+					+ "left join bread b on b.bread_no = d.bread_no"
+					+ " left join side_order side on side.order_code = m.order_code "
+					+ "left join side_menu sm on sm.side_menu_no = side.side_menu_no "
+					+ "left join menu on menu.menu_no = d.menu_no"
+					+ " left join account a on a.account_no = m.store_no where m.store_no=? and m.status='order_com';";
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, account_no);			
@@ -167,6 +174,7 @@ public class StoreDao {
 				dto.setTotal(rs.getInt("total"));
 				dto.setStatus(rs.getString("m.status"));
 				dto.setMenu_name(rs.getString("menu.menu_name"));
+				dto.setAccount_name(rs.getString("a.account_name"));
 
 				dto.setMenu_price(rs.getInt("m.total"));
 				dto.setMenu_count(rs.getInt("d.count"));

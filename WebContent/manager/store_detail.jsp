@@ -134,7 +134,7 @@
 						<tr align="center">
 							<td><%=dto.getOrder_code() %></td>
 							<td><%=dto.getDate() %></td>
-							<td>주문내역</td>
+							<td><%=dto.getMenu_name() %></td>
 							<td><%=dto.getTotal() %></td>
 							<td><input type="button" id="status" value="<%=dto.getStatus() %>" onclick="fnOrderStatus('<%=account_no%>', '<%=dto.getOrder_code()%>')"/></td>
 						</tr>

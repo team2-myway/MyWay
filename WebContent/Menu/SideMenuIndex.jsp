@@ -54,7 +54,6 @@
 								<td><%=dto.getM_price() %></td>
 								<%
 								 if(session_id ==null){
-									 System.out.println("hadsfs");
 								 }else if(level.equals("super")){
 								%>
 									<td><input type="button" value="수정" onclick="location.href='SideMenu_Edit.jsp?menu_no=<%=dto.getM_no()%>'" /></td>

@@ -914,7 +914,7 @@
 		}
 		function SideOrderSave(type){
 			 var param = $("#OrderSaveForm").serialize();
-			 alert(param);
+			// alert(param);
 			 sendRequest("POST","OrderSave.jsp", DetailOrderSaveBack(type),param);	
 		}
 		

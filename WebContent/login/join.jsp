@@ -96,8 +96,10 @@
 								</tr>
 								<tr align="center">
 									<td><input type="submit" class="btn btn-primary" value="가입하기" /></td>
-									<td><input type="button" class="btn btn-defult" value="GotoMain"
-										onclick="javascript:location.href='../main/index.jsp';" /></td>
+									<td><input type="button" class="btn btn-defult" value="메인으로가기"
+										onclick="javascript:location.href='../main/index.jsp';" />
+										<input type="button" class="btn btn-primary" value="로그인" onclick="javascript:location.href='../login/login.jsp'"/>
+										</td>
 								</tr>
 							</table>
 						</form>

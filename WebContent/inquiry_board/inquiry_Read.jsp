@@ -87,7 +87,10 @@
 									<% 
 
 								 }
-									if(session_level.equals("super")){
+															%>
+															<%
+								if(session.getAttribute("level")==null){
+								}else if(session.getAttribute("level").equals("super")){
 								%>
 									<input type="button" class="btn btn-info" id="reply" value="답변" onclick="fnReplyCheck('<%=dto.getBoard_no()%>')"/></td>
 								<%
