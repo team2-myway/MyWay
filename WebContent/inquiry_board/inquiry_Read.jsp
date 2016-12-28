@@ -25,7 +25,6 @@
 	AccountDao adao = new AccountDao();
 	adto = adao.session(session.getAttribute("id"));
 	String session_level = adto.getLevel();
-	int session_account_no = (Integer)session.getAttribute("account_no");
 	int account_no = Integer.parseInt(request.getParameter("account_no"));
 	int board_no = Integer.parseInt(request.getParameter("board_no"));
 	
@@ -78,15 +77,16 @@
 							</tr>
 							<tr>
 								<td colspan="4" style="text-align:center;">
-								<%
-									if(session_level.equals("super") || session_account_no == dto.getAccount_no()){
-									%>
+															<%
+								 if(session_id == null){
+								 }else if(session.getAttribute("level").equals("super") || account_no == adto.getAccount_no()){
+									 %>
 									<input type="button" class="btn btn-warning" id="modify" value="수정" onclick="location.href='inquiry_UpdateChk.jsp?account_no=<%=account_no%>&board_no=<%=dto.getBoard_no()%>'"/>
 									<input type="button" class="btn btn-danger" id="delete" value="삭제" onclick="location.href='inquiry_Delete.jsp?account_no=<%=account_no%>&board_no=<%=dto.getBoard_no()%>'"/>
-									<%
-									}
-								%>
-								<%
+												
+									<% 
+
+								 }
 									if(session_level.equals("super")){
 								%>
 									<input type="button" class="btn btn-info" id="reply" value="답변" onclick="fnReplyCheck('<%=dto.getBoard_no()%>')"/></td>

@@ -73,16 +73,19 @@ textarea{
 									<td colspan="6" align="center">
 										<input type="button" id="modify" class="btn btn-success" value="목록"
 										onclick="location.href='review_List.jsp'" />&nbsp;&nbsp;&nbsp;&nbsp;
-										<%
-											if(session_level.equals("super") || dto.getAccount_no()== account_no){
-												%>
+							<%
+								 if(session_id == null){
+								 }else if(session.getAttribute("level").equals("super") || account_no == adto.getAccount_no()){
+									 %>
 												<input type="button" id="modify" class="btn btn-primary" value="수정"
 												onclick="location.href='review_UpdateChk.jsp?account_no=<%=account_no%>&review_no=<%=review_no%>'" />&nbsp;&nbsp;&nbsp;&nbsp;
 												<input type="button" id="delete" class="btn btn-danger" value="삭제"
 												onclick="location.href='review_Delete.jsp?account_no=<%=account_no%>&review_no=<%=dto.getReview_no()%>'" /></td>
 												<% 
-											}
-										%>
+
+								 }
+								%>
+									
 								</tr>
 							</tbody>
 						</table>
