@@ -90,7 +90,7 @@ public class AccountDao {
 
 		public AccountDto login(String id) {
 			AccountDto adto = new AccountDto();
-			String sql = "select account_no, pw from account where id=?";
+			String sql = "select account_no, pw,level from account where id=?";
 			try {
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(sql);
@@ -99,6 +99,7 @@ public class AccountDao {
 				if (rs.next()) {
 					adto.setPw(rs.getString("pw"));
 					adto.setAccount_no(rs.getInt("account_no"));
+					adto.setLevel(rs.getString("level"));
 				}
 			} catch (Exception e) {
 				System.out.println("login() : " + e);

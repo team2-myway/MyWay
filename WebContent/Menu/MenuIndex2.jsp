@@ -27,7 +27,7 @@
 	for(int i=0; i<menulist.size(); i++){
 			dto = (MenuDto)menulist.get(i);
 %>
-							<div class="col-md-4" style=" height:450px; text-align:center; ">
+	<div class="col-md-4" style=" height:450px; text-align:center; ">
 		<article class="service type-service hentry one_fourth format-slider col-md-12">
 			<figure>
 				<span class="image_container_img">
@@ -35,7 +35,7 @@
 						<img src="<%=dto.getM_img() %>" 
 								alt="Pediatric Clinic" class="fullwidth wp-post-image cmsms_img"
 								style="opacity: 1;">
-						<td><a href="Menu_Detail.jsp?menu_no=<%=dto.getM_no()%>"><%=dto.getM_name() %></a></td>
+						<a href="Menu_Detail.jsp?menu_no=<%=dto.getM_no()%>"><%=dto.getM_name() %></a>
 						
 						<span class="image_rollover"></span>
 					</span>

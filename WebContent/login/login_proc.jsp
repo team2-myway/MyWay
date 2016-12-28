@@ -18,6 +18,7 @@
 			response.sendRedirect("../main/index.jsp");
 			session.setAttribute("id", id);
 			session.setAttribute("account_no", dao.login(id).getAccount_no());
+			session.setAttribute("level", dao.login(id).getLevel());
 			// account_no까지
 		} else {
 %>

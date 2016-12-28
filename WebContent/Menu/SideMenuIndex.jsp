@@ -11,6 +11,14 @@
 <jsp:useBean id="dao" class="Menu.dao.SideMenuDao" />
 <%
 	List menulist = dao.SideMenuList();
+	AccountDto adto = new AccountDto();
+	AccountDao adao = new AccountDao();
+	
+	adto = adao.session(session.getAttribute("id"));
+	String session_level = adto.getLevel();
+	//System.out.println(session_level);
+	Object level = session.getAttribute("level");
+//	System.out.println(level);
 %>
 <body class="page">
 	<section id="page" class="csstransition cmsms_resp hfeed site">
@@ -24,8 +32,16 @@
 							<th>이미지</th>
 							<th>이름</th>
 							<th>가격</th>
+							<%
+								 if(session_id ==null){
+									// System.out.println("hadsfs");
+								 }else if(level.equals("super")){
+								%>
 							<th>수정</th>
 							<th>삭제</th>
+							<% 
+								 }
+								%>
 						</tr>
 <%
 							 for(int i=0; i<menulist.size(); i++) {
@@ -36,8 +52,16 @@
 								<td><img src="<%=dto.getM_img()%>"></td>
 								<td><a href="SideMenu_Detail.jsp?menu_no=<%=dto.getM_no()%>"><%=dto.getM_name() %></a></td>
 								<td><%=dto.getM_price() %></td>
-								<td><input type="button" value="수정" onclick="location.href='SideMenu_Edit.jsp?menu_no=<%=dto.getM_no()%>'" /></td>
-								<td><input type="button" value="삭제" onclick="location.href='SideMenu_Del.jsp?menu_no=<%=dto.getM_no()%>'" /></td>
+								<%
+								 if(session_id ==null){
+									 System.out.println("hadsfs");
+								 }else if(level.equals("super")){
+								%>
+									<td><input type="button" value="수정" onclick="location.href='SideMenu_Edit.jsp?menu_no=<%=dto.getM_no()%>'" /></td>
+									<td><input type="button" value="삭제" onclick="location.href='SideMenu_Del.jsp?menu_no=<%=dto.getM_no()%>'" /></td>
+								<% 
+								 }
+								%>
 							</tr>	
 <%
 							 }
